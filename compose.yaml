@@ -1,0 +1,10 @@
+services:
+  backend:
+    # Built from backend/Dockerfile
+    # Runs on port 3001
+    # Loads .env file
+  
+  frontend:
+    # Built from frontend/Dockerfile
+    # Runs on port 5173
+    # Can call backend API
