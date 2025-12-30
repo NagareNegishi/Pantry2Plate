@@ -17,6 +17,11 @@ services:
     # Loads .env file
     env_file:
       - ./backend/.env
+
+    # volume for development sync
+    volumes:
+      - ./backend:/usr/src/app # Sync backend code for development
+      - /usr/src/app/node_modules # But exclude node_modules to avoid conflicts
   
   frontend:
     # Built from frontend/Dockerfile
