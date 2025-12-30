@@ -22,8 +22,31 @@ services:
     volumes:
       - ./backend:/usr/src/app # Sync backend code for development
       - /usr/src/app/node_modules # But exclude node_modules to avoid conflicts
-  
+
   frontend:
     # Built from frontend/Dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile # Optional, which Dockerfile to use
+      # target: targetStage # Only needed if Dockerfile has multiple FROM statements with names
+    
     # Runs on port 5173
+    ports:
+      - "5173:5173"
+    
+    # overrides NODE_ENV to development (technically optional as it's already set in Dockerfile)
+    environment:
+      - NODE_ENV=development
+    
+    # Loads .env file (may remove if not needed)
+    env_file:
+      - ./frontend/.env
+
+    # volume for development sync
+    volumes:
+      - ./frontend:/usr/src/app # Sync frontend code for development
+      - /usr/src/app/node_modules # But exclude node_modules to avoid conflicts
+
     # Can call backend API
+    depends_on:
+      - backend
