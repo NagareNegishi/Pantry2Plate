@@ -1,6 +1,10 @@
 services:
   backend:
     # Built from backend/Dockerfile
+    build:
+      context: ./backend
+      dockerfile: Dockerfile # Optional, which Dockerfile to use
+      # target: targetStage # Only needed if Dockerfile has multiple FROM statements with names
     # Runs on port 3001
     # Loads .env file
   
