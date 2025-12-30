@@ -5,8 +5,18 @@ services:
       context: ./backend
       dockerfile: Dockerfile # Optional, which Dockerfile to use
       # target: targetStage # Only needed if Dockerfile has multiple FROM statements with names
+    
     # Runs on port 3001
+    ports:
+      - "3001:3001"
+
+    # overrides NODE_ENV to development (technically optional as it's already set in Dockerfile)
+    environment:
+      - NODE_ENV=development
+    
     # Loads .env file
+    env_file:
+      - ./backend/.env
   
   frontend:
     # Built from frontend/Dockerfile
