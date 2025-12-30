@@ -1,6 +1,7 @@
-// backend/server.js
-const express = require('express');
-const cors = require('cors');
+// backend/server.ts
+import cors from 'cors';
+import type { Request, Response } from 'express';
+import express from 'express';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -9,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // quick test endpoint
-app.get('/api/health', (req, res) => {
+app.get('/api/health', (req: Request, res: Response) => {
     res.json({ status: 'OK', message: 'Backend is running!' });
 });
 
