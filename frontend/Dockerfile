@@ -10,12 +10,12 @@ WORKDIR /usr/src/app
 
 # Copy shared package to parent directory
 COPY shared/ /usr/src/shared/
-# Copy package files (package.json and package-lock.json)
-COPY package*.json ./
+# Copy package files (package.json and package-lock.json) from frontend directory (since context is root)
+COPY frontend/package*.json ./
 # Install ALL dependencies (including devDependencies for Vite)
 RUN npm ci
-# Copy the rest of the source files into the image.
-COPY . .
+# Copy the rest of the source files from frontend folder
+COPY frontend/ .
 # Expose Vite dev server port
 EXPOSE 5173
 

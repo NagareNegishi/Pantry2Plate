@@ -10,12 +10,12 @@ WORKDIR /usr/src/app
 
 # Copy shared package to parent directory
 COPY shared/ /usr/src/shared/
-# Copy package files (package.json and package-lock.json)
-COPY package*.json ./
+# Copy package files FROM BACKEND FOLDER
+COPY backend/package*.json ./
 # Install ALL dependencies (including devDependencies for Vite)
 RUN npm ci
-# Copy the rest of the source files into the image.
-COPY . .
+# Copy the rest of the source files from backend folder
+COPY backend/ .
 # Expose the port that the application listens on.
 EXPOSE 3001
 # Run the application, use tsx for development (production should compile to JS first)
