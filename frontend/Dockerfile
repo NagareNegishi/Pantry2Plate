@@ -8,6 +8,8 @@ ENV NODE_ENV development
 
 WORKDIR /usr/src/app
 
+# Copy shared package to parent directory
+COPY shared/ /usr/src/shared/
 # Copy package files (package.json and package-lock.json)
 COPY package*.json ./
 # Install ALL dependencies (including devDependencies for Vite)
