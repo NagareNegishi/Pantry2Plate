@@ -2,8 +2,8 @@ services:
   backend:
     # Built from backend/Dockerfile
     build:
-      context: ./backend
-      dockerfile: Dockerfile # Optional, which Dockerfile to use
+      context: . # Root, as it needs both backend and shared folders
+      dockerfile: ./backend/Dockerfile # Which Dockerfile to use
       # target: targetStage # Only needed if Dockerfile has multiple FROM statements with names
     
     # Runs on port 3001
@@ -26,8 +26,8 @@ services:
   frontend:
     # Built from frontend/Dockerfile
     build:
-      context: ./frontend
-      dockerfile: Dockerfile # Optional, which Dockerfile to use
+      context: . # Root, as it needs both frontend and shared folders
+      dockerfile: ./frontend/Dockerfile # Which Dockerfile to use
       # target: targetStage # Only needed if Dockerfile has multiple FROM statements with names
     
     # Runs on port 5173
