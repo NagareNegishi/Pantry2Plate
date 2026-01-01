@@ -116,12 +116,12 @@ export class MenuRequestImpl implements MenuRequest {
     this.difficulty = data.difficulty ?? 'any';
 
     // Custom inputs - validate and sanitize
-    this.allergiesCustom = data.allergiesCustom ?? [];
-    this.dietaryRestrictionsCustom = data.dietaryRestrictionsCustom ?? [];
-    this.mealTypeCustom = data.mealTypeCustom ?? '';
-    this.flavorProfilesCustom = data.flavorProfilesCustom ?? [];
-    this.cuisineTypeCustom = data.cuisineTypeCustom ?? '';
-    this.cookingMethodCustom = data.cookingMethodCustom ?? '';
+    this.allergiesCustom = this.sanitizeCustomInputs(data.allergiesCustom ?? []);
+    this.dietaryRestrictionsCustom = this.sanitizeCustomInputs(data.dietaryRestrictionsCustom ?? []);
+    this.mealTypeCustom = this.sanitizeCustomInput(data.mealTypeCustom ?? '');
+    this.flavorProfilesCustom = this.sanitizeCustomInputs(data.flavorProfilesCustom ?? []);
+    this.cuisineTypeCustom = this.sanitizeCustomInput(data.cuisineTypeCustom ?? '');
+    this.cookingMethodCustom = this.sanitizeCustomInput(data.cookingMethodCustom ?? '');
   }
 
 
