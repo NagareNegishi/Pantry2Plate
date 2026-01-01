@@ -75,6 +75,15 @@ export interface MenuRequest {
 
 
 /**
+ * Validation result
+ */
+export interface ValidationResult {
+  valid: boolean;
+  errors: string[];
+}
+
+
+/**
  * MenuRequest implementation with validation and defaults
  */
 export class MenuRequestImpl implements MenuRequest {
