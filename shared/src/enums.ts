@@ -27,3 +27,15 @@ export type MealType = 'any' | 'breakfast' | 'lunch' | 'dinner'
  */
 export type FlavorProfile = 'any' | 'sweet' | 'spicy' | 'savory'
     | 'sour' | 'umami' | 'bitter' | 'other';
+
+
+/**
+ * Dietary requirements or preferences
+ *
+ * Multiple selections allowed
+ * Empty array = no restrictions
+ * 'other' = Custom restriction (requires dietaryRestrictionsCustom field)
+ */
+export type DietaryRestriction = 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free'
+    | 'nut-free' | 'shellfish-free' | 'halal' | 'kosher' | 'keto' | 'paleo'
+    | 'low-carb' | 'low-fat' | 'other';
