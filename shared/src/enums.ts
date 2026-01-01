@@ -7,3 +7,12 @@
  * (except Difficulty which does not support custom input).
  */
 
+
+/**
+ * Type of meal being requested
+ *
+ * 'any' = No preference (default)
+ * 'other' = Custom meal type (requires mealTypeCustom field)
+ */
+export type MealType = 'any' | 'breakfast' | 'lunch' | 'dinner'
+    | 'snack' | 'brunch' | 'dessert' | 'other';
