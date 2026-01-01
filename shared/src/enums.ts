@@ -30,6 +30,25 @@ export type FlavorProfile = 'any' | 'sweet' | 'spicy' | 'savory'
 
 
 /**
+ * Food allergies and intolerance
+ *
+ * Multiple selections allowed
+ * Recipes MUST NOT contain these allergens
+ * 'other' = Custom allergy (requires allergiesCustom field)
+ *
+ * Listed with common allergens first, followed by less common ones
+ * Note: This is for safety - allergies are prioritized over preferences
+ */
+export type Allergy =
+    // Common allergens (FDA/Health Canada "Big 9")
+    'peanuts' | 'tree-nuts' | 'milk' | 'eggs' | 'wheat' | 'soy'
+    | 'fish' | 'shellfish' | 'sesame'
+    // Less common allergens
+    | 'corn' | 'mustard' | 'celery' | 'sulfites' | 'lupin'
+    | 'other';
+
+
+/**
  * Dietary requirements or preferences
  *
  * Multiple selections allowed
