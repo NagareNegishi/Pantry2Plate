@@ -53,7 +53,7 @@ export type CuisineType = 'any' | 'Italian' | 'Chinese' | 'Mexican' | 'Japanese'
  */
 export type Allergy =
     // Common allergens (FDA/Health Canada "Big 9")
-    'none' | 'peanuts' | 'tree-nuts' | 'milk' | 'eggs' | 'wheat' | 'soy'
+    'peanuts' | 'tree-nuts' | 'milk' | 'eggs' | 'wheat' | 'soy'
     | 'fish' | 'shellfish' | 'sesame'
     // Less common allergens
     | 'corn' | 'mustard' | 'celery' | 'sulfites' | 'lupin'
@@ -67,7 +67,7 @@ export type Allergy =
  * Empty array = no restrictions
  * 'other' = Custom restriction (requires dietaryRestrictionsCustom field)
  */
-export type DietaryRestriction = 'none' | 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free'
+export type DietaryRestriction = 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free'
     | 'nut-free' | 'shellfish-free' | 'halal' | 'kosher' | 'keto' | 'paleo'
     | 'low-carb' | 'low-fat' | 'other';
 
