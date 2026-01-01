@@ -30,6 +30,18 @@ export type FlavorProfile = 'any' | 'sweet' | 'spicy' | 'savory'
 
 
 /**
+ * Regional or national cuisine style
+ *
+ * Single selection only
+ * 'any' = No preference (default)
+ * 'other' = Custom cuisine (requires cuisineTypeCustom field)
+ */
+export type CuisineType = 'any' | 'Italian' | 'Chinese' | 'Mexican' | 'Japanese'
+    | 'Indian' | 'Thai' | 'French' | 'Mediterranean' | 'American' | 'Korean'
+    | 'Vietnamese' | 'Greek' | 'Spanish' | 'Middle Eastern' | 'other';
+
+
+/**
  * Food allergies and intolerance
  *
  * Multiple selections allowed
