@@ -39,3 +39,14 @@ export type FlavorProfile = 'any' | 'sweet' | 'spicy' | 'savory'
 export type DietaryRestriction = 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free'
     | 'nut-free' | 'shellfish-free' | 'halal' | 'kosher' | 'keto' | 'paleo'
     | 'low-carb' | 'low-fat' | 'other';
+
+
+/**
+ * Primary cooking technique
+ *
+ * Single selection only
+ * 'any' = No preference (default)
+ * 'other' = Custom method (requires cookingMethodCustom field)
+ */
+export type CookingMethod = 'any' | 'bake' | 'deep-fry' | 'grill' | 'steam' | 'boil'
+    | 'roast' | 'slow-cook' | 'stir-fry' | 'sauté' | 'broil' | 'raw' | 'other';
