@@ -50,3 +50,13 @@ export type DietaryRestriction = 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy
  */
 export type CookingMethod = 'any' | 'bake' | 'deep-fry' | 'grill' | 'steam' | 'boil'
     | 'roast' | 'slow-cook' | 'stir-fry' | 'sauté' | 'broil' | 'raw' | 'other';
+
+
+/**
+ * Recipe complexity level
+ *
+ * Single selection only
+ * 'any' = No preference (default)
+ * No custom option available
+ */
+export type Difficulty = 'any' | 'easy' | 'medium' | 'hard';
