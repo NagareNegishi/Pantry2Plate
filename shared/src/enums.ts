@@ -16,3 +16,14 @@
  */
 export type MealType = 'any' | 'breakfast' | 'lunch' | 'dinner'
     | 'snack' | 'brunch' | 'dessert' | 'other';
+
+
+/**
+ * Taste characteristics of the desired dish
+ *
+ * Maximum 3 selections allowed
+ * 'any' is exclusive (cannot combine with other flavors)
+ * 'other' = Custom flavor (requires flavorProfilesCustom field)
+ */
+export type FlavorProfile = 'any' | 'sweet' | 'spicy' | 'savory'
+    | 'sour' | 'umami' | 'bitter' | 'other';
