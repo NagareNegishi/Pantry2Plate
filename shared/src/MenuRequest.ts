@@ -73,6 +73,10 @@ export interface MenuRequest {
   difficulty?: Difficulty;
 }
 
+
+/**
+ * MenuRequest implementation with validation and defaults
+ */
 export class MenuRequestImpl implements MenuRequest {
   // ========== REQUIRED ==========
   ingredients: string[];
@@ -119,5 +123,24 @@ export class MenuRequestImpl implements MenuRequest {
     this.cuisineTypeCustom = data.cuisineTypeCustom ?? '';
     this.cookingMethodCustom = data.cookingMethodCustom ?? '';
   }
+
+
+/**
+ * Sanitize a single custom input string
+ * If invalid format, returns empty string
+ * Rules: 1-20 characters, letters and spaces only
+ */
+private sanitizeCustomInput(input: string): string {
+  if (!input) return '';
+  
+  const trimmed = input.trim();
+  const regex = /^[a-zA-Z ]{1,20}$/;
+  
+  // If invalid, return empty string (silently reject)
+  if (!regex.test(trimmed)) return '';
+  
+  return trimmed;
+}
+
 
 }
