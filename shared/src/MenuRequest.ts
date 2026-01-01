@@ -134,32 +134,75 @@ export class MenuRequestImpl implements MenuRequest {
   }
 
 
-/**
- * Sanitize a single custom input string
- * If invalid format, returns empty string
- * Rules: 1-20 characters, letters and spaces only
- */
-private sanitizeCustomInput(input: string): string {
-  if (!input) return '';
-  
-  const trimmed = input.trim();
-  const regex = /^[a-zA-Z ]{1,20}$/;
-  
-  // If invalid, return empty string (silently reject)
-  if (!regex.test(trimmed)) return '';
-  
-  return trimmed;
-}
+  /**
+   * Sanitize a single custom input string
+   * If invalid format, returns empty string
+   * Rules: 1-20 characters, letters and spaces only
+   */
+  private sanitizeCustomInput(input: string): string {
+    if (!input) return '';
+    
+    const trimmed = input.trim();
+    const regex = /^[a-zA-Z ]{1,20}$/;
+    
+    // If invalid, return empty string (silently reject)
+    if (!regex.test(trimmed)) return '';
+    
+    return trimmed;
+  }
 
 
-/**
- * Sanitize an array of custom inputs
- * Filters out invalid entries
- */
-private sanitizeCustomInputs(inputs: string[]): string[] {
-  return inputs
-    .map(input => this.sanitizeCustomInput(input))
-    .filter(input => input !== '');  // Remove empty strings
-}
+  /**
+   * Sanitize an array of custom inputs
+   * Filters out invalid entries
+   */
+  private sanitizeCustomInputs(inputs: string[]): string[] {
+    return inputs
+      .map(input => this.sanitizeCustomInput(input))
+      .filter(input => input !== '');  // Remove empty strings
+  }
 
+
+  /**
+   * Validate the entire request
+   */
+  validate(): ValidationResult {
+    const errors: string[] = [];
+
+    // Basic validations
+    if (this.ingredients.length === 0) { errors.push('At least one ingredient is required');}
+    if (this.servings < 1) { errors.push('Servings must be at least 1');}
+    if (this.flavorProfiles.length > 3) { errors.push('Maximum 3 flavor profiles allowed');}
+    if (this.flavorProfiles.includes('any') && this.flavorProfiles.length > 1) {
+      errors.push("'any' cannot be combined with other flavors");
+    }
+    if (this.maxCookingTime < 10 || this.maxCookingTime > 720) {
+      errors.push('Cooking time must be between 10 and 720 minutes');
+    }
+
+    // Check: if 'other' selected but custom field is empty = was sanitized
+    if (this.mealType === 'other' && !this.mealTypeCustom) {
+      errors.push('Custom meal type required but invalid format provided');
+    }
+    if (this.cuisineType === 'other' && !this.cuisineTypeCustom) {
+      errors.push('Custom cuisine type required but invalid format provided');
+    }
+    if (this.cookingMethod === 'other' && !this.cookingMethodCustom) {
+      errors.push('Custom cooking method required but invalid format provided');
+    }
+    if (this.allergies.includes('other') && this.allergiesCustom.length === 0) {
+      errors.push('Custom allergy required but invalid format provided');
+    }
+    if (this.dietaryRestrictions.includes('other') && this.dietaryRestrictionsCustom.length === 0) {
+      errors.push('Custom dietary restriction required but invalid format provided');
+    }
+    if (this.flavorProfiles.includes('other') && this.flavorProfilesCustom.length === 0) {
+      errors.push('Custom flavor profile required but invalid format provided');
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
 }
