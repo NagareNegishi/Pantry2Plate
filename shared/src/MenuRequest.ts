@@ -143,4 +143,14 @@ private sanitizeCustomInput(input: string): string {
 }
 
 
+/**
+ * Sanitize an array of custom inputs
+ * Filters out invalid entries
+ */
+private sanitizeCustomInputs(inputs: string[]): string[] {
+  return inputs
+    .map(input => this.sanitizeCustomInput(input))
+    .filter(input => input !== '');  // Remove empty strings
+}
+
 }
