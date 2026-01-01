@@ -72,3 +72,52 @@ export interface MenuRequest {
   /** Recipe difficulty level (default: 'any') */
   difficulty?: Difficulty;
 }
+
+export class MenuRequestImpl implements MenuRequest {
+  // ========== REQUIRED ==========
+  ingredients: string[];
+
+  // ========== RESTRICTIONS ==========
+  allergies: Allergy[];
+  allergiesCustom: string[];
+  dietaryRestrictions: DietaryRestriction[];
+  dietaryRestrictionsCustom: string[];
+
+  // ========== PREFERENCES ==========
+  servings: number;
+  mealType: MealType;
+  mealTypeCustom: string;
+  flavorProfiles: FlavorProfile[];
+  flavorProfilesCustom: string[];
+  cuisineType: CuisineType;
+  cuisineTypeCustom: string;
+  cookingMethod: CookingMethod;
+  cookingMethodCustom: string;
+  maxCookingTime: number;
+  difficulty: Difficulty;
+
+  constructor(data: Partial<MenuRequest>) {
+    // Required
+    this.ingredients = data.ingredients ?? [];
+    // Restrictions
+    this.allergies = data.allergies ?? [];
+    this.dietaryRestrictions = data.dietaryRestrictions ?? [];
+    // Preferences
+    this.servings = data.servings ?? 1;
+    this.mealType = data.mealType ?? 'any';
+    this.flavorProfiles = data.flavorProfiles ?? ['any'];
+    this.cuisineType = data.cuisineType ?? 'any';
+    this.cookingMethod = data.cookingMethod ?? 'any';
+    this.maxCookingTime = data.maxCookingTime ?? 60;
+    this.difficulty = data.difficulty ?? 'any';
+
+    // Custom inputs - validate and sanitize
+    this.allergiesCustom = data.allergiesCustom ?? [];
+    this.dietaryRestrictionsCustom = data.dietaryRestrictionsCustom ?? [];
+    this.mealTypeCustom = data.mealTypeCustom ?? '';
+    this.flavorProfilesCustom = data.flavorProfilesCustom ?? [];
+    this.cuisineTypeCustom = data.cuisineTypeCustom ?? '';
+    this.cookingMethodCustom = data.cookingMethodCustom ?? '';
+  }
+
+}
