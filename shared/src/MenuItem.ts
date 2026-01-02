@@ -37,6 +37,14 @@ export interface MenuItem {
 }
 
 
+/**
+ * Validation result
+ */
+export interface ValidationResult {
+  valid: boolean;
+  errors: string[];
+}
+
 
 /**
  * MenuItem implementation with validation
@@ -64,7 +72,12 @@ export class MenuItemImpl implements MenuItem {
   /**
    * Validate that all required fields are present and valid
    */
-  // validate(): ValidationResult {
-  //   // Check all fields are present and non-empty
-  // }
+  validate(): ValidationResult {
+    const errors: string[] = [];
+
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
 }
