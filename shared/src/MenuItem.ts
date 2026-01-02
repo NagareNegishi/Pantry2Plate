@@ -38,8 +38,6 @@ export interface MenuItem {
 
 
 
-
-
 /**
  * MenuItem implementation with validation
  */
@@ -52,15 +50,21 @@ export class MenuItemImpl implements MenuItem {
   ingredients: string[];
   instructions: string[];
 
+
   constructor(data: Partial<MenuItem>) {
-    // Validate and assign required fields
-    // Throw error if any field is missing or invalid
+    this.name = data.name ?? 'Invalid';
+    this.description = data.description ?? 'No description provided.';
+    this.servings = data.servings ?? 1;
+    this.cookingTime = data.cookingTime ?? 0;
+    this.difficulty = data.difficulty ?? 'any';
+    this.ingredients = data.ingredients ?? [];
+    this.instructions = data.instructions ?? [];
   }
 
   /**
    * Validate that all required fields are present and valid
    */
-  validate(): ValidationResult {
-    // Check all fields are present and non-empty
-  }
+  // validate(): ValidationResult {
+  //   // Check all fields are present and non-empty
+  // }
 }
