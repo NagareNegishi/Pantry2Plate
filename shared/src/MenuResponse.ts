@@ -1,6 +1,6 @@
 // shared/src/MenuResponse.ts
 
-import { MenuItem } from './MenuItem';
+import { MenuItem, MenuItemImpl } from './MenuItem';
 
 /**
  * Menu response from Claude API
@@ -9,4 +9,19 @@ import { MenuItem } from './MenuItem';
 export interface MenuResponse {
   /** List of menu suggestions (0-3 items) */
   menus: MenuItem[];
+}
+
+
+/**
+ * MenuResponse implementation with validation
+ */
+export class MenuRequestImpl implements MenuResponse {
+  menus: MenuItem[];
+
+  constructor(menus: Partial<MenuResponse> ) {
+    // Parse each menu item from the response
+    const rawMenus = menus.menus ?? [];
+    this.menus = rawMenus.map(menu => new MenuItemImpl(menu));
+  }
+
 }
