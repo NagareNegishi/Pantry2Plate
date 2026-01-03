@@ -1,7 +1,6 @@
 // shared/src/MenuItem.ts
-import {
-  Difficulty,
-} from './enums';
+
+import { Difficulty } from './enums';
 
 /**
  * Menu item response from backend
@@ -98,7 +97,7 @@ export class MenuItemImpl implements MenuItem {
       errors.push('Instructions list is empty.');
       this.name = 'Invalid'; // Mark as invalid
     }
-    
+
     return {
       valid: errors.length === 0,
       errors
