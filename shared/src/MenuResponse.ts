@@ -1,6 +1,6 @@
 // shared/src/MenuResponse.ts
 
-import { MenuItem, MenuItemImpl } from './MenuItem';
+import { MenuItem, MenuItemImpl, ValidationResult } from './MenuItem';
 
 /**
  * Menu response from Claude API
@@ -9,6 +9,16 @@ import { MenuItem, MenuItemImpl } from './MenuItem';
 export interface MenuResponse {
   /** List of menu suggestions (0-3 items) */
   menus: MenuItem[];
+}
+
+
+/**
+ * Validation result for entire menu response
+ */
+export interface ValidationResults {
+  valid: boolean;
+  errors: string[];
+  validations: ValidationResult[];
 }
 
 
