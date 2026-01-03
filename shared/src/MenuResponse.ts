@@ -30,7 +30,7 @@ export class MenuRequestImpl implements MenuResponse {
     
     // Remove completely invalid menus (name/ingredients/instructions missing)
     this.menus = this.menus.filter((menu, index) => {
-      
+
       // Remove from list
       if (menu.name === 'Invalid') {
         errors.push(`Removed menu ${index + 1}: missing critical fields`);
@@ -45,6 +45,13 @@ export class MenuRequestImpl implements MenuResponse {
       return true;
     });
 
+    // trim if more than 3 menus
+    if (this.menus.length > 3) { this.menus = this.menus.slice(0, 3); }
+
+    return {
+      valid: this.menus.length > 0,
+      errors
+    };
   }
 
 
