@@ -1,6 +1,7 @@
 // shared/src/MenuResponse.ts
 
-import { MenuItem, MenuItemImpl, ValidationResult } from './MenuItem';
+import { MenuItem, MenuItemImpl } from './MenuItem';
+import { ValidationResult } from './types';
 
 /**
  * Menu response from Claude API
@@ -24,6 +25,10 @@ export class MenuRequestImpl implements MenuResponse {
     this.menus = rawMenus.map(menu => new MenuItemImpl(menu));
   }
 
+
+  /**
+   * validate entire response
+   */
   validate(): ValidationResult {
     const errors: string[] = [];
     const validations: ValidationResult[] = this.menus.map(menu => menu.validate());
@@ -53,6 +58,5 @@ export class MenuRequestImpl implements MenuResponse {
       errors
     };
   }
-
-
+  
 }

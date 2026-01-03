@@ -1,6 +1,7 @@
 // shared/src/MenuItem.ts
 
 import { Difficulty } from './enums';
+import { ValidationResult } from './types';
 
 /**
  * Menu item response from backend
@@ -33,15 +34,6 @@ export interface MenuItem {
    * Each string is one step
    */
   instructions: string[];
-}
-
-
-/**
- * Validation result
- */
-export interface ValidationResult {
-  valid: boolean;
-  errors: string[];
 }
 
 

@@ -10,6 +10,8 @@ import {
   MealType
 } from './enums';
 
+import { ValidationResult } from './types';
+
 /**
  * Menu request from user to backend
  *
@@ -71,15 +73,6 @@ export interface MenuRequest {
   
   /** Recipe difficulty level (default: 'any') */
   difficulty?: Difficulty;
-}
-
-
-/**
- * Validation result
- */
-export interface ValidationResult {
-  valid: boolean;
-  errors: string[];
 }
 
 
@@ -206,5 +199,4 @@ export class MenuRequestImpl implements MenuRequest {
     };
   }
 
-  
 }
