@@ -16,7 +16,7 @@ export interface MenuResponse {
 /**
  * MenuResponse implementation with validation
  */
-export class MenuRequestImpl implements MenuResponse {
+export class MenuResponseImpl implements MenuResponse {
   menus: MenuItemImpl[];
 
   constructor(menus: Partial<MenuResponse> ) {
