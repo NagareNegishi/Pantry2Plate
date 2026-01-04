@@ -190,6 +190,7 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.cuisineType === 'other' && !this.cuisineTypeCustom) {
       errors.push('Custom cuisine type required but invalid format provided');
+      this.cuisineType = 'any'; // Auto-correct to default
     }
     if (this.cookingMethod === 'other' && !this.cookingMethodCustom) {
       errors.push('Custom cooking method required but invalid format provided');

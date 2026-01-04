@@ -192,4 +192,37 @@ describe('Constructor Validation', () => {
     expect(request3.mealTypeCustom).toEqual('');
   });
 
+  it('must provide valid custom cuisineType when cuisineType is other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cuisineType: 'other'
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom cuisine type required but invalid format provided');
+    expect(request.cuisineType).toBe('any'); // Auto-corrected to default
+    expect(request.cuisineTypeCustom).toEqual('');
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cuisineType: 'other',
+      cuisineTypeCustom: 'Fusion'
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.cuisineType).toBe('other');
+    expect(request2.cuisineTypeCustom).toBe('Fusion');
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cuisineType: 'other',
+      cuisineTypeCustom: '123Invalid'
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom cuisine type required but invalid format provided');
+    expect(request3.cuisineType).toBe('any'); // Auto-corrected to default
+    expect(request3.cuisineTypeCustom).toEqual('');
+  });
+
 });
