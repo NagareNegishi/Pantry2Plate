@@ -128,4 +128,15 @@ describe('Constructor Validation', () => {
     expect(request.flavorProfiles).toEqual(['spicy', 'savory', 'sweet']);
   });
 
+  it("'any' cannot be combined with other flavors", () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['any', 'spicy']
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain("'any' cannot be combined with other flavors");
+    expect(request.flavorProfiles).toEqual(['any']); // Auto-corrected
+  });
+
 });

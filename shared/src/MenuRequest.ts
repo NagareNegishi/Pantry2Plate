@@ -175,6 +175,7 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.flavorProfiles.includes('any') && this.flavorProfiles.length > 1) {
       errors.push("'any' cannot be combined with other flavors");
+      this.flavorProfiles = ['any']; // Auto-correct
     }
     if (this.maxCookingTime < 10 || this.maxCookingTime > 720) {
       errors.push('Cooking time must be between 10 and 720 minutes');
