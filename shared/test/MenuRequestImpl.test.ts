@@ -257,4 +257,47 @@ describe('Constructor Validation', () => {
     expect(request3.cookingMethod).toBe('any'); // Auto-corrected to default
     expect(request3.cookingMethodCustom).toEqual('');
   });
+
+  it('must provide valid custom allergy when allergies includes other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      allergies: ['peanuts', 'other']
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom allergy required but invalid format provided');
+    expect(request.allergies).toEqual(['peanuts']); // 'other' removed
+    expect(request.allergiesCustom).toEqual([]);
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      allergies: ['wheat', 'other'],
+      allergiesCustom: ['Pollen']
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.allergies).toEqual(['wheat', 'other']);
+    expect(request2.allergiesCustom).toEqual(['Pollen']);
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      allergies: ['soy', 'other'],
+      allergiesCustom: ['!InvalidAllergy']
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom allergy required but invalid format provided');
+    expect(request3.allergies).toEqual(['soy']); // 'other' removed
+    expect(request3.allergiesCustom).toEqual([]);
+
+    const request4 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      allergies: ['other'],
+      allergiesCustom: ['Pollen', '@BadEntry']
+    });
+    const validation4 = request4.validate();
+    expect(validation4.valid).toBe(true);
+    expect(request4.allergies).toEqual(['other']);
+    expect(request4.allergiesCustom).toEqual(['Pollen']); // Only valid entries kept
+  });
 });

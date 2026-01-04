@@ -198,6 +198,8 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.allergies.includes('other') && this.allergiesCustom.length === 0) {
       errors.push('Custom allergy required but invalid format provided');
+      // remove 'other'
+      this.allergies = this.allergies.filter(a => a !== 'other');
     }
     if (this.dietaryRestrictions.includes('other') && this.dietaryRestrictionsCustom.length === 0) {
       errors.push('Custom dietary restriction required but invalid format provided');
