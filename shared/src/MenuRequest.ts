@@ -203,6 +203,8 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.dietaryRestrictions.includes('other') && this.dietaryRestrictionsCustom.length === 0) {
       errors.push('Custom dietary restriction required but invalid format provided');
+      // remove 'other'
+      this.dietaryRestrictions = this.dietaryRestrictions.filter(d => d !== 'other');
     }
     if (this.flavorProfiles.includes('other') && this.flavorProfilesCustom.length === 0) {
       errors.push('Custom flavor profile required but invalid format provided');

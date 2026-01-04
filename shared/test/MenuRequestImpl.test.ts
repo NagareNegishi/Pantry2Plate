@@ -300,4 +300,49 @@ describe('Constructor Validation', () => {
     expect(request4.allergies).toEqual(['other']);
     expect(request4.allergiesCustom).toEqual(['Pollen']); // Only valid entries kept
   });
+
+  it('must provide valid custom dietaryRestriction when dietaryRestrictions includes other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      dietaryRestrictions: ['vegetarian', 'other']
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom dietary restriction required but invalid format provided');
+    expect(request.dietaryRestrictions).toEqual(['vegetarian']); // 'other' removed
+    expect(request.dietaryRestrictionsCustom).toEqual([]);
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      dietaryRestrictions: ['vegan', 'other'],
+      dietaryRestrictionsCustom: ['Low Sugar']
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.dietaryRestrictions).toEqual(['vegan', 'other']);
+    expect(request2.dietaryRestrictionsCustom).toEqual(['Low Sugar']);
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      dietaryRestrictions: ['keto', 'other'],
+      dietaryRestrictionsCustom: ['#InvalidRestriction']
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom dietary restriction required but invalid format provided');
+    expect(request3.dietaryRestrictions).toEqual(['keto']); // 'other' removed
+    expect(request3.dietaryRestrictionsCustom).toEqual([]);
+
+    const request4 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      dietaryRestrictions: ['other'],
+      dietaryRestrictionsCustom: ['Low Sugar', '%BadEntry']
+    });
+    const validation4 = request4.validate();
+    expect(validation4.valid).toBe(true);
+    expect(request4.dietaryRestrictions).toEqual(['other']);
+    expect(request4.dietaryRestrictionsCustom).toEqual(['Low Sugar']); // Only valid entries kept
+  });
+
+  
 });
