@@ -194,6 +194,7 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.cookingMethod === 'other' && !this.cookingMethodCustom) {
       errors.push('Custom cooking method required but invalid format provided');
+      this.cookingMethod = 'any'; // Auto-correct to default
     }
     if (this.allergies.includes('other') && this.allergiesCustom.length === 0) {
       errors.push('Custom allergy required but invalid format provided');

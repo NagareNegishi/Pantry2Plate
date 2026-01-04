@@ -225,4 +225,36 @@ describe('Constructor Validation', () => {
     expect(request3.cuisineTypeCustom).toEqual('');
   });
 
+  it('must provide valid custom cookingMethod when cookingMethod is other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cookingMethod: 'other'
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom cooking method required but invalid format provided');
+    expect(request.cookingMethod).toBe('any'); // Auto-corrected to default
+    expect(request.cookingMethodCustom).toEqual('');
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cookingMethod: 'other',
+      cookingMethodCustom: 'Sous Vide'
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.cookingMethod).toBe('other');
+    expect(request2.cookingMethodCustom).toBe('Sous Vide');
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      cookingMethod: 'other',
+      cookingMethodCustom: '!InvalidMethod'
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom cooking method required but invalid format provided');
+    expect(request3.cookingMethod).toBe('any'); // Auto-corrected to default
+    expect(request3.cookingMethodCustom).toEqual('');
+  });
 });
