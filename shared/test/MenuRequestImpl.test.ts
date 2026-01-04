@@ -94,3 +94,36 @@ describe('Constructor', () => {
     expect(request.difficulty).toBe('easy');
   });
 });
+
+
+// Constructor tests with validation
+describe('Constructor Validation', () => {
+  it('must have ingredient', () => {
+    const request = new MenuRequestImpl({});
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('At least one ingredient is required');
+  });
+
+  it('must have servings >= 1', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      servings: 0
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Servings must be at least 1');
+    expect(request.servings).toBe(1); // Auto-corrected
+  });
+
+  it('Maximum 3 flavor profiles allowed', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['spicy', 'savory', 'sweet', 'sour']
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Maximum 3 flavor profiles allowed');
+  });
+
+});

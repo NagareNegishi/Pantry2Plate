@@ -164,7 +164,10 @@ export class MenuRequestImpl implements MenuRequest {
 
     // Basic validations
     if (this.ingredients.length === 0) { errors.push('At least one ingredient is required'); }
-    if (this.servings < 1) { errors.push('Servings must be at least 1'); }
+    if (this.servings < 1) { 
+      errors.push('Servings must be at least 1');
+      this.servings = 1; // Auto-correct
+    }
     if (this.flavorProfiles.length > 3) { errors.push('Maximum 3 flavor profiles allowed'); }
     if (this.flavorProfiles.includes('any') && this.flavorProfiles.length > 1) {
       errors.push("'any' cannot be combined with other flavors");
