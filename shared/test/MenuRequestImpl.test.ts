@@ -124,6 +124,8 @@ describe('Constructor Validation', () => {
     const validation = request.validate();
     expect(validation.valid).toBe(false);
     expect(validation.errors).toContain('Maximum 3 flavor profiles allowed');
+    expect(request.flavorProfiles.length).toBe(3); // Trimmed to 3
+    expect(request.flavorProfiles).toEqual(['spicy', 'savory', 'sweet']);
   });
 
 });
