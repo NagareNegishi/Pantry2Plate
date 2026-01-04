@@ -179,6 +179,8 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.maxCookingTime < 10 || this.maxCookingTime > 720) {
       errors.push('Cooking time must be between 10 and 720 minutes');
+      // Auto-correct to nearest bound
+      this.maxCookingTime = Math.min(Math.max(this.maxCookingTime, 10), 720);
     }
 
     // Check: if 'other' selected but custom field is empty = was sanitized

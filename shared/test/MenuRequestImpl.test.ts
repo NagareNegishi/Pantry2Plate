@@ -139,4 +139,24 @@ describe('Constructor Validation', () => {
     expect(request.flavorProfiles).toEqual(['any']); // Auto-corrected
   });
 
+  it('maxCookingTime must be between 10 and 720 minutes', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      maxCookingTime: 5
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Cooking time must be between 10 and 720 minutes');
+    expect(request.maxCookingTime).toBe(10); // Auto-corrected to lower bound
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      maxCookingTime: 800
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(false);
+    expect(validation2.errors).toContain('Cooking time must be between 10 and 720 minutes');
+    expect(request2.maxCookingTime).toBe(720); // Auto-corrected to upper bound
+  });
+
 });
