@@ -8,16 +8,15 @@ import { MenuRequestImpl } from '../src/MenuRequest';
 // Also under the alias: it(name, fn, timeout)
 // So test == it
 
-describe('MenuRequestImpl', () => {
-  describe('Constructor', () => {
-    it('should set default servings to 1', () => {
-      const request = new MenuRequestImpl({ ingredients: ['rice'] });
-      expect(request.servings).toBe(1);
-    });
-    
-    it('should set default mealType to any', () => {
-      const request = new MenuRequestImpl({ ingredients: ['rice'] });
-      expect(request.mealType).toBe('any');
-    });
+
+describe('Constructor', () => {
+  it('should set default servings to 1', () => {
+    const request = new MenuRequestImpl({ ingredients: ['rice'] });
+    expect(request.servings).toBe(1);
+  });
+  
+  it('should set default mealType to any', () => {
+    const request = new MenuRequestImpl({ ingredients: ['rice'] });
+    expect(request.mealType).toBe('any');
   });
 });
