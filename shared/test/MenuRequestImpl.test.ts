@@ -10,13 +10,18 @@ import { MenuRequestImpl } from '../src/MenuRequest';
 
 
 describe('Constructor', () => {
-  it('should set default servings to 1', () => {
-    const request = new MenuRequestImpl({ ingredients: ['rice'] });
+  it('should set all default values when no data provided', () => {
+    const request = new MenuRequestImpl({});
+    expect(request.ingredients).toEqual([]);
+    expect(request.allergies).toEqual([]);
+    expect(request.dietaryRestrictions).toEqual([]);
     expect(request.servings).toBe(1);
-  });
-  
-  it('should set default mealType to any', () => {
-    const request = new MenuRequestImpl({ ingredients: ['rice'] });
     expect(request.mealType).toBe('any');
+    expect(request.flavorProfiles).toEqual(['any']);
+    expect(request.cuisineType).toBe('any');
+    expect(request.cookingMethod).toBe('any');
+    expect(request.maxCookingTime).toBe(60);
+    expect(request.difficulty).toBe('any');
   });
+
 });
