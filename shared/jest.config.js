@@ -5,6 +5,9 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  // Ts-Jest require configuration to transform TypeScript files
+  // https://kulshekhar.github.io/ts-jest/docs/getting-started/installation#jest-config-file
+  preset: "ts-jest",
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
