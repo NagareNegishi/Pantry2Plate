@@ -344,5 +344,47 @@ describe('Constructor Validation', () => {
     expect(request4.dietaryRestrictionsCustom).toEqual(['Low Sugar']); // Only valid entries kept
   });
 
-  
+  it('must provide valid custom flavorProfile when flavorProfiles includes other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['spicy', 'other']
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom flavor profile required but invalid format provided');
+    expect(request.flavorProfiles).toEqual(['spicy']); // 'other' removed
+    expect(request.flavorProfilesCustom).toEqual([]);
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['savory', 'other'],
+      flavorProfilesCustom: ['Umami']
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.flavorProfiles).toEqual(['savory', 'other']);
+    expect(request2.flavorProfilesCustom).toEqual(['Umami']);
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['sweet', 'other'],
+      flavorProfilesCustom: ['*InvalidFlavor']
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom flavor profile required but invalid format provided');
+    expect(request3.flavorProfiles).toEqual(['sweet']); // 'other' removed
+    expect(request3.flavorProfilesCustom).toEqual([]);
+
+    const request4 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      flavorProfiles: ['other'],
+      flavorProfilesCustom: ['Zesty', '^BadEntry']
+    });
+    const validation4 = request4.validate();
+    expect(validation4.valid).toBe(true);
+    expect(request4.flavorProfiles).toEqual(['other']);
+    expect(request4.flavorProfilesCustom).toEqual(['Zesty']); // Only valid entries kept
+  });
+
 });

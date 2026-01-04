@@ -208,6 +208,8 @@ export class MenuRequestImpl implements MenuRequest {
     }
     if (this.flavorProfiles.includes('other') && this.flavorProfilesCustom.length === 0) {
       errors.push('Custom flavor profile required but invalid format provided');
+      // remove 'other'
+      this.flavorProfiles = this.flavorProfiles.filter(f => f !== 'other');
     }
 
     return {
