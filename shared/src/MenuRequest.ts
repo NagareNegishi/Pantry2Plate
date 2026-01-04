@@ -186,6 +186,7 @@ export class MenuRequestImpl implements MenuRequest {
     // Check: if 'other' selected but custom field is empty = was sanitized
     if (this.mealType === 'other' && !this.mealTypeCustom) {
       errors.push('Custom meal type required but invalid format provided');
+      this.mealType = 'any'; // Auto-correct to default
     }
     if (this.cuisineType === 'other' && !this.cuisineTypeCustom) {
       errors.push('Custom cuisine type required but invalid format provided');

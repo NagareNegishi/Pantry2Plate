@@ -159,4 +159,37 @@ describe('Constructor Validation', () => {
     expect(request2.maxCookingTime).toBe(720); // Auto-corrected to upper bound
   });
 
+  it('must provide valid custom mealType when mealType is other', () => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      mealType: 'other'
+    });
+    const validation = request.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Custom meal type required but invalid format provided');
+    expect(request.mealType).toBe('any'); // Auto-corrected to default
+    expect(request.mealTypeCustom).toEqual('');
+
+    const request2 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      mealType: 'other',
+      mealTypeCustom: 'Midnight Snack'
+    });
+    const validation2 = request2.validate();
+    expect(validation2.valid).toBe(true);
+    expect(request2.mealType).toBe('other');
+    expect(request2.mealTypeCustom).toBe('Midnight Snack');
+
+    const request3 = new MenuRequestImpl({
+      ingredients: ['tomato'],
+      mealType: 'other',
+      mealTypeCustom: '@Invalid Input'
+    });
+    const validation3 = request3.validate();
+    expect(validation3.valid).toBe(false);
+    expect(validation3.errors).toContain('Custom meal type required but invalid format provided');
+    expect(request3.mealType).toBe('any'); // Auto-corrected to default
+    expect(request3.mealTypeCustom).toEqual('');
+  });
+
 });
