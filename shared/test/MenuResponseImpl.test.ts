@@ -2,13 +2,10 @@
 import { describe, expect, it } from '@jest/globals';
 import { MenuResponseImpl } from '../src/MenuResponse';
 
-// Import what to test
-
-// fake temp test
+// Constructor tests
 describe('MenuResponseImpl', () => {
-  it('should create an instance with default values', () => {
+  it('should set all default values when no data provided', () => {
     const response = new MenuResponseImpl({});
     expect(response.menus).toEqual([]);
-
   });
 });
