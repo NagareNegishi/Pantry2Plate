@@ -8,7 +8,8 @@
     "declarationMap": true,
     "strict": true,
     "skipLibCheck": true,
-    "types": ["jest", "node"]
+    "types": ["jest"],
+    "isolatedModules": true
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
