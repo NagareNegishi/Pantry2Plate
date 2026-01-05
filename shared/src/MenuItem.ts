@@ -81,10 +81,13 @@ export class MenuItemImpl implements MenuItem {
       errors.push('Servings must be greater than zero.');
       this.servings = 1; // Default to 1
     }
-    if (this.cookingTime < 0) {
-      errors.push('Cooking time cannot be negative.');
-      this.cookingTime = 60; // Default to 60 minutes
+
+    if (this.cookingTime < MIN_COOKING_TIME || this.cookingTime > MAX_COOKING_TIME) {
+      errors.push('Cooking time must be between 10 and 720 minutes');
+      // Auto-correct to nearest bound
+      this.cookingTime = Math.min(Math.max(this.cookingTime, MIN_COOKING_TIME), MAX_COOKING_TIME);
     }
+
     if (this.difficulty === 'any') {
       errors.push('Recipe difficulty is not specified.');
     }

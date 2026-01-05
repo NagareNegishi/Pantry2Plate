@@ -92,4 +92,17 @@ describe('Constructor Validation', () => {
     expect(menuItem.servings).toBe(1); // Auto-corrected to 1
   });
 
+  it('cookingTime must be between 10 and 720 minutes', () => {
+    const menuItemLow = new MenuItemImpl({ cookingTime: 5 });
+    const validationLow = menuItemLow.validate();
+    expect(validationLow.valid).toBe(false);
+    expect(validationLow.errors).toContain('Cooking time must be between 10 and 720 minutes');
+    expect(menuItemLow.cookingTime).toBe(10); // Auto-corrected to min
+
+    const menuItemHigh = new MenuItemImpl({ cookingTime: 800 });
+    const validationHigh = menuItemHigh.validate();
+    expect(validationHigh.valid).toBe(false);
+    expect(validationHigh.errors).toContain('Cooking time must be between 10 and 720 minutes');
+    expect(menuItemHigh.cookingTime).toBe(720); // Auto-corrected to max
+  });
 });
