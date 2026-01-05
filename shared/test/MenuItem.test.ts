@@ -105,4 +105,30 @@ describe('Constructor Validation', () => {
     expect(validationHigh.errors).toContain('Cooking time must be between 10 and 720 minutes');
     expect(menuItemHigh.cookingTime).toBe(720); // Auto-corrected to max
   });
+
+  it('difficulty should not be "any"', () => {
+    const menuItem = new MenuItemImpl({ difficulty: 'any' });
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Recipe difficulty is not specified.');
+    expect(menuItem.difficulty).toBe('any');
+  });
+
+  it('must have at least one ingredient', () => {
+    const menuItem = new MenuItemImpl({});
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Ingredients list is empty.');
+    expect(menuItem.ingredients).toEqual([]);
+    expect(menuItem.name).toBe('Invalid');
+  });
+
+  it('must have at least one instruction', () => {
+    const menuItem = new MenuItemImpl({});
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Instructions list is empty.');
+    expect(menuItem.instructions).toEqual([]);
+    expect(menuItem.name).toBe('Invalid');
+  });
 });

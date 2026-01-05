@@ -1,7 +1,7 @@
 // shared/src/MenuItem.ts
 
 import { Difficulty } from './enums';
-import { ValidationResult } from './types';
+import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types';
 
 /**
  * Menu item response from backend
@@ -35,13 +35,6 @@ export interface MenuItem {
    */
   instructions: string[];
 }
-
-
-/**
- * Define min and max cooking time in minutes
- */
-export const MIN_COOKING_TIME = 10;
-export const MAX_COOKING_TIME = 720;
 
 
 /**

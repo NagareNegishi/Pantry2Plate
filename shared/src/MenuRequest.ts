@@ -10,7 +10,7 @@ import {
   MealType
 } from './enums';
 
-import { ValidationResult } from './types';
+import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types';
 
 /**
  * Menu request from user to backend
@@ -74,13 +74,6 @@ export interface MenuRequest {
   /** Recipe difficulty level (default: 'any') */
   difficulty?: Difficulty;
 }
-
-
-/**
- * Define min and max cooking time in minutes
- */
-export const MIN_COOKING_TIME = 10;
-export const MAX_COOKING_TIME = 720;
 
 
 /**
