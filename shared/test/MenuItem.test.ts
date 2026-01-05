@@ -64,3 +64,32 @@ describe('Constructor', () => {
     expect(menuItem.instructions).toEqual(['Rinse the rice.', 'Cook the rice with water.']);
   });
 });
+
+
+// Constructor tests with validation
+describe('Constructor Validation', () => {
+  it('must have name', () => {
+    const menuItem = new MenuItemImpl({});
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Recipe name is missing.');
+    expect(menuItem.name).toBe('Invalid');
+  });
+
+  it('must have description', () => {
+    const menuItem = new MenuItemImpl({});
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Recipe description is missing.');
+    expect(menuItem.description).toBe('No description provided.');
+  });
+
+  it('servings must be greater than zero', () => {
+    const menuItem = new MenuItemImpl({ servings: 0 });
+    const validation = menuItem.validate();
+    expect(validation.valid).toBe(false);
+    expect(validation.errors).toContain('Servings must be greater than zero.');
+    expect(menuItem.servings).toBe(1); // Auto-corrected to 1
+  });
+
+});
