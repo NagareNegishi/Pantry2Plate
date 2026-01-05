@@ -38,6 +38,13 @@ export interface MenuItem {
 
 
 /**
+ * Define min and max cooking time in minutes
+ */
+export const MIN_COOKING_TIME = 10;
+export const MAX_COOKING_TIME = 720;
+
+
+/**
  * MenuItem implementation with validation
  */
 export class MenuItemImpl implements MenuItem {

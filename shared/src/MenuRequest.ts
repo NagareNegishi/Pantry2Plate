@@ -77,6 +77,13 @@ export interface MenuRequest {
 
 
 /**
+ * Define min and max cooking time in minutes
+ */
+export const MIN_COOKING_TIME = 10;
+export const MAX_COOKING_TIME = 720;
+
+
+/**
  * MenuRequest implementation with validation and defaults
  */
 export class MenuRequestImpl implements MenuRequest {
@@ -177,10 +184,10 @@ export class MenuRequestImpl implements MenuRequest {
       errors.push("'any' cannot be combined with other flavors");
       this.flavorProfiles = ['any']; // Auto-correct
     }
-    if (this.maxCookingTime < 10 || this.maxCookingTime > 720) {
+    if (this.maxCookingTime < MIN_COOKING_TIME || this.maxCookingTime > MAX_COOKING_TIME) {
       errors.push('Cooking time must be between 10 and 720 minutes');
       // Auto-correct to nearest bound
-      this.maxCookingTime = Math.min(Math.max(this.maxCookingTime, 10), 720);
+      this.maxCookingTime = Math.min(Math.max(this.maxCookingTime, MIN_COOKING_TIME), MAX_COOKING_TIME);
     }
 
     // Check: if 'other' selected but custom field is empty = was sanitized
