@@ -3,6 +3,9 @@
 // Import what to test
 import { MenuRequestImpl } from '../src/MenuRequest';
 
+// suppress ts errors
+import { describe, expect, it } from '@jest/globals';
+
 // Jest test syntax:
 // test(name, fn, timeout)
 // Also under the alias: it(name, fn, timeout)
