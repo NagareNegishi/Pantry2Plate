@@ -13,12 +13,15 @@ app.use(express.json());
 
 
 // test connection from shared module
-import { MealType, MenuRequestImpl, ValidationResult } from '@pantry2plate/shared';
+// Types only (disappear at runtime)
+import type { ValidationResult } from '@pantry2plate/shared';
+// Actual classes/values (exist at runtime)
+import { MenuRequestImpl } from '@pantry2plate/shared';
 
 const request = new MenuRequestImpl({
-  availableIngredients: ['chicken', 'rice'],
-  dietaryRestrictions: [],
-  mealType: MealType.DINNER,
+  ingredients: ['chicken', 'rice'],
+  dietaryRestrictions: ['vegetarian', 'gluten-free'],
+  mealType: 'dinner',
   servings: 2
 });
 
