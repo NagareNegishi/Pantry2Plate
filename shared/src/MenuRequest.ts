@@ -8,9 +8,9 @@ import {
   Difficulty,
   FlavorProfile,
   MealType
-} from './enums';
+} from './enums.js';
 
-import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types';
+import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types.js';
 
 /**
  * Menu request from user to backend

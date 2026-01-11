@@ -1,7 +1,7 @@
 // shared/src/MenuResponse.ts
 
-import { MenuItem, MenuItemImpl } from './MenuItem';
-import { ValidationResult } from './types';
+import { MenuItem, MenuItemImpl } from './MenuItem.js';
+import { ValidationResult } from './types.js';
 
 /**
  * Menu response from Claude API

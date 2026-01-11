@@ -1,7 +1,7 @@
 // shared/src/MenuItem.ts
 
-import { Difficulty } from './enums';
-import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types';
+import { Difficulty } from './enums.js';
+import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types.js';
 
 /**
  * Menu item response from backend
