@@ -18,6 +18,11 @@ const client = new Anthropic({
  * @returns Claude response content
  */
 export async function generateMenuSuggestions(prompt: string) {
+  // Limit API calls if disabled
+  if (!CLAUDE_CONFIG.enabled) {
+    return "API disabled - set ENABLE_CLAUDE_API=true to enable";
+  }
+
   const message = await client.messages.create({
     model: CLAUDE_CONFIG.model,
     max_tokens: 10,   // small for testing   //CLAUDE_CONFIG.maxTokens,
