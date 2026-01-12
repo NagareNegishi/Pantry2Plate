@@ -11,15 +11,10 @@ import express from 'express';
 const router = express.Router();
 
 // Import controller
-// import { generateMenu } from '../controllers/menu.controller.js';
+import { generateMenu } from '../controllers/menu.controller.js';
 
 // Define route(s)
-// router.post('/generate', generateMenu);
-
-router.post('/generate', (req, res) => {
-  res.json({ message: 'Menu route is working!' });
-});
-
+router.post('/generate', generateMenu);
 
 // Export router
 export default router;
