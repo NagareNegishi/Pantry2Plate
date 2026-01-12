@@ -12,16 +12,24 @@ const client = new Anthropic({
   apiKey: CLAUDE_CONFIG.apiKey  // get from env variable
 });
 
+/**
+ * Generate menu suggestions from Claude API based on prompt
+ * @param prompt User prompt with ingredients and dietary preferences
+ * @returns Claude response content
+ */
+export async function generateMenuSuggestions(prompt: string) {
+  const message = await client.messages.create({
+    model: CLAUDE_CONFIG.model,
+    max_tokens: CLAUDE_CONFIG.maxTokens,
+    temperature: CLAUDE_CONFIG.temperature,
+    system: CLAUDE_CONFIG.system,
+    messages: [{ role: 'user', content: prompt }]
+  });
+
+  // content is the response text from Claude
+  console.log(message.content);
+  return message.content;
+}
 
 
-const message = await client.messages.create({
-  model: CLAUDE_CONFIG.model,
-  max_tokens: CLAUDE_CONFIG.maxTokens,
-  temperature: CLAUDE_CONFIG.temperature,
-  system: CLAUDE_CONFIG.system,
-  messages: [{ role: 'user', content: 'Hello, Claude' }] 
-});
 
-
-
-console.log(message.content);
