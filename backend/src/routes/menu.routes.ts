@@ -16,5 +16,10 @@ const router = express.Router();
 // Define route(s)
 // router.post('/generate', generateMenu);
 
+router.post('/generate', (req, res) => {
+  res.json({ message: 'Menu route is working!' });
+});
+
+
 // Export router
 export default router;
