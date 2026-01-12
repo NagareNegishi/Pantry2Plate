@@ -10,6 +10,8 @@ app.use(cors());
 app.use(express.json());
 
 
+import menuRoutes from './routes/menu.routes.js';
+app.use('/api/menu', menuRoutes);
 
 
 
