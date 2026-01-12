@@ -20,7 +20,7 @@ const client = new Anthropic({
 export async function generateMenuSuggestions(prompt: string) {
   const message = await client.messages.create({
     model: CLAUDE_CONFIG.model,
-    max_tokens: CLAUDE_CONFIG.maxTokens,
+    max_tokens: 100,   // small for testing   //CLAUDE_CONFIG.maxTokens,
     temperature: CLAUDE_CONFIG.temperature,
     system: CLAUDE_CONFIG.system,
     messages: [{ role: 'user', content: prompt }]

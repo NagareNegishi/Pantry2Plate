@@ -5,7 +5,8 @@
 
 import type { ValidationResult } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
-import type { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
+import { generateMenuSuggestions } from '../services/claude.service.js';
 
 // Pseudo-code structure
 export const generateMenu = async (req: Request, res: Response) => {
@@ -18,14 +19,12 @@ export const generateMenu = async (req: Request, res: Response) => {
     }
 
 
-    // 4. Call service (placeholder for now)
+    // Call service
     // const menuResponse = await generateMenuSuggestions(menuRequest);
+    const menuResponse = await generateMenuSuggestions("Say something short in one sentence");
 
-    // Return response (placeholder)
-    res.status(200).json({
-      message: 'Controller is working!',
-      receivedData: req.body
-    });
+    // Return response
+    res.status(200).json( { response: menuResponse } );
 
   } catch (error) {
     // Simple error handling

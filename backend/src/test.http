@@ -12,5 +12,14 @@ POST http://localhost:3001/api/menu/generate
 Content-Type: application/json
 
 {
-    "ingredients": ["chicken", "rice"]
+  "ingredients": ["chicken", "rice"]
+}
+
+
+### Test Menu Generate Endpoint with test ingredient
+POST http://localhost:3001/api/menu/generate
+Content-Type: application/json
+
+{
+  "ingredients": ["test"]
 }
