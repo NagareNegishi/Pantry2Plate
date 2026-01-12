@@ -12,9 +12,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2",
+    "@pantry2plate/shared": "file:../shared",
     "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "@pantry2plate/shared": "file:../shared"
+    "express": "^5.2.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
