@@ -1,4 +1,4 @@
-// backend/server.ts
+// backend/src/server.ts
 import cors from 'cors';
 import type { Request, Response } from 'express';
 import express from 'express';
