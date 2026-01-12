@@ -1,0 +1,8 @@
+### Test Health Endpoint
+GET http://localhost:3001/api/health
+
+### Test Menu Generate Endpoint
+POST http://localhost:3001/api/menu/generate
+Content-Type: application/json
+
+{}
