@@ -3,6 +3,7 @@
  * API key, model settings
  */
 
+// Configure default parameters for all messages: https://platform.claude.com/docs/en/api/messages/create
 export const CLAUDE_CONFIG = {
   apiKey: process.env.ANTHROPIC_API_KEY,  // env variable
   model: 'claude-sonnet-4-5-20250929',    // See available models with Claude API

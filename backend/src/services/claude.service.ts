@@ -5,15 +5,23 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { CLAUDE_CONFIG } from '../config/claude.config.js';
+
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: CLAUDE_CONFIG.apiKey  // get from env variable
 });
 
+
+
 const message = await client.messages.create({
-  max_tokens: 1024,
-  messages: [{ role: 'user', content: 'Hello, Claude' }],
-  model: 'claude-sonnet-4-5-20250929',
+  model: CLAUDE_CONFIG.model,
+  max_tokens: CLAUDE_CONFIG.maxTokens,
+  temperature: CLAUDE_CONFIG.temperature,
+  system: CLAUDE_CONFIG.system,
+  messages: [{ role: 'user', content: 'Hello, Claude' }] 
 });
+
+
 
 console.log(message.content);
