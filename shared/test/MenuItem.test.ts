@@ -88,7 +88,7 @@ describe('Constructor Validation', () => {
     const menuItem = new MenuItemImpl({ servings: 0 });
     const validation = menuItem.validate();
     expect(validation.valid).toBe(false);
-    expect(validation.errors).toContain('Servings must be greater than zero.');
+    expect(validation.errors).toContain('Servings must be between 1 and 12');
     expect(menuItem.servings).toBe(1); // Auto-corrected to 1
   });
 

@@ -115,7 +115,7 @@ describe('Constructor Validation', () => {
     });
     const validation = request.validate();
     expect(validation.valid).toBe(false);
-    expect(validation.errors).toContain('Servings must be at least 1');
+    expect(validation.errors).toContain('Servings must be between 1 and 12');
     expect(request.servings).toBe(1); // Auto-corrected
   });
 
