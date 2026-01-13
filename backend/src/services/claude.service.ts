@@ -20,7 +20,7 @@ const client = new Anthropic({
 export async function generateMenuSuggestions(prompt: string) {
   // Limit API calls if disabled
   if (!CLAUDE_CONFIG.enabled) {
-    return "API disabled - set ENABLE_CLAUDE_API=true to enable";
+    throw new Error("API disabled - set ENABLE_CLAUDE_API=true to enable");
   }
 
   const message = await client.messages.create({
@@ -31,10 +31,18 @@ export async function generateMenuSuggestions(prompt: string) {
     messages: [{ role: 'user', content: prompt }]
   });
 
-  // content is the response text from Claude
+  // It returns array of ContentBlock which might be empty or contain non-text blocks.
+
+
   console.log(message.content);
   return message.content;
 }
 
-
+/**
+ * NOTE: Return of create message:
+ * 1. the main response is in message.content, which is an array of ContentBlock
+ * 2. message.content[0] is usually the "type" of first block, but it can be undefined
+ * 3. In my case, ContentBlock should contain only one Block of type 'text'
+ * 4. So if message.content[0] exists and is of type 'text', then message.content[0].text contains the actual string response
+ */
 
