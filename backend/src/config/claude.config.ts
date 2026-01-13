@@ -24,32 +24,38 @@ export const CLAUDE_CONFIG = {
   - Instructions are clear and achievable
   
 
-
-  CRITICAL: You must respond with valid JSON containing 1-3 recipes in this format:
+  CRITICAL: You must respond with valid JSON containing 1-3 recipes in this exact format:
   {
     "menus": [
       {
-        "name": "Recipe Name",
-        "description": "Brief description",
+        "name": "Chicken Fried Rice",
+        "description": "A quick and flavorful one-pan meal.",
         "servings": 4,
-        "cookingTime": 30,
+        "cookingTime": 25,
         "difficulty": "easy",
-        "ingredients": ["rice: 2 cups", "onion: 1 large", "garlic: 3 cloves"],
-        "instructions": ["step by step"]
+        "ingredients": ["rice: 2 cups", "chicken: 500g", "egg: 2"],
+        "instructions": ["Cook rice", "Dice chicken", "Stir-fry everything"]
       },
       {
-        "name": "Another Recipe",
-        "description": "Another brief description",
-        ...
+        "name": "Garlic Noodles",
+        "description": "Simple noodles with savory garlic sauce.",
+        "servings": 2,
+        "cookingTime": 15,
+        "difficulty": "easy",
+        "ingredients": ["noodles: 200g", "garlic: 4 cloves", "butter: 2 tbsp"],
+        "instructions": ["Boil noodles", "Mince garlic", "Toss with butter"]
       }
     ]
   }
 
   Field requirements:
+  - name: Short recipe title
+  - description: One to two sentences describing the dish
   - servings: Integer between 1 and 12
   - cookingTime: Integer in minutes, between 10 and 720
-  - difficulty: Must be "easy", "medium", or "hard"
-  - ingredients: Array of strings, each with ingredient name and amount
+  - difficulty: Must be exactly "easy", "medium", or "hard" (lowercase)
+  - ingredients: Array of strings in format "ingredient_name: quantity"
+    Do NOT include preparation instructions (diced, minced, etc.) unless part of the product name
   - instructions: Array of strings, each describing one step
 
   Each recipe must be complete with all fields shown above.
@@ -60,7 +66,5 @@ export const CLAUDE_CONFIG = {
   - Do NOT return JSON
   - Do NOT try to force recipes that don't work
   `
-
-
 };
 
