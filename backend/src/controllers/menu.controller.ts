@@ -18,11 +18,15 @@ export const generateMenu = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid request', details: validation.errors });
     }
 
-
     // Call service
     // const menuResponse = await generateMenuSuggestions(menuRequest);
     const response = await generateMenuSuggestions("Say something short in one sentence");
 
+    // Case: insufficient ingredients/impossible request
+    if (response === "INSUFFICIENT_INGREDIENTS") {
+      return res.status(400).json({ error: 'Cannot generate recipes with provided ingredients'});
+    }
+    // Validate response
     const parsed = JSON.parse(response);
     const menuResponse = new MenuResponseImpl(parsed);
     const responseValidation: ValidationResult = menuResponse.validate();
