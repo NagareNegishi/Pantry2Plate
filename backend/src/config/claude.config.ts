@@ -45,6 +45,13 @@ export const CLAUDE_CONFIG = {
     ]
   }
 
+  Field requirements:
+  - servings: Integer between 1 and 12
+  - cookingTime: Integer in minutes, between 10 and 720
+  - difficulty: Must be "easy", "medium", or "hard"
+  - ingredients: Array of strings, each with ingredient name and amount
+  - instructions: Array of strings, each describing one step
+
   Each recipe must be complete with all fields shown above.
   Do not include any text before or after the JSON.
 
