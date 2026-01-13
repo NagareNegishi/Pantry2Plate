@@ -25,7 +25,7 @@ export interface MenuItem {
   
   /**
    * List of ingredients with amounts
-   * Format: "2 cups rice" or "1 large onion, diced"
+   * "ingredient_name: quantity"
    */
   ingredients: string[];
   

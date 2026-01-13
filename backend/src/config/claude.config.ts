@@ -34,7 +34,7 @@ export const CLAUDE_CONFIG = {
         "servings": 4,
         "cookingTime": 30,
         "difficulty": "easy",
-        "ingredients": ["ingredient with amount"],
+        "ingredients": ["rice: 2 cups", "onion: 1 large", "garlic: 3 cloves"],
         "instructions": ["step by step"]
       },
       {
