@@ -3,11 +3,47 @@
  * https://jestjs.io/docs/configuration
  */
 
+/**
+ * Extension is .cjs (CommonJS) because:
+ * - This package uses "type": "module" in package.json for ESM support
+ * - With "type": "module", all .js files are treated as ESM
+ * - This config file uses CommonJS syntax (module.exports)
+ * - The .cjs extension forces Node.js to treat this file as CommonJS
+ *   regardless of the package.json "type" field
+ * Reference: https://nodejs.org/api/packages.html#determining-module-system
+ */
+
 /** @type {import('jest').Config} */
 const config = {
   // Ts-Jest require configuration to transform TypeScript files
   // https://kulshekhar.github.io/ts-jest/docs/getting-started/installation#jest-config-file
   preset: "ts-jest",
+
+  // Automatically clear mock calls, instances, contexts and results before every test
+  clearMocks: true,
+
+  // Indicates which provider should be used to instrument code for coverage
+  coverageProvider: "v8",
+  
+  // Tells Jest to treat .ts files as ESM modules: https://jestjs.io/docs/configuration#extensionstotreatasesm-arraystring
+  extensionsToTreatAsEsm: ['.ts'],
+  
+  // TypeScript files import with .js extensions: import { X } from './file.js'
+  // But the actual files are .ts before compilation, This regex removes .js so Jest can find .ts files
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+
+// Configures ts-jest to transform TypeScript in ESM mode, Default ts-jest uses CommonJS
+  transform: {
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
+  
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -17,8 +53,7 @@ const config = {
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "C:\\Users\\ryuio\\AppData\\Local\\Temp\\jest",
 
-  // Automatically clear mock calls, instances, contexts and results before every test
-  clearMocks: true,
+
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -33,9 +68,6 @@ const config = {
   // coveragePathIgnorePatterns: [
   //   "\\\\node_modules\\\\"
   // ],
-
-  // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -92,9 +124,6 @@ const config = {
   //   "json",
   //   "node"
   // ],
-
-  // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
