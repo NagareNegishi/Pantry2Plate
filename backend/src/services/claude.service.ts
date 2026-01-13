@@ -16,6 +16,7 @@ const client = new Anthropic({
  * Generate menu suggestions from Claude API based on prompt
  * @param prompt User prompt with ingredients and dietary preferences
  * @returns Claude response content
+ * @throws Error if API call fails or response format is unexpected
  */
 export async function generateMenuSuggestions(prompt: string) {
   // Limit API calls if disabled
@@ -31,11 +32,14 @@ export async function generateMenuSuggestions(prompt: string) {
     messages: [{ role: 'user', content: prompt }]
   });
 
-  // It returns array of ContentBlock which might be empty or contain non-text blocks.
+  // handle response, see NOTE below
+  const firstBlock = message.content[0];
+  if (!firstBlock || firstBlock.type !== 'text') {
+    throw new Error('Unexpected response format from Claude API');
+  }
 
-
-  console.log(message.content);
-  return message.content;
+  console.log(firstBlock.text);
+  return firstBlock.text;
 }
 
 /**
