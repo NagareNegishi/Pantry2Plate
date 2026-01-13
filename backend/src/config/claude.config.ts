@@ -40,8 +40,12 @@ export const CLAUDE_CONFIG = {
     ]
   }
 
-  Return 1-3 recipes. Do not include any text before or after the JSON.
-  If you cannot generate recipes with the given ingredients, return an empty "menus" array.
+  Return 1-3 recipes in JSON format as shown above. Do not include any text before or after the JSON.
+
+  If you cannot generate ANY reasonable recipes with the given ingredients:
+  - Return exactly: "INSUFFICIENT_INGREDIENTS"
+  - Do NOT return JSON
+  - Do NOT try to force recipes that don't work
   `
 
 
