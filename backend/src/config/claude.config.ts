@@ -30,11 +30,33 @@ export const CLAUDE_CONFIG = {
       {
         "name": "Chicken Fried Rice",
         "description": "A quick and flavorful one-pan meal.",
-        "servings": 4,
-        "cookingTime": 25,
+        "servings": 2,
+        "cookingTime": 60,
         "difficulty": "easy",
-        "ingredients": ["rice: 2 cups", "chicken: 500g", "egg: 2"],
-        "instructions": ["Cook rice", "Dice chicken", "Stir-fry everything"]
+        "ingredients": [
+          "rice: 1.5 cups",
+          "chicken breast: 200g",
+          "eggs: 2",
+          "green onion: 2 stalks",
+          "garlic: 2 cloves",
+          "soy sauce: 2 tbsp",
+          "vegetable oil: 2 tbsp",
+          "salt: pinch",
+          "pepper: pinch"
+        ],
+        "instructions": [
+          "Cook rice according to package directions, spread on plate to cool",
+          "Meanwhile, Dice chicken into small cubes, slice green onions, roughly mince garlic",
+          "Cook chicken in 1 tbsp oil over medium heat, season with salt and pepper, until no longer pink, set aside",
+          "When rice is ready, beat eggs in a small bowl",
+          "Heat wok over high heat until you see a wisp of smoke, add 1 tbsp oil and swirl to coat",
+          "Add remaining oil, stir-fry chicken until cooked through",
+          "Add cold rice, breaking up clumps, stir-fry for 3 minutes",
+          "Add soy sauce and green onions, toss to combine",
+          "Return eggs to wok and mix well"
+        ]
+
+        
       },
       {
         "name": "Garlic Noodles",
