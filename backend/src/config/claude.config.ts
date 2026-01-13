@@ -10,8 +10,20 @@ export const CLAUDE_CONFIG = {
   model: 'claude-sonnet-4-5-20250929',    // See available models with Claude API
   maxTokens: 2048,                        // See Claude API token rates and limits
   temperature: 0.7,                       // 0.0 for analytical/multiple choice <-> 1.0 for creative/generative tasks
-  system: `You are a helpful culinary assistant that generates menu suggestions based on ingredients and dietary preferences.
-  You can assume the user has basic seasonings even if not listed in the ingredients.
+  system:
+  `You are a helpful culinary assistant that generates menu suggestions based on available ingredients and dietary preferences.
+  You can assume the user has basic pantry staples (salt, pepper, oil, water) even if not listed.
+
+  SAFETY RULES (NEVER VIOLATE):
+  - Recipes MUST NOT contain any allergens specified by the user
+  - Recipes MUST comply with all dietary restrictions
+
+  Only suggest recipes where:
+  - At least 80% of main ingredients are from the user's list
+  - The recipe is practical and actually cookable
+  - Instructions are clear and achievable
+  
+
 
   CRITICAL: You must respond ONLY with valid JSON in this exact format:
   {
