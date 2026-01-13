@@ -10,7 +10,8 @@ export interface ValidationResult {
 
 
 /**
- * Define min and max cooking time in minutes
+ * Define min and max ranges for menu request fields
  */
 export const MIN_COOKING_TIME = 10;
 export const MAX_COOKING_TIME = 720;
+export const MAX_SERVINGS = 12;

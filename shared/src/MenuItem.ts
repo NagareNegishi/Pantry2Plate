@@ -1,7 +1,7 @@
 // shared/src/MenuItem.ts
 
 import { Difficulty } from './enums.js';
-import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types.js';
+import { MAX_COOKING_TIME, MAX_SERVINGS, MIN_COOKING_TIME, ValidationResult } from './types.js';
 
 /**
  * Menu item response from backend
@@ -70,17 +70,16 @@ export class MenuItemImpl implements MenuItem {
 
     if (this.name === 'Invalid') { errors.push('Recipe name is missing.'); }
     if (this.description === 'No description provided.') { errors.push('Recipe description is missing.'); }
-    if (this.servings <= 0) {
-      errors.push('Servings must be greater than zero.');
-      this.servings = 1; // Default to 1
+    if (this.servings <= 0 || this.servings > MAX_SERVINGS) {
+      errors.push('Servings must be between 1 and 12');
+      // Auto-correct to nearest bound
+      this.servings = Math.min(Math.max(this.servings, 1), MAX_SERVINGS);
     }
-
     if (this.cookingTime < MIN_COOKING_TIME || this.cookingTime > MAX_COOKING_TIME) {
       errors.push('Cooking time must be between 10 and 720 minutes');
       // Auto-correct to nearest bound
       this.cookingTime = Math.min(Math.max(this.cookingTime, MIN_COOKING_TIME), MAX_COOKING_TIME);
     }
-
     if (this.difficulty === 'any') {
       errors.push('Recipe difficulty is not specified.');
     }

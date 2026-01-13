@@ -10,7 +10,7 @@ import {
   MealType
 } from './enums.js';
 
-import { MAX_COOKING_TIME, MIN_COOKING_TIME, ValidationResult } from './types.js';
+import { MAX_COOKING_TIME, MAX_SERVINGS, MIN_COOKING_TIME, ValidationResult } from './types.js';
 
 /**
  * Menu request from user to backend
@@ -164,9 +164,9 @@ export class MenuRequestImpl implements MenuRequest {
 
     // Basic validations
     if (this.ingredients.length === 0) { errors.push('At least one ingredient is required'); }
-    if (this.servings < 1) {
-      errors.push('Servings must be at least 1');
-      this.servings = 1; // Auto-correct
+    if (this.servings <= 0 || this.servings > MAX_SERVINGS) {
+      errors.push('Servings must be between 1 and 12');
+      this.servings = Math.min(Math.max(this.servings, 1), MAX_SERVINGS);
     }
     if (this.flavorProfiles.length > 3) {
       errors.push('Maximum 3 flavor profiles allowed');
