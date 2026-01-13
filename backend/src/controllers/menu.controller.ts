@@ -4,7 +4,7 @@
  */
 
 import type { ValidationResult } from '@pantry2plate/shared';
-import { MenuRequestImpl } from '@pantry2plate/shared';
+import { MenuRequestImpl, MenuResponseImpl } from '@pantry2plate/shared';
 import { type Request, type Response } from 'express';
 import { generateMenuSuggestions } from '../services/claude.service.js';
 
@@ -14,22 +14,24 @@ export const generateMenu = async (req: Request, res: Response) => {
     // Validate request body
     const menuRequest: MenuRequestImpl = new MenuRequestImpl(req.body);
     const validation: ValidationResult = menuRequest.validate();
-    if (validation.valid === false && validation.errors.includes('At least one ingredient is required')) {
+    if (!validation.valid && validation.errors.includes('At least one ingredient is required')) {
       return res.status(400).json({ error: 'Invalid request', details: validation.errors });
     }
 
 
     // Call service
     // const menuResponse = await generateMenuSuggestions(menuRequest);
-    const menuResponse = await generateMenuSuggestions("Say something short in one sentence");
+    const response = await generateMenuSuggestions("Say something short in one sentence");
 
-    // 2. Extract text from content blocks
-    const text = menuResponse[0].text;  // Anthropic SDK returns content array
-
-
-
-
-
+    const parsed = JSON.parse(response);
+    const menuResponse = new MenuResponseImpl(parsed);
+    const responseValidation: ValidationResult = menuResponse.validate();
+    if (!responseValidation.valid) {
+      return res.status(500).json({
+        error: 'Invalid response from menu generation service',
+        details: responseValidation.errors
+      });
+    }
 
     // Return response
     res.status(200).json( { response: menuResponse } );
