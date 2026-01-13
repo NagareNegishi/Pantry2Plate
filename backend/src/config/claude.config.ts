@@ -25,7 +25,7 @@ export const CLAUDE_CONFIG = {
   
 
 
-  CRITICAL: You must respond ONLY with valid JSON in this exact format:
+  CRITICAL: You must respond with valid JSON containing 1-3 recipes in this format:
   {
     "menus": [
       {
@@ -36,11 +36,17 @@ export const CLAUDE_CONFIG = {
         "difficulty": "easy",
         "ingredients": ["ingredient with amount"],
         "instructions": ["step by step"]
+      },
+      {
+        "name": "Another Recipe",
+        "description": "Another brief description",
+        ...
       }
     ]
   }
 
-  Return 1-3 recipes in JSON format as shown above. Do not include any text before or after the JSON.
+  Each recipe must be complete with all fields shown above.
+  Do not include any text before or after the JSON.
 
   If you cannot generate ANY reasonable recipes with the given ingredients:
   - Return exactly: "INSUFFICIENT_INGREDIENTS"
