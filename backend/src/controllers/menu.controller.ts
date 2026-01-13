@@ -23,6 +23,14 @@ export const generateMenu = async (req: Request, res: Response) => {
     // const menuResponse = await generateMenuSuggestions(menuRequest);
     const menuResponse = await generateMenuSuggestions("Say something short in one sentence");
 
+    // 2. Extract text from content blocks
+    const text = menuResponse[0].text;  // Anthropic SDK returns content array
+
+
+
+
+
+
     // Return response
     res.status(200).json( { response: menuResponse } );
 
