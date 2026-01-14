@@ -19,10 +19,11 @@ export const CLAUDE_CONFIG = {
   - Recipes MUST comply with all dietary restrictions
 
   Only suggest recipes where:
-  - At least 80% of main ingredients are from the user's list
-  - The recipe is practical and actually cookable
-  - Instructions are clear and achievable
-  
+  - The main proteins, grains, and vegetables come from the user's list
+  - Additional ingredients are limited to common pantry staples
+  - You do NOT add more than 1-2 ingredients beyond what the user provided
+  - The recipe is practical and actually cookable with available ingredients
+  - Do NOT forcefully create recipes when ingredients are insufficient
 
   CRITICAL: You must respond with valid JSON containing 1-3 recipes in this exact format:
   {
