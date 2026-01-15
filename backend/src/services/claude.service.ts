@@ -5,7 +5,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { MenuRequestImpl } from '@pantry2plate/shared';
+import { Allergy, DietaryRestriction, FlavorProfile, MenuRequestImpl } from '@pantry2plate/shared';
 import { CLAUDE_CONFIG } from '../config/claude.config.js';
 
 
@@ -16,12 +16,60 @@ const client = new Anthropic({
 
 /**
  * Format menu prompt for Claude API
- * @param request Menu request from user
+ * @param request Menu request from user, it must be validated MenuRequestImpl
  * @returns Formatted prompt string
  */
 function formatMenuPrompt(request: MenuRequestImpl): string {
-  // formatting logic
-  return "Formatted prompt based on MenuRequest"; // placeholder
+  // Valid MenuRequestImpl guaranteed to have ingredients
+  let prompt = `Ingredients: ${request.ingredients.join(', ')}\n`;
+
+  if (request.allergies.length > 0 || request.allergiesCustom.length > 0) {
+    // ... spread operators to unpack + concatenate arrays
+    const allAllergies = [
+      ...request.allergies.filter((a: Allergy) => a !== 'other'),
+      ...request.allergiesCustom
+    ];
+    prompt += `Allergies: ${allAllergies.join(', ')}\n`;
+  }
+
+  if (request.dietaryRestrictions.length > 0 || request.dietaryRestrictionsCustom.length > 0) {
+    const allDietary = [
+      ...request.dietaryRestrictions.filter((d: DietaryRestriction) => d !== 'other'),
+      ...request.dietaryRestrictionsCustom
+    ];
+    prompt += `Dietary Restrictions: ${allDietary.join(', ')}\n`;
+  }
+  
+  // always present with default
+  prompt += `Servings: ${request.servings}\n`;
+  prompt += `Max Cooking Time: ${request.maxCookingTime} minutes\n`;
+
+  if (request.mealType !== 'any') {
+    prompt += `Meal Type: ${request.mealType === 'other' ? request.mealTypeCustom : request.mealType}\n`;
+  }
+  
+  if (!request.flavorProfiles.includes('any')) {
+    const flavors = request.flavorProfiles.includes('other')
+      ? [
+        ...request.flavorProfiles.filter((fp: FlavorProfile) => fp !== 'other'),
+        ...request.flavorProfilesCustom
+      ]
+      : request.flavorProfiles;
+    prompt += `Flavor Profiles: ${flavors.join(', ')}\n`;
+  }
+
+  if (request.cuisineType !== 'any') {
+    prompt += `Cuisine Type: ${request.cuisineType === 'other' ? request.cuisineTypeCustom : request.cuisineType}\n`;
+  }
+
+  if (request.cookingMethod !== 'any') {
+    prompt += `Cooking Method: ${request.cookingMethod === 'other' ? request.cookingMethodCustom : request.cookingMethod}\n`;
+  }
+
+  if (request.difficulty !== 'any') {
+    prompt += `Difficulty: ${request.difficulty}\n`;
+  }
+  return prompt;
 }
 
 
