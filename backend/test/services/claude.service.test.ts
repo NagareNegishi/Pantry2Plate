@@ -1,5 +1,6 @@
 // claude.service.test.ts
 import { describe, expect, it } from '@jest/globals';
+import type { Allergy } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
 import { formatMenuPrompt } from '../../src/services/claude.service.js';
 
@@ -25,17 +26,22 @@ describe('formatMenuPrompt', () => {
   });
 
   it.each([
-    [['nuts', 'dairy'], 'Allergies: nuts, dairy'],
-    [['gluten', 'other'], 'Allergies: gluten, shellfish'],
-    [[], '']  // No allergies case
+    [['tree-nuts', 'milk'], [], 'Allergies: tree-nuts, milk'],
+    [['wheat', 'other'], ['shellfish'], 'Allergies: wheat, shellfish'],
+    [['other'], ['soy', 'eggs'], 'Allergies: soy, eggs'],
+    [[], [], '']  // No allergies
   ])
-  ('should format basic request', (allergies, expected) => {
+  ('should format allergies correctly', (allergies, allergiesCustom, expected) => {
     const request = new MenuRequestImpl({
-      ingredients: ['tomato', 'cheese'], allergies
+      ingredients: ['tomato', 'cheese'],
+      allergies: allergies as Allergy[],
+      allergiesCustom
     });
     const prompt = formatMenuPrompt(request);
-    expect(prompt).toContain(expected);
-    // Ensure other fields are present with defaults
-
+    if (expected) {
+      expect(prompt).toContain(expected);
+    } else {
+      expect(prompt).not.toContain('Allergies:');
+    }
   });
 });
