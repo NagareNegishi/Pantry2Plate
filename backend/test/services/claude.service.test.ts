@@ -5,6 +5,7 @@ import { MenuRequestImpl } from '@pantry2plate/shared';
 import { formatMenuPrompt } from '../../src/services/claude.service.js';
 
 
+// validation() must be called before formatMenuPrompt, so I will not test invalid cases here
 describe('formatMenuPrompt', () => {
   it.each([
     [['chicken', 'rice'], 'Ingredients: chicken, rice'],
@@ -64,5 +65,19 @@ describe('formatMenuPrompt', () => {
     } else {
       expect(prompt).not.toContain('Dietary Restrictions:');
     }
+  });
+
+  it.each([
+    [1, 'Servings: 1'],
+    [5, 'Servings: 5'],
+    [12, 'Servings: 12'],
+  ])
+  ('should format servings correctly', (servings, expected) => {
+    const request = new MenuRequestImpl({
+      ingredients: ['salmon'],
+      servings
+    });
+    const prompt = formatMenuPrompt(request);
+    expect(prompt).toContain(expected);
   });
 });
