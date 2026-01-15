@@ -80,4 +80,22 @@ describe('formatMenuPrompt', () => {
     const prompt = formatMenuPrompt(request);
     expect(prompt).toContain(expected);
   });
+
+  it.each([
+    [15, 'Max Cooking Time: 15 minutes'],
+    [90, 'Max Cooking Time: 90 minutes'],
+    [720, 'Max Cooking Time: 720 minutes'],
+  ])
+  ('should format max cooking time correctly', (maxCookingTime, expected) => {
+    const request = new MenuRequestImpl({
+      ingredients: ['pasta'],
+      maxCookingTime
+    });
+    const prompt = formatMenuPrompt(request);
+    expect(prompt).toContain(expected);
+  });
+
+
+
+
 });
