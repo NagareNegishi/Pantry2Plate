@@ -5,7 +5,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import { Allergy, DietaryRestriction, FlavorProfile, MenuRequestImpl } from '@pantry2plate/shared';
+import { MenuRequestImpl } from '@pantry2plate/shared';
 import { CLAUDE_CONFIG } from '../config/claude.config.js';
 
 
@@ -19,14 +19,14 @@ const client = new Anthropic({
  * @param request Menu request from user, it must be validated MenuRequestImpl
  * @returns Formatted prompt string
  */
-function formatMenuPrompt(request: MenuRequestImpl): string {
+export function formatMenuPrompt(request: MenuRequestImpl): string {
   // Valid MenuRequestImpl guaranteed to have ingredients
   let prompt = `Ingredients: ${request.ingredients.join(', ')}\n`;
 
   if (request.allergies.length > 0 || request.allergiesCustom.length > 0) {
     // ... spread operators to unpack + concatenate arrays
     const allAllergies = [
-      ...request.allergies.filter((a: Allergy) => a !== 'other'),
+      ...request.allergies.filter(a => a !== 'other'),
       ...request.allergiesCustom
     ];
     prompt += `Allergies: ${allAllergies.join(', ')}\n`;
@@ -34,7 +34,7 @@ function formatMenuPrompt(request: MenuRequestImpl): string {
 
   if (request.dietaryRestrictions.length > 0 || request.dietaryRestrictionsCustom.length > 0) {
     const allDietary = [
-      ...request.dietaryRestrictions.filter((d: DietaryRestriction) => d !== 'other'),
+      ...request.dietaryRestrictions.filter(d => d !== 'other'),
       ...request.dietaryRestrictionsCustom
     ];
     prompt += `Dietary Restrictions: ${allDietary.join(', ')}\n`;
@@ -47,12 +47,12 @@ function formatMenuPrompt(request: MenuRequestImpl): string {
   
   const flavors = request.flavorProfiles.includes('other')
     ? [
-      ...request.flavorProfiles.filter((fp: FlavorProfile) => fp !== 'other'),
+      ...request.flavorProfiles.filter(fp => fp !== 'other'),
       ...request.flavorProfilesCustom
     ]
     : request.flavorProfiles;
   prompt += `Flavor Profiles: ${flavors.join(', ')}\n`;
-  
+
   prompt += `Cooking Method: ${request.cookingMethod === 'other' ? request.cookingMethodCustom : request.cookingMethod}\n`;
   prompt += `Difficulty: ${request.difficulty}\n`;
 

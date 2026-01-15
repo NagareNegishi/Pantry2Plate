@@ -1,6 +1,6 @@
 // shared/src/MenuRequest.ts
 
-import {
+import type {
   Allergy,
   CookingMethod,
   CuisineType,
@@ -10,7 +10,8 @@ import {
   MealType
 } from './enums.js';
 
-import { MAX_COOKING_TIME, MAX_SERVINGS, MIN_COOKING_TIME, ValidationResult } from './types.js';
+import type { ValidationResult } from './types.js';
+import { MAX_COOKING_TIME, MAX_SERVINGS, MIN_COOKING_TIME } from './types.js';
 
 /**
  * Menu request from user to backend
