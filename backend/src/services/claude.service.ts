@@ -5,6 +5,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import { MenuRequestImpl } from '@pantry2plate/shared';
 import { CLAUDE_CONFIG } from '../config/claude.config.js';
 
 
@@ -12,18 +13,32 @@ const client = new Anthropic({
   apiKey: CLAUDE_CONFIG.apiKey  // get from env variable
 });
 
+
+/**
+ * Format menu prompt for Claude API
+ * @param request Menu request from user
+ * @returns Formatted prompt string
+ */
+function formatMenuPrompt(request: MenuRequestImpl): string {
+  // formatting logic
+  return "Formatted prompt based on MenuRequest"; // placeholder
+}
+
+
+
 /**
  * Generate menu suggestions from Claude API based on prompt
- * @param prompt User prompt with ingredients and dietary preferences
+ * @param request Menu request from user
  * @returns Claude response content
  * @throws Error if API call fails or response format is unexpected
  */
-export async function generateMenuSuggestions(prompt: string) {
+export async function generateMenuSuggestions(request: MenuRequestImpl) {
   // Limit API calls if disabled
   if (!CLAUDE_CONFIG.enabled) {
     throw new Error("API disabled - set ENABLE_CLAUDE_API=true to enable");
   }
 
+  const prompt = formatMenuPrompt(request);
   const message = await client.messages.create({
     model: CLAUDE_CONFIG.model,
     max_tokens: 10,   // small for testing   //CLAUDE_CONFIG.maxTokens,

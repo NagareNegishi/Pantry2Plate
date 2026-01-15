@@ -19,8 +19,7 @@ export const generateMenu = async (req: Request, res: Response) => {
     }
 
     // Call service
-    // const menuResponse = await generateMenuSuggestions(menuRequest);
-    const response = await generateMenuSuggestions("Say something short in one sentence");
+    const response = await generateMenuSuggestions(menuRequest);
 
     // Case: insufficient ingredients/impossible request
     if (response === "INSUFFICIENT_INGREDIENTS") {
