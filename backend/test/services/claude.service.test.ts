@@ -1,6 +1,6 @@
 // claude.service.test.ts
 import { describe, expect, it } from '@jest/globals';
-import type { Allergy, DietaryRestriction, MealType } from '@pantry2plate/shared';
+import type { Allergy, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
 import { formatMenuPrompt } from '../../src/services/claude.service.js';
 
@@ -110,6 +110,23 @@ describe('formatMenuPrompt', () => {
     const prompt = formatMenuPrompt(request);
     expect(prompt).toContain(expected);
   });
+
+  it.each([
+    [['spicy', 'savory'], [], 'Flavor Profiles: spicy, savory'],
+    [['sweet', 'other'], ['umami'], 'Flavor Profiles: sweet, umami'],
+    [['other'], ['tangy', 'zesty'], 'Flavor Profiles: tangy, zesty'],
+    [['any'], [], 'Flavor Profiles: any'],
+  ])
+  ('should format flavor profiles correctly', (flavorProfiles, flavorProfilesCustom, expected) => {
+    const request = new MenuRequestImpl({
+      ingredients: ['chicken'],
+      flavorProfiles: flavorProfiles as FlavorProfile[],
+      flavorProfilesCustom
+    });
+    const prompt = formatMenuPrompt(request);
+    expect(prompt).toContain(expected);
+  });
+
 
 
 });
