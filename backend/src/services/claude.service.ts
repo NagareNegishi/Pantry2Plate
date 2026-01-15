@@ -39,39 +39,25 @@ function formatMenuPrompt(request: MenuRequestImpl): string {
     ];
     prompt += `Dietary Restrictions: ${allDietary.join(', ')}\n`;
   }
-  
-  // always present with default
+
   prompt += `Servings: ${request.servings}\n`;
   prompt += `Max Cooking Time: ${request.maxCookingTime} minutes\n`;
-
-  if (request.mealType !== 'any') {
-    prompt += `Meal Type: ${request.mealType === 'other' ? request.mealTypeCustom : request.mealType}\n`;
-  }
+  prompt += `Meal Type: ${request.mealType === 'other' ? request.mealTypeCustom : request.mealType}\n`;
+  prompt += `Cuisine Type: ${request.cuisineType === 'other' ? request.cuisineTypeCustom : request.cuisineType}\n`;
   
-  if (!request.flavorProfiles.includes('any')) {
-    const flavors = request.flavorProfiles.includes('other')
-      ? [
-        ...request.flavorProfiles.filter((fp: FlavorProfile) => fp !== 'other'),
-        ...request.flavorProfilesCustom
-      ]
-      : request.flavorProfiles;
-    prompt += `Flavor Profiles: ${flavors.join(', ')}\n`;
-  }
+  const flavors = request.flavorProfiles.includes('other')
+    ? [
+      ...request.flavorProfiles.filter((fp: FlavorProfile) => fp !== 'other'),
+      ...request.flavorProfilesCustom
+    ]
+    : request.flavorProfiles;
+  prompt += `Flavor Profiles: ${flavors.join(', ')}\n`;
+  
+  prompt += `Cooking Method: ${request.cookingMethod === 'other' ? request.cookingMethodCustom : request.cookingMethod}\n`;
+  prompt += `Difficulty: ${request.difficulty}\n`;
 
-  if (request.cuisineType !== 'any') {
-    prompt += `Cuisine Type: ${request.cuisineType === 'other' ? request.cuisineTypeCustom : request.cuisineType}\n`;
-  }
-
-  if (request.cookingMethod !== 'any') {
-    prompt += `Cooking Method: ${request.cookingMethod === 'other' ? request.cookingMethodCustom : request.cookingMethod}\n`;
-  }
-
-  if (request.difficulty !== 'any') {
-    prompt += `Difficulty: ${request.difficulty}\n`;
-  }
   return prompt;
 }
-
 
 
 /**
