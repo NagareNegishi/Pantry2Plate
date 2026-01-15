@@ -1,6 +1,6 @@
 // claude.service.test.ts
 import { describe, expect, it } from '@jest/globals';
-import type { Allergy } from '@pantry2plate/shared';
+import type { Allergy, DietaryRestriction } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
 import { formatMenuPrompt } from '../../src/services/claude.service.js';
 
@@ -42,6 +42,27 @@ describe('formatMenuPrompt', () => {
       expect(prompt).toContain(expected);
     } else {
       expect(prompt).not.toContain('Allergies:');
+    }
+  });
+
+  it.each([
+    [['vegetarian', 'gluten-free'], [], 'Dietary Restrictions: vegetarian, gluten-free'],
+    [['vegan', 'other'], ['low-sodium'], 'Dietary Restrictions: vegan, low-sodium'],
+    [['vegan', 'other'], ['low_sodium'], 'Dietary Restrictions: vegan' ], // invalid custom ignored
+    [['other'], ['keto', 'paleo'], 'Dietary Restrictions: keto, paleo'],
+    [[], [], '']  // No restrictions
+  ])
+  ('should format dietary restrictions correctly', (restrictions, restrictionsCustom, expected) => {
+    const request = new MenuRequestImpl({
+      ingredients: ['tomato', 'cheese'],
+      dietaryRestrictions: restrictions as DietaryRestriction[],
+      dietaryRestrictionsCustom: restrictionsCustom
+    });
+    const prompt = formatMenuPrompt(request);
+    if (expected) {
+      expect(prompt).toContain(expected);
+    } else {
+      expect(prompt).not.toContain('Dietary Restrictions:');
     }
   });
 });

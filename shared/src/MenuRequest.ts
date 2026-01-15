@@ -137,7 +137,7 @@ export class MenuRequestImpl implements MenuRequest {
     if (!input) return '';
     
     const trimmed = input.trim();
-    const regex = /^[a-zA-Z ]{1,20}$/;
+    const regex = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
     
     // If invalid, return empty string (silently reject)
     if (!regex.test(trimmed)) return '';
