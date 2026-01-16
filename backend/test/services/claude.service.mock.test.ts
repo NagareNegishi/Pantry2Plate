@@ -86,7 +86,14 @@ describe('generateMenuSuggestions - mocked', () => {
       .rejects.toThrow('Unexpected response format from Claude API');
   });
 
-
+  it('should throw error when content type is not text', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{ type: 'image', /* ... */ }]  // Wrong type
+    });
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    await expect(generateMenuSuggestions(request))
+      .rejects.toThrow('Unexpected response format from Claude API');
+  });
 
 
 });
