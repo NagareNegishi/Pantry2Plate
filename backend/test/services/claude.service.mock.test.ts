@@ -75,6 +75,18 @@ describe('generateMenuSuggestions - mocked', () => {
     expect(parsed.menus[0].instructions).toEqual(['Boil pasta', 'Add vegetables']);
   });
 
+  it('should handle INSUFFICIENT_INGREDIENTS response', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{
+        type: 'text',
+        text: 'INSUFFICIENT_INGREDIENTS'  // Should be plain text, not JSON
+      }]
+    });
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    const result = await generateMenuSuggestions(request);
+    expect(result).toBe('INSUFFICIENT_INGREDIENTS');
+  });
+
 
   // Invalid response format
   it('should throw error when content is empty', async () => {
@@ -94,6 +106,4 @@ describe('generateMenuSuggestions - mocked', () => {
     await expect(generateMenuSuggestions(request))
       .rejects.toThrow('Unexpected response format from Claude API');
   });
-
-
 });
