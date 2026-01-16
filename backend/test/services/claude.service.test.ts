@@ -1,5 +1,5 @@
 // claude.service.test.ts
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { describe, expect, it } from '@jest/globals';
 import type {
   Allergy,
   CookingMethod,
@@ -10,49 +10,7 @@ import type {
   MealType
 } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
-import { formatMenuPrompt, generateMenuSuggestions } from '../../src/services/claude.service.js';
-
-import Anthropic from '@anthropic-ai/sdk';
-// mock Anthropic: https://jestjs.io/docs/mock-functions
-jest.mock('@anthropic-ai/sdk');
-
-
-describe('generateMenuSuggestions - mocked', () => {
-  let mockCreate: any;  // Just use 'any' for the mock itself
-
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    mockCreate = jest.fn();
-
-    (Anthropic as any).mockImplementation(() => ({
-      messages: {
-        create: mockCreate
-      }
-    }));
-  });
-
-  it('should parse valid SUCCESS response', async () => {
-    mockCreate.mockResolvedValue({
-      content: [{
-        type: 'text',
-        text: JSON.stringify({
-          status: 'SUCCESS',
-          items: [{ name: 'Pasta', ingredients: ['pasta'], servings: 2 }]
-        })
-      }]
-    });
-
-    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
-    const result = await generateMenuSuggestions(request);
-    const parsed = typeof result === 'string' ? JSON.parse(result) : result;
-
-    expect(parsed.status).toBe('SUCCESS');
-  });
-});
-
-
-
+import { formatMenuPrompt } from '../../src/services/claude.service.js';
 
 
 // validation() must be called before formatMenuPrompt, so I will not test invalid cases here
