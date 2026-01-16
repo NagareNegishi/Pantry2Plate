@@ -76,10 +76,17 @@ describe('generateMenuSuggestions - mocked', () => {
   });
 
 
+  // Invalid response format
+  it('should throw error when content is empty', async () => {
+    mockCreate.mockResolvedValue({
+      content: []  // Empty array
+    });
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    await expect(generateMenuSuggestions(request))
+      .rejects.toThrow('Unexpected response format from Claude API');
+  });
 
 
 
 
-
-  
 });
