@@ -12,9 +12,9 @@ describe('menu.controller', () => {
   let mockRes: any;
 
   beforeEach(async () => {
+    // CRITICAL: Dynamic import - loads module AFTER mocks are set up
     const module = await import('../../src/controllers/menu.controller.js');
     generateMenu = module.generateMenu;
-    
     mockGenerateMenuSuggestions.mockClear();
     
     // Mock Express req/res
@@ -44,9 +44,19 @@ describe('menu.controller', () => {
     await generateMenu(mockReq, mockRes);
 
     expect(mockRes.status).toHaveBeenCalledWith(200);
-    expect(mockRes.json).toHaveBeenCalledWith(
-      expect.objectContaining({ response: expect.any(Object) })
-    );
+    expect(mockRes.json).toHaveBeenCalledWith({
+      response: expect.objectContaining({
+        menus: expect.arrayContaining([
+          expect.objectContaining({
+            name: 'Pasta Primavera',
+            servings: 2,
+            difficulty: 'easy',
+            ingredients: expect.arrayContaining(['pasta: 200g', 'vegetables: 100g']),
+            instructions: expect.arrayContaining(['Boil pasta', 'Add vegetables'])
+          })
+        ])
+      })
+    });
   });
 
   it('should return 400 for no recipes from service', async () => {
