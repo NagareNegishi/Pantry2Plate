@@ -43,6 +43,7 @@ describe('generateMenuSuggestions - mocked', () => {
     mockCreate.mockClear(); // Clear mock call history before each test
   });
 
+  // Valid response
   it('should parse valid menu response', async () => {
     mockCreate.mockResolvedValue({
       content: [{
@@ -66,5 +67,19 @@ describe('generateMenuSuggestions - mocked', () => {
 
     const parsed = JSON.parse(result);
     expect(parsed.menus[0].name).toBe('Pasta Primavera');
+    expect(parsed.menus[0].description).toBe('Quick pasta dish');
+    expect(parsed.menus[0].servings).toBe(2);
+    expect(parsed.menus[0].cookingTime).toBe(20);
+    expect(parsed.menus[0].difficulty).toBe('easy');
+    expect(parsed.menus[0].ingredients).toEqual(['pasta: 200g', 'vegetables: 100g']);
+    expect(parsed.menus[0].instructions).toEqual(['Boil pasta', 'Add vegetables']);
   });
+
+
+
+
+
+
+
+  
 });
