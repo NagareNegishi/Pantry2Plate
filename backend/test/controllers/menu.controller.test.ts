@@ -215,6 +215,43 @@ describe('menu.controller', () => {
     expect(response.response.menus[0].name).toBe('Pasta Bolognese');
   });
 
+  it('should auto-correct invalid response', async () => {
+    mockReq.body = { ingredients: ['pasta'] };
+    mockGenerateMenuSuggestions.mockResolvedValue(
+      JSON.stringify({
+        menus: [
+          {
+            name: 'Pasta Primavera',
+            description: 'Quick pasta dish',
+            servings: -1, // Invalid servings, will be auto-corrected to 1
+            cookingTime: 0, // Invalid cooking time, will be auto-corrected to 10
+            difficulty: 'any', // Invalid difficulty, but stays as 'any'
+            ingredients: ['pasta: 200g'],
+            instructions: ['Boil pasta']
+          },
+          {
+            name: 'Pasta Bolognese',
+            description: 'Bad menu',
+            servings: 200, // Invalid servings, will be auto-corrected to 12
+            cookingTime: 2000, // Invalid cooking time, will be auto-corrected to 720
+            difficulty: 'easy',
+            ingredients: ['beef: 200g'],
+            instructions: ['Cook beef']
+          }
+        ]
+      })
+    );
 
+    await generateMenu(mockReq, mockRes);
+    expect(mockRes.status).toHaveBeenCalledWith(200);
+    const response = mockRes.json.mock.calls[0][0];
+    expect(response.response.menus).toHaveLength(2); // Only valid menu
+    expect(response.response.menus[0].name).toBe('Pasta Primavera');
+    expect(response.response.menus[1].name).toBe('Pasta Bolognese');
+    expect(response.response.menus[0].servings).toBe(1);
+    expect(response.response.menus[0].cookingTime).toBe(10);
+    expect(response.response.menus[1].servings).toBe(12);
+    expect(response.response.menus[1].cookingTime).toBe(720);
+  });
 
 });
