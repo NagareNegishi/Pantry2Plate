@@ -1,0 +1,121 @@
+[
+  {
+    "name": "Simple chicken dinner",
+    "request": {
+      "ingredients": ["chicken breast", "rice", "broccoli"],
+      "servings": 2,
+      "maxCookingTime": 45,
+      "mealType": "dinner",
+      "cuisineType": "any",
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Vegetarian lunch",
+    "request": {
+      "ingredients": ["tofu", "bell peppers", "onions", "soy sauce"],
+      "servings": 1,
+      "maxCookingTime": 30,
+      "mealType": "lunch",
+      "cuisineType": "asian",
+      "dietaryRestrictions": ["vegetarian"],
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Vegan breakfast with nut allergy",
+    "request": {
+      "ingredients": ["oats", "bananas", "berries", "plant milk"],
+      "servings": 2,
+      "maxCookingTime": 15,
+      "mealType": "breakfast",
+      "allergies": ["tree-nuts", "peanuts"],
+      "dietaryRestrictions": ["vegan"],
+      "flavorProfiles": ["sweet"],
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Italian pasta for family",
+    "request": {
+      "ingredients": ["pasta", "tomatoes", "garlic", "basil", "parmesan"],
+      "servings": 4,
+      "maxCookingTime": 40,
+      "mealType": "dinner",
+      "cuisineType": "italian",
+      "cookingMethod": "boil",
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Spicy Mexican tacos",
+    "request": {
+      "ingredients": ["ground beef", "tortillas", "lettuce", "cheese", "jalapenos"],
+      "servings": 3,
+      "maxCookingTime": 30,
+      "mealType": "dinner",
+      "cuisineType": "mexican",
+      "flavorProfiles": ["spicy", "savory"],
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Healthy salmon with gluten-free requirement",
+    "request": {
+      "ingredients": ["salmon", "quinoa", "asparagus", "lemon"],
+      "servings": 2,
+      "maxCookingTime": 35,
+      "mealType": "dinner",
+      "dietaryRestrictions": ["gluten-free"],
+      "cookingMethod": "bake",
+      "difficulty": "medium"
+    }
+  },
+  {
+    "name": "Quick stir-fry",
+    "request": {
+      "ingredients": ["shrimp", "snap peas", "carrots", "ginger", "garlic"],
+      "servings": 2,
+      "maxCookingTime": 20,
+      "mealType": "lunch",
+      "cuisineType": "asian",
+      "cookingMethod": "stir-fry",
+      "flavorProfiles": ["savory", "umami"],
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Comfort food beef stew",
+    "request": {
+      "ingredients": ["beef chunks", "potatoes", "carrots", "onions", "beef broth"],
+      "servings": 6,
+      "maxCookingTime": 120,
+      "mealType": "dinner",
+      "cookingMethod": "slow-cook",
+      "flavorProfiles": ["savory"],
+      "difficulty": "medium"
+    }
+  },
+  {
+    "name": "Light breakfast eggs",
+    "request": {
+      "ingredients": ["eggs", "spinach", "mushrooms"],
+      "servings": 1,
+      "maxCookingTime": 15,
+      "mealType": "breakfast",
+      "allergies": ["milk"],
+      "cookingMethod": "pan-fry",
+      "difficulty": "easy"
+    }
+  },
+  {
+    "name": "Minimal ingredients test",
+    "request": {
+      "ingredients": ["chicken"],
+      "servings": 2,
+      "maxCookingTime": 60,
+      "mealType": "dinner",
+      "difficulty": "any"
+    }
+  }
+]
