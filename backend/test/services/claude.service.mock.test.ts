@@ -157,7 +157,4 @@ describe('generateMenuSuggestions - mocked', () => {
     expect(parsed.menus[1].instructions).toEqual(['Cook pasta', 'Prepare meat sauce', 'Combine and serve']);
   });
 
-
-
-
 });

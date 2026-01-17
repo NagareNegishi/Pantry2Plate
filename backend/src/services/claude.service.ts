@@ -87,7 +87,7 @@ export async function generateMenuSuggestions(request: MenuRequestImpl) {
     throw new Error('Unexpected response format from Claude API');
   }
 
-  console.log(firstBlock.text);
+  // console.log(firstBlock.text);
   return firstBlock.text;
 }
 
