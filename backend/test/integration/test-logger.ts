@@ -1,3 +1,8 @@
+/**
+ * Logs real API test results to JSON files for later analysis.
+ * Each log entry includes request, response, status, and error info.
+ */
+
 import type { MenuRequestImpl } from '@pantry2plate/shared';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 /**
