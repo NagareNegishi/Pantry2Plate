@@ -215,6 +215,41 @@ describe('menu.controller', () => {
     expect(response.response.menus[0].name).toBe('Pasta Bolognese');
   });
 
+  it('should filter out invalid menus and return only valid ones 4', async () => {
+    mockReq.body = { ingredients: ['pasta'] };
+    mockGenerateMenuSuggestions.mockResolvedValue(
+      JSON.stringify({
+        menus: [
+          {
+            name: 'Pasta Primavera',
+            description: 'Quick pasta dish',
+            servings: 2,
+            cookingTime: 20,
+            difficulty: 'easy',
+            ingredients: ['pasta: 200g'],
+            instructions: [] // Invalid - missing instructions
+          },
+          {
+            name: 'Pasta Bolognese',
+            description: 'Bad menu',
+            servings: 2,
+            cookingTime: 20,
+            difficulty: 'easy',
+            // missing ingredients
+            instructions: ['Cook beef']
+          }
+        ]
+      })
+    );
+
+    await generateMenu(mockReq, mockRes);
+    // both will be removed, so return 500 error
+    expect(mockRes.status).toHaveBeenCalledWith(500);
+    const response = mockRes.json.mock.calls[0][0];
+    expect(response.error).toBe('Invalid response from menu generation service');
+    expect(response.details.length).toBe(2);
+  });
+
   it('should auto-correct invalid response', async () => {
     mockReq.body = { ingredients: ['pasta'] };
     mockGenerateMenuSuggestions.mockResolvedValue(
