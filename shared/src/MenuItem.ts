@@ -52,7 +52,7 @@ export class MenuItemImpl implements MenuItem {
 
 
   constructor(data: Partial<MenuItem>) {
-    this.name = data.name ?? 'Invalid';
+    this.name = data.name?.trim() || 'Invalid'; // null, undefined, empty -> 'Invalid'
     this.description = data.description ?? 'No description provided.';
     this.servings = data.servings ?? 0;
     this.cookingTime = data.cookingTime ?? 0;
