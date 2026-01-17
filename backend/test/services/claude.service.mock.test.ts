@@ -106,4 +106,58 @@ describe('generateMenuSuggestions - mocked', () => {
     await expect(generateMenuSuggestions(request))
       .rejects.toThrow('Unexpected response format from Claude API');
   });
+
+  // Valid response with multiple menus
+  it('should parse valid menu with multiple responses', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{
+        type: 'text',
+        text: JSON.stringify({
+          menus: [
+            {
+              name: 'Pasta Primavera',
+              description: 'Quick pasta dish',
+              servings: 2,
+              cookingTime: 20,
+              difficulty: 'easy',
+              ingredients: ['pasta: 200g', 'vegetables: 100g'],
+              instructions: ['Boil pasta', 'Add vegetables']
+            },
+            {
+              name: 'Pasta Bolognese',
+              description: 'Hearty meat sauce',
+              servings: 4,
+              cookingTime: 45,
+              difficulty: 'medium',
+              ingredients: ['pasta: 400g', 'ground beef: 300g', 'tomato sauce: 200ml'],
+              instructions: ['Cook pasta', 'Prepare meat sauce', 'Combine and serve']
+            }
+          ]
+        })
+      }]
+    });
+
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    const result = await generateMenuSuggestions(request);
+
+    const parsed = JSON.parse(result);
+    expect(parsed.menus[0].name).toBe('Pasta Primavera');
+    expect(parsed.menus[0].description).toBe('Quick pasta dish');
+    expect(parsed.menus[0].servings).toBe(2);
+    expect(parsed.menus[0].cookingTime).toBe(20);
+    expect(parsed.menus[0].difficulty).toBe('easy');
+    expect(parsed.menus[0].ingredients).toEqual(['pasta: 200g', 'vegetables: 100g']);
+    expect(parsed.menus[0].instructions).toEqual(['Boil pasta', 'Add vegetables']);
+    expect(parsed.menus[1].name).toBe('Pasta Bolognese');
+    expect(parsed.menus[1].description).toBe('Hearty meat sauce');
+    expect(parsed.menus[1].servings).toBe(4);
+    expect(parsed.menus[1].cookingTime).toBe(45);
+    expect(parsed.menus[1].difficulty).toBe('medium');
+    expect(parsed.menus[1].ingredients).toEqual(['pasta: 400g', 'ground beef: 300g', 'tomato sauce: 200ml']);
+    expect(parsed.menus[1].instructions).toEqual(['Cook pasta', 'Prepare meat sauce', 'Combine and serve']);
+  });
+
+
+
+
 });
