@@ -19,5 +19,223 @@
       ]
     },
     "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Chicken and Broccoli Rice Bowl\",\n      \"description\": \"A simple one-pan meal with tender chicken, fluffy rice, and crisp broccoli in a light sauce.\",\n      \"servings\": 2,\n      \"cookingTime\": 35,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"chicken breast: 300g\",\n        \"rice: 1 cup\",\n        \"broccoli: 2 cups florets\",\n        \"garlic: 2 cloves\",\n        \"soy sauce: 2 tbsp\",\n        \"vegetable oil: 2 tbsp\",\n        \"water: 2 cups\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Cut chicken breast into bite-sized pieces and season with salt and pepper\",\n        \"Heat 1 tbsp oil in a large pan over medium-high heat\",\n        \"Cook chicken pieces until golden and cooked through, about 6-8 minutes, then remove and set aside\",\n        \"In the same pan, add remaining oil and minced garlic, cook for 30 seconds until fragrant\",\n        \"Add rice and stir to coat with oil for 1 minute\",\n        \"Pour in 2 cups water, bring to a boil, then reduce heat to low\",\n        \"Cover and simmer for 15 minutes\",\n        \"Add broccoli florets on top of rice, cover again and cook for 5 more minutes until broccoli is tender\",\n        \"Return chicken to pan, drizzle with soy sauce\",\n        \"Gently fold everything together and cook for 2 minutes to heat through\",\n        \"Taste and adjust seasoning with salt and pepper\",\n        \"Serve hot in bowls\"\n      ]\n    },\n    {\n      \"name\": \"Teriyaki Chicken with Steamed Rice and Broccoli\",\n      \"description\": \"Glazed chicken with a sweet and savory teriyaki sauce, served alongside steamed rice and broccoli.\",\n      \"servings\": 2,\n      \"cookingTime\": 30,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"chicken breast: 300g\",\n        \"rice: 1 cup\",\n        \"broccoli: 2 cups florets\",\n        \"soy sauce: 3 tbsp\",\n        \"water: 3 tbsp\",\n        \"garlic: 1 clove\",\n        \"vegetable oil: 1 tbsp\",\n        \"salt: pinch\",\n        \"pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Cook rice according to package directions\",\n        \"Cut chicken breast into strips and season with salt and pepper\",\n        \"In a small bowl, mix soy sauce, water, and minced garlic to make teriyaki sauce\",\n        \"Heat oil in a pan over medium-high heat\",\n        \"Add chicken strips and cook for 4-5 minutes until browned on all sides\",\n        \"Pour teriyaki sauce over chicken and reduce heat to medium\",\n        \"Let sauce simmer and reduce for 5-7 minutes, turning chicken occasionally until glazed\",\n        \"Meanwhile, bring a pot of salted water to boil\",\n        \"Add broccoli florets and cook for 3-4 minutes until tender-crisp\",\n        \"Drain broccoli well\",\n        \"Divide rice between two plates\",\n        \"Top with glazed chicken and steamed broccoli\",\n        \"Drizzle any remaining sauce from pan over the chicken and serve\"\n      ]\n    },\n    {\n      \"name\": \"Garlic Chicken Fried Rice with Broccoli\",\n      \"description\": \"A quick stir-fried rice dish with chicken and broccoli, packed with garlic flavor.\",\n      \"servings\": 2,\n      \"cookingTime\": 40,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"rice: 1.5 cups\",\n        \"chicken breast: 250g\",\n        \"broccoli: 1.5 cups florets\",\n        \"garlic: 4 cloves\",\n        \"soy sauce: 2 tbsp\",\n        \"vegetable oil: 3 tbsp\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Cook rice according to package directions, spread on a plate to cool for 10 minutes\",\n        \"Cut chicken into small cubes and season with salt and pepper\",\n        \"Cut broccoli into small florets and mince garlic\",\n        \"Heat 1 tbsp oil in a wok or large pan over high heat\",\n        \"Add chicken and cook for 5-6 minutes until fully cooked, then remove and set aside\",\n        \"Add another tbsp of oil to the wok\",\n        \"Add broccoli florets and stir-fry for 3-4 minutes until tender-crisp, remove and set aside\",\n        \"Add remaining oil to wok, add minced garlic and stir-fry for 30 seconds until fragrant\",\n        \"Add cooled rice, breaking up any clumps with spatula\",\n        \"Stir-fry rice for 3-4 minutes until grains are separated and slightly crispy\",\n        \"Return chicken and broccoli to wok\",\n        \"Drizzle soy sauce around the edge of wok and toss everything together\",\n        \"Continue stir-frying for 2 minutes until well combined and heated through\",\n        \"Taste and adjust seasoning with salt and pepper, serve immediately\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:42:20.189Z",
+    "testName": "Simple chicken dinner",
+    "request": {
+      "ingredients": [
+        "chicken breast",
+        "bread",
+        "broccoli"
+      ],
+      "servings": 2,
+      "maxCookingTime": 45,
+      "mealType": "dinner",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "easy",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Crispy Breaded Chicken with Roasted Broccoli\",\n      \"description\": \"Golden breaded chicken cutlets served alongside perfectly roasted broccoli for a simple and satisfying dinner.\",\n      \"servings\": 2,\n      \"cookingTime\": 35,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"chicken breast: 2 pieces (about 400g)\",\n        \"bread: 3 slices\",\n        \"broccoli: 300g\",\n        \"eggs: 2\",\n        \"olive oil: 3 tbsp\",\n        \"garlic powder: 1 tsp\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Preheat oven to 200°C (400°F)\",\n        \"Cut broccoli into florets and place on a baking sheet\",\n        \"Drizzle broccoli with 1 tbsp olive oil, season with salt and pepper, toss to coat\",\n        \"Tear bread into pieces and pulse in food processor or blender to make breadcrumbs\",\n        \"Mix breadcrumbs with garlic powder, salt, and pepper in a shallow dish\",\n        \"Beat eggs in another shallow dish\",\n        \"If chicken breasts are thick, slice them horizontally to create thinner cutlets\",\n        \"Season chicken with salt and pepper on both sides\",\n        \"Dip each chicken piece in egg, then press into breadcrumb mixture to coat both sides\",\n        \"Heat 2 tbsp olive oil in a large pan over medium heat\",\n        \"Cook chicken for 4-5 minutes per side until golden brown and cooked through\",\n        \"While chicken cooks, place broccoli in oven and roast for 15-20 minutes until tender and edges are crispy\",\n        \"Serve chicken alongside roasted broccoli\"\n      ]\n    },\n    {\n      \"name\": \"Chicken and Broccoli Stir-Fry with Toasted Bread\",\n      \"description\": \"Quick Asian-inspired stir-fry with tender chicken and crisp broccoli, served with crispy toasted bread on the side.\",\n      \"servings\": 2,\n      \"cookingTime\": 25,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"chicken breast: 300g\",\n        \"broccoli: 300g\",\n        \"bread: 4 slices\",\n        \"soy sauce: 3 tbsp\",\n        \"garlic: 3 cloves\",\n        \"vegetable oil: 2 tbsp\",\n        \"cornstarch: 1 tsp\",\n        \"water: 3 tbsp\",\n        \"salt: pinch\",\n        \"pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Cut chicken breast into bite-sized cubes\",\n        \"Cut broccoli into small florets\",\n        \"Mince garlic\",\n        \"Mix cornstarch with water in a small bowl to make a slurry\",\n        \"Heat 1 tbsp oil in a wok or large pan over high heat\",\n        \"Add chicken pieces, season with salt and pepper, stir-fry for 5-6 minutes until cooked through and golden\",\n        \"Remove chicken from pan and set aside\",\n        \"Add remaining oil to the same pan, add garlic and stir-fry for 30 seconds\",\n        \"Add broccoli florets and 2 tbsp water, cover and steam for 3 minutes until tender-crisp\",\n        \"Return chicken to pan with broccoli\",\n        \"Pour soy sauce over everything and toss to combine\",\n        \"Add cornstarch slurry and stir quickly until sauce thickens and coats ingredients\",\n        \"While stir-fry finishes, toast bread slices until golden and crispy\",\n        \"Serve stir-fry hot with toasted bread on the side\"\n      ]\n    },\n    {\n      \"name\": \"Chicken Broccoli Bread Bowl\",\n      \"description\": \"Creamy chicken and broccoli mixture served in hollowed-out toasted bread bowls for a comforting meal.\",\n      \"servings\": 2,\n      \"cookingTime\": 40,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"chicken breast: 250g\",\n        \"broccoli: 250g\",\n        \"bread: 2 large rolls or 4 thick slices\",\n        \"butter: 2 tbsp\",\n        \"flour: 2 tbsp\",\n        \"milk: 1 cup\",\n        \"garlic: 2 cloves\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Preheat oven to 180°C (350°F)\",\n        \"Cut chicken into small cubes\",\n        \"Cut broccoli into small florets\",\n        \"Mince garlic\",\n        \"If using rolls, cut tops off and hollow out centers; if using sliced bread, toast until crispy\",\n        \"Place bread on baking sheet and toast in oven for 8-10 minutes until golden\",\n        \"Meanwhile, melt butter in a large pan over medium heat\",\n        \"Add garlic and sauté for 1 minute until fragrant\",\n        \"Add chicken pieces, season with salt and pepper, cook for 6-7 minutes until no longer pink\",\n        \"Add broccoli florets and 2 tbsp water, cover and cook for 4 minutes until tender\",\n        \"Sprinkle flour over chicken and broccoli, stir to coat\",\n        \"Gradually pour in milk while stirring constantly to avoid lumps\",\n        \"Simmer for 3-4 minutes until sauce thickens and becomes creamy\",\n        \"Taste and adjust seasoning with salt and pepper\",\n        \"Spoon creamy chicken and broccoli mixture into toasted bread bowls or over toasted bread slices\",\n        \"Serve immediately while hot\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:42:33.266Z",
+    "testName": "Vegetarian lunch",
+    "request": {
+      "ingredients": [
+        "tofu",
+        "bell peppers",
+        "onions",
+        "soy sauce"
+      ],
+      "servings": 1,
+      "maxCookingTime": 30,
+      "mealType": "lunch",
+      "cuisineType": "asian",
+      "cookingMethod": "any",
+      "difficulty": "easy",
+      "dietaryRestrictions": [
+        "vegetarian"
+      ],
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Stir-Fried Tofu with Bell Peppers\",\n      \"description\": \"A quick and colorful Asian stir-fry with crispy tofu and sweet bell peppers in savory sauce.\",\n      \"servings\": 1,\n      \"cookingTime\": 20,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"firm tofu: 200g\",\n        \"bell peppers: 1 large\",\n        \"onion: 1 small\",\n        \"soy sauce: 2 tbsp\",\n        \"garlic: 2 cloves\",\n        \"vegetable oil: 2 tbsp\",\n        \"cornstarch: 1 tbsp\",\n        \"black pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Press tofu between paper towels to remove excess moisture, then cut into 1-inch cubes\",\n        \"Toss tofu cubes with cornstarch until evenly coated\",\n        \"Slice bell peppers into strips and onion into wedges, mince garlic\",\n        \"Heat 1 tbsp oil in a wok or large pan over medium-high heat\",\n        \"Add tofu cubes and cook without stirring for 2-3 minutes until golden brown on bottom\",\n        \"Flip tofu pieces and cook another 2 minutes until crispy on all sides, remove and set aside\",\n        \"Add remaining oil to the same pan, add onion and stir-fry for 2 minutes\",\n        \"Add bell peppers and garlic, stir-fry for 3-4 minutes until peppers are tender-crisp\",\n        \"Return tofu to pan, add soy sauce and black pepper\",\n        \"Toss everything together for 1-2 minutes until well combined and heated through\",\n        \"Serve immediately over rice or noodles if desired\"\n      ]\n    },\n    {\n      \"name\": \"Tofu and Vegetable Rice Bowl\",\n      \"description\": \"A simple one-bowl meal with savory tofu and caramelized vegetables over steamed rice.\",\n      \"servings\": 1,\n      \"cookingTime\": 25,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"firm tofu: 150g\",\n        \"bell peppers: 1 medium\",\n        \"onion: 1 small\",\n        \"soy sauce: 3 tbsp\",\n        \"rice: 0.5 cup\",\n        \"vegetable oil: 1.5 tbsp\",\n        \"ginger: 1 tsp\",\n        \"sesame seeds: 1 tsp\"\n      ],\n      \"instructions\": [\n        \"Start cooking rice according to package directions\",\n        \"Cut tofu into small cubes and pat dry with paper towels\",\n        \"Dice bell peppers and onion into bite-sized pieces, grate ginger\",\n        \"Heat oil in a pan over medium-high heat\",\n        \"Add tofu and cook for 5-6 minutes, turning occasionally until golden on all sides\",\n        \"Push tofu to one side, add onion and bell peppers to the pan\",\n        \"Stir-fry vegetables for 4-5 minutes until softened and slightly caramelized\",\n        \"Add ginger and stir-fry for 30 seconds until fragrant\",\n        \"Pour soy sauce over everything and toss to coat evenly\",\n        \"Cook for another minute until sauce glazes the tofu and vegetables\",\n        \"Serve over steamed rice and garnish with sesame seeds\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:42:47.804Z",
+    "testName": "Vegan breakfast with nut allergy",
+    "request": {
+      "ingredients": [
+        "oats",
+        "bananas",
+        "berries",
+        "plant milk"
+      ],
+      "servings": 2,
+      "maxCookingTime": 15,
+      "mealType": "breakfast",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "easy",
+      "allergies": [
+        "tree-nuts",
+        "peanuts"
+      ],
+      "dietaryRestrictions": [
+        "vegan"
+      ],
+      "flavorProfiles": [
+        "sweet"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Berry Banana Overnight Oats\",\n      \"description\": \"Creamy no-cook oats with fresh fruit, perfect for a quick breakfast.\",\n      \"servings\": 2,\n      \"cookingTime\": 10,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"oats: 1 cup\",\n        \"plant milk: 1.5 cups\",\n        \"bananas: 1\",\n        \"berries: 1 cup\",\n        \"maple syrup: 2 tbsp\",\n        \"vanilla extract: 1 tsp\"\n      ],\n      \"instructions\": [\n        \"In a bowl, combine oats and plant milk, stir well\",\n        \"Add maple syrup and vanilla extract, mix until combined\",\n        \"Slice half the banana and fold into the oat mixture\",\n        \"Cover and refrigerate for at least 5 minutes, or overnight for best texture\",\n        \"When ready to serve, divide between two bowls\",\n        \"Slice remaining banana and arrange on top\",\n        \"Add fresh berries as topping\",\n        \"Serve chilled and enjoy\"\n      ]\n    },\n    {\n      \"name\": \"Warm Berry Banana Oatmeal\",\n      \"description\": \"Comforting hot oatmeal topped with caramelized bananas and fresh berries.\",\n      \"servings\": 2,\n      \"cookingTime\": 15,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"oats: 1 cup\",\n        \"plant milk: 2 cups\",\n        \"bananas: 2\",\n        \"berries: 1 cup\",\n        \"maple syrup: 2 tbsp\",\n        \"cinnamon: 1/2 tsp\",\n        \"salt: pinch\"\n      ],\n      \"instructions\": [\n        \"In a pot, bring plant milk to a gentle simmer over medium heat\",\n        \"Add oats, cinnamon, and a pinch of salt, stir to combine\",\n        \"Reduce heat to low and cook for 5-7 minutes, stirring occasionally, until oats are creamy\",\n        \"While oats cook, slice bananas into rounds\",\n        \"Heat a small pan over medium heat\",\n        \"Add banana slices and 1 tbsp maple syrup to the pan\",\n        \"Cook bananas for 2-3 minutes until golden and caramelized, flip and cook other side\",\n        \"Remove oatmeal from heat and stir in remaining maple syrup\",\n        \"Divide oatmeal between two bowls\",\n        \"Top with caramelized bananas and fresh berries\",\n        \"Serve immediately while warm\"\n      ]\n    },\n    {\n      \"name\": \"Banana Berry Smoothie Bowl\",\n      \"description\": \"Thick and creamy blended oats topped with fresh fruit for a refreshing breakfast.\",\n      \"servings\": 2,\n      \"cookingTime\": 10,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"oats: 1/2 cup\",\n        \"bananas: 2\",\n        \"berries: 1.5 cups\",\n        \"plant milk: 1 cup\",\n        \"maple syrup: 1 tbsp\",\n        \"vanilla extract: 1/2 tsp\"\n      ],\n      \"instructions\": [\n        \"Peel and slice bananas, freeze for 5 minutes if time allows for thicker consistency\",\n        \"Reserve 1/2 cup berries for topping\",\n        \"In a blender, add oats and blend into a fine powder\",\n        \"Add bananas, remaining berries, plant milk, maple syrup, and vanilla extract\",\n        \"Blend on high until smooth and creamy, stopping to scrape down sides if needed\",\n        \"If too thick, add a splash more plant milk and blend again\",\n        \"Divide mixture between two bowls\",\n        \"Top with reserved fresh berries\",\n        \"Serve immediately with a spoon\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:43:06.327Z",
+    "testName": "Italian pasta for family",
+    "request": {
+      "ingredients": [
+        "pasta",
+        "tomatoes",
+        "garlic",
+        "basil",
+        "parmesan"
+      ],
+      "servings": 4,
+      "maxCookingTime": 40,
+      "mealType": "dinner",
+      "cuisineType": "italian",
+      "cookingMethod": "boil",
+      "difficulty": "easy",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Classic Spaghetti al Pomodoro\",\n      \"description\": \"A simple yet elegant Italian pasta with fresh tomato sauce, garlic, and basil.\",\n      \"servings\": 4,\n      \"cookingTime\": 30,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"pasta: 400g\",\n        \"tomatoes: 800g\",\n        \"garlic: 4 cloves\",\n        \"basil: 1 bunch\",\n        \"parmesan: 80g\",\n        \"olive oil: 4 tbsp\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Bring a large pot of salted water to boil for the pasta\",\n        \"Meanwhile, dice tomatoes into small chunks, mince garlic, and tear basil leaves\",\n        \"Heat olive oil in a large pan over medium heat\",\n        \"Add minced garlic and sauté for 1 minute until fragrant but not browned\",\n        \"Add diced tomatoes to the pan, season with salt and pepper\",\n        \"Simmer the tomato sauce for 15-20 minutes, stirring occasionally, until tomatoes break down and sauce thickens\",\n        \"Cook pasta in boiling water according to package directions until al dente\",\n        \"Reserve 1 cup of pasta water before draining\",\n        \"Drain pasta and add directly to the tomato sauce\",\n        \"Toss pasta with sauce, adding pasta water as needed to create a silky consistency\",\n        \"Remove from heat and stir in most of the torn basil leaves\",\n        \"Grate parmesan over the pasta and toss to combine\",\n        \"Serve immediately, garnished with remaining basil leaves and extra parmesan\"\n      ]\n    },\n    {\n      \"name\": \"Pasta Pomodoro e Basilico\",\n      \"description\": \"Quick and fresh Italian pasta featuring a light tomato and basil sauce with garlic.\",\n      \"servings\": 4,\n      \"cookingTime\": 25,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"pasta: 400g\",\n        \"tomatoes: 700g\",\n        \"garlic: 3 cloves\",\n        \"basil: 20 leaves\",\n        \"parmesan: 60g\",\n        \"olive oil: 3 tbsp\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Bring a large pot of well-salted water to a rolling boil\",\n        \"Roughly chop tomatoes, thinly slice garlic, and set aside basil leaves\",\n        \"Add pasta to boiling water and cook according to package instructions\",\n        \"While pasta cooks, heat olive oil in a large skillet over medium heat\",\n        \"Add sliced garlic and cook for 30 seconds until just golden\",\n        \"Add chopped tomatoes, season with salt and pepper, and cook for 10-12 minutes\",\n        \"Use a wooden spoon to break down tomatoes as they cook\",\n        \"Tear half the basil leaves and add to the sauce, stir to combine\",\n        \"Reserve half cup of pasta cooking water, then drain pasta\",\n        \"Add drained pasta to the tomato sauce and toss well\",\n        \"Add pasta water a little at a time if sauce seems dry\",\n        \"Grate parmesan cheese over the pasta and toss until melted\",\n        \"Top with remaining fresh basil leaves and serve with extra parmesan on the side\"\n      ]\n    },\n    {\n      \"name\": \"Simple Garlic Tomato Pasta\",\n      \"description\": \"An easy weeknight Italian dinner with aromatic garlic, sweet tomatoes, and fresh herbs.\",\n      \"servings\": 4,\n      \"cookingTime\": 35,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"pasta: 450g\",\n        \"tomatoes: 900g\",\n        \"garlic: 5 cloves\",\n        \"basil: 15 leaves\",\n        \"parmesan: 70g\",\n        \"olive oil: 5 tbsp\",\n        \"salt: to taste\",\n        \"pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Fill a large pot with water, add generous amount of salt, and bring to boil\",\n        \"Cut tomatoes into quarters, crush garlic cloves with the side of a knife\",\n        \"Heat olive oil in a deep pan over medium-low heat\",\n        \"Add crushed garlic cloves and cook gently for 2-3 minutes to infuse oil\",\n        \"Remove and discard garlic cloves once golden\",\n        \"Add quartered tomatoes to the garlic oil, season with salt and pepper\",\n        \"Cook tomatoes over medium heat for 20 minutes, stirring occasionally and crushing with a spoon\",\n        \"When sauce is nearly done, cook pasta in boiling water until al dente\",\n        \"Tear basil leaves and add most of them to the tomato sauce\",\n        \"Reserve 1 cup pasta water, then drain pasta\",\n        \"Transfer pasta to the sauce and toss over low heat for 1 minute\",\n        \"Add pasta water gradually to achieve desired sauce consistency\",\n        \"Finely grate parmesan and stir into the pasta until melted\",\n        \"Plate pasta and garnish with remaining basil leaves and extra parmesan\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:43:21.972Z",
+    "testName": "Spicy Mexican tacos",
+    "request": {
+      "ingredients": [
+        "ground beef",
+        "tortillas",
+        "lettuce",
+        "cheese",
+        "jalapenos"
+      ],
+      "servings": 3,
+      "maxCookingTime": 30,
+      "mealType": "dinner",
+      "cuisineType": "mexican",
+      "cookingMethod": "any",
+      "difficulty": "easy",
+      "flavorProfiles": [
+        "spicy",
+        "savory"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Beef Tacos\",\n      \"description\": \"Classic Mexican tacos with seasoned ground beef, fresh toppings, and a spicy kick from jalapeños.\",\n      \"servings\": 3,\n      \"cookingTime\": 20,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"ground beef: 450g\",\n        \"tortillas: 6-9\",\n        \"lettuce: 2 cups shredded\",\n        \"cheese: 1 cup shredded\",\n        \"jalapeños: 2-3 sliced\",\n        \"cumin: 1 tsp\",\n        \"chili powder: 1 tsp\",\n        \"garlic powder: 1/2 tsp\",\n        \"onion powder: 1/2 tsp\",\n        \"salt: 1/2 tsp\",\n        \"pepper: 1/4 tsp\",\n        \"water: 1/4 cup\"\n      ],\n      \"instructions\": [\n        \"Heat a large skillet over medium-high heat\",\n        \"Add ground beef and break it up with a wooden spoon\",\n        \"Cook for 5-7 minutes, stirring occasionally, until beef is browned and no pink remains\",\n        \"Drain excess fat from the pan\",\n        \"Add cumin, chili powder, garlic powder, onion powder, salt, and pepper to the beef\",\n        \"Stir in water and mix well to combine spices\",\n        \"Reduce heat to medium-low and simmer for 3-4 minutes until liquid reduces and beef is well-coated\",\n        \"While beef simmers, warm tortillas in a dry skillet for 30 seconds per side or wrap in damp paper towel and microwave for 20-30 seconds\",\n        \"Shred lettuce if not already prepared\",\n        \"Slice jalapeños into thin rounds\",\n        \"Assemble tacos by placing seasoned beef in each tortilla\",\n        \"Top with shredded lettuce, cheese, and jalapeño slices\",\n        \"Serve immediately while warm\"\n      ]\n    },\n    {\n      \"name\": \"Beef and Cheese Quesadillas\",\n      \"description\": \"Crispy tortillas filled with seasoned ground beef, melted cheese, and spicy jalapeños for a quick and satisfying meal.\",\n      \"servings\": 3,\n      \"cookingTime\": 25,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"ground beef: 300g\",\n        \"tortillas: 6\",\n        \"cheese: 2 cups shredded\",\n        \"jalapeños: 2-3 sliced\",\n        \"lettuce: 2 cups shredded\",\n        \"cumin: 1/2 tsp\",\n        \"paprika: 1/2 tsp\",\n        \"salt: 1/4 tsp\",\n        \"pepper: 1/4 tsp\",\n        \"vegetable oil: 2 tbsp\"\n      ],\n      \"instructions\": [\n        \"Heat a skillet over medium-high heat and add ground beef\",\n        \"Cook beef for 5-6 minutes, breaking it apart, until browned completely\",\n        \"Drain excess fat and season beef with cumin, paprika, salt, and pepper\",\n        \"Stir well and cook for another minute, then transfer to a bowl\",\n        \"Wipe skillet clean and return to medium heat\",\n        \"Brush one side of a tortilla lightly with oil and place oil-side down in skillet\",\n        \"Sprinkle about 1/3 cup cheese on half of the tortilla\",\n        \"Add a portion of seasoned beef and sliced jalapeños on top of cheese\",\n        \"Sprinkle another layer of cheese over the beef\",\n        \"Fold tortilla in half to create a half-moon shape\",\n        \"Cook for 2-3 minutes until bottom is golden and crispy\",\n        \"Flip carefully and cook another 2-3 minutes until cheese is fully melted\",\n        \"Remove from skillet and repeat with remaining tortillas\",\n        \"Cut each quesadilla into 3 wedges\",\n        \"Serve with shredded lettuce on the side\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:43:37.768Z",
+    "testName": "Healthy salmon with gluten-free requirement",
+    "request": {
+      "ingredients": [
+        "salmon",
+        "quinoa",
+        "asparagus",
+        "lemon"
+      ],
+      "servings": 2,
+      "maxCookingTime": 35,
+      "mealType": "dinner",
+      "cuisineType": "any",
+      "cookingMethod": "bake",
+      "difficulty": "medium",
+      "dietaryRestrictions": [
+        "gluten-free"
+      ],
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Baked Lemon Herb Salmon with Quinoa and Asparagus\",\n      \"description\": \"A healthy and elegant one-pan dinner featuring tender baked salmon with roasted asparagus and fluffy quinoa.\",\n      \"servings\": 2,\n      \"cookingTime\": 35,\n      \"difficulty\": \"medium\",\n      \"ingredients\": [\n        \"salmon fillets: 2 (about 150g each)\",\n        \"quinoa: 1 cup\",\n        \"asparagus: 1 bunch (about 300g)\",\n        \"lemon: 2\",\n        \"olive oil: 3 tbsp\",\n        \"garlic: 2 cloves\",\n        \"salt: to taste\",\n        \"black pepper: to taste\",\n        \"water: 2 cups\"\n      ],\n      \"instructions\": [\n        \"Preheat oven to 400°F (200°C) and line a baking sheet with parchment paper\",\n        \"Rinse quinoa thoroughly under cold water, then combine with 2 cups water in a pot\",\n        \"Bring quinoa to a boil, reduce heat to low, cover and simmer for 15 minutes until water is absorbed\",\n        \"While quinoa cooks, trim woody ends from asparagus and arrange on one side of the baking sheet\",\n        \"Pat salmon fillets dry with paper towel and place on the other side of the baking sheet\",\n        \"Mince garlic and mix with 2 tbsp olive oil and juice of 1 lemon\",\n        \"Brush asparagus with half the lemon-garlic oil, season with salt and pepper\",\n        \"Brush salmon with remaining lemon-garlic oil and season with salt and pepper\",\n        \"Slice remaining lemon into thin rounds and place on top of salmon\",\n        \"Bake for 12-15 minutes until salmon flakes easily with a fork and asparagus is tender\",\n        \"Fluff quinoa with a fork and drizzle with remaining 1 tbsp olive oil\",\n        \"Plate quinoa as a base, top with salmon fillet and arrange asparagus alongside\",\n        \"Squeeze fresh lemon juice over everything before serving\"\n      ]\n    },\n    {\n      \"name\": \"Mediterranean Baked Salmon Bowl\",\n      \"description\": \"A vibrant gluten-free bowl with herb-crusted salmon, lemony quinoa, and roasted asparagus.\",\n      \"servings\": 2,\n      \"cookingTime\": 32,\n      \"difficulty\": \"medium\",\n      \"ingredients\": [\n        \"salmon fillets: 2 (about 150g each)\",\n        \"quinoa: 3/4 cup\",\n        \"asparagus: 1 bunch\",\n        \"lemon: 1\",\n        \"olive oil: 4 tbsp\",\n        \"garlic: 3 cloves\",\n        \"dried oregano: 1 tsp\",\n        \"paprika: 1/2 tsp\",\n        \"salt: to taste\",\n        \"black pepper: to taste\",\n        \"water: 1.5 cups\"\n      ],\n      \"instructions\": [\n        \"Preheat oven to 425°F (220°C)\",\n        \"Cook quinoa: combine with 1.5 cups water in pot, bring to boil, reduce heat, cover and simmer 15 minutes\",\n        \"Trim asparagus and spread on baking sheet, drizzle with 1 tbsp olive oil, salt and pepper\",\n        \"Roast asparagus for 8 minutes while preparing salmon\",\n        \"Pat salmon dry and place on separate baking sheet lined with parchment\",\n        \"Mix 2 tbsp olive oil with minced garlic, oregano, paprika, salt, pepper and zest of half the lemon\",\n        \"Spread herb mixture over top of salmon fillets\",\n        \"When asparagus has roasted 8 minutes, place salmon in oven alongside it\",\n        \"Bake both for 10-12 minutes until salmon is cooked through and flakes easily\",\n        \"Squeeze juice from half the lemon into cooked quinoa and fluff with fork\",\n        \"Drizzle quinoa with remaining 1 tbsp olive oil and season with salt\",\n        \"Divide quinoa between two bowls, top with salmon fillet and asparagus\",\n        \"Cut remaining lemon half into wedges and serve alongside for squeezing\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:43:45.528Z",
+    "testName": "Quick stir-fry",
+    "request": {
+      "ingredients": [
+        "shrimp",
+        "snap peas",
+        "carrots",
+        "ginger",
+        "garlic"
+      ],
+      "servings": 2,
+      "maxCookingTime": 20,
+      "mealType": "lunch",
+      "cuisineType": "asian",
+      "cookingMethod": "stir-fry",
+      "difficulty": "easy",
+      "flavorProfiles": [
+        "savory",
+        "umami"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Ginger Garlic Shrimp Stir-Fry\",\n      \"description\": \"Quick and vibrant Asian stir-fry with tender shrimp and crisp vegetables in a savory ginger-garlic sauce.\",\n      \"servings\": 2,\n      \"cookingTime\": 15,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"shrimp: 300g\",\n        \"snap peas: 150g\",\n        \"carrots: 1 medium\",\n        \"ginger: 1 inch piece\",\n        \"garlic: 3 cloves\",\n        \"soy sauce: 2 tbsp\",\n        \"vegetable oil: 2 tbsp\",\n        \"cornstarch: 1 tsp\",\n        \"water: 2 tbsp\",\n        \"salt: pinch\",\n        \"pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Peel and devein shrimp, pat dry with paper towels\",\n        \"Trim snap peas and slice carrots into thin diagonal pieces\",\n        \"Mince ginger and garlic finely\",\n        \"In a small bowl, mix soy sauce, cornstarch, and water to make sauce\",\n        \"Heat wok or large pan over high heat until smoking, add 1 tbsp oil and swirl\",\n        \"Add shrimp in single layer, season with salt and pepper, cook 1-2 minutes per side until pink, remove and set aside\",\n        \"Add remaining oil to wok, toss in ginger and garlic, stir-fry for 30 seconds until fragrant\",\n        \"Add carrots and stir-fry for 2 minutes until slightly tender\",\n        \"Add snap peas and stir-fry for 1-2 minutes until bright green and crisp-tender\",\n        \"Return shrimp to wok and toss to combine\",\n        \"Pour sauce around edge of wok, toss everything together for 1 minute until sauce thickens and coats ingredients\",\n        \"Taste and adjust seasoning if needed\",\n        \"Serve immediately over rice if desired\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:44:08.096Z",
+    "testName": "Comfort food beef stew",
+    "request": {
+      "ingredients": [
+        "beef chunks",
+        "potatoes",
+        "carrots",
+        "onions",
+        "beef broth"
+      ],
+      "servings": 6,
+      "maxCookingTime": 120,
+      "mealType": "dinner",
+      "cuisineType": "any",
+      "cookingMethod": "slow-cook",
+      "difficulty": "medium",
+      "flavorProfiles": [
+        "savory"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Classic Beef Stew\",\n      \"description\": \"A hearty, comforting slow-cooked stew with tender beef and vegetables in rich savory broth.\",\n      \"servings\": 6,\n      \"cookingTime\": 120,\n      \"difficulty\": \"medium\",\n      \"ingredients\": [\n        \"beef chunks: 800g\",\n        \"potatoes: 4 medium\",\n        \"carrots: 3 large\",\n        \"onions: 2 medium\",\n        \"beef broth: 4 cups\",\n        \"flour: 3 tbsp\",\n        \"tomato paste: 2 tbsp\",\n        \"garlic: 3 cloves\",\n        \"bay leaves: 2\",\n        \"thyme: 1 tsp\",\n        \"vegetable oil: 2 tbsp\",\n        \"salt: to taste\",\n        \"black pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Pat beef chunks dry with paper towels and season generously with salt and pepper\",\n        \"Dust beef with flour, shaking off excess\",\n        \"Heat oil in large heavy-bottomed pot or Dutch oven over medium-high heat\",\n        \"Brown beef in batches without crowding, about 3-4 minutes per side, then set aside\",\n        \"Reduce heat to medium, add chopped onions to same pot and cook until softened, about 5 minutes\",\n        \"Add minced garlic and tomato paste, stir for 1 minute until fragrant\",\n        \"Return beef to pot along with any accumulated juices\",\n        \"Pour in beef broth, add bay leaves and thyme, bring to boil\",\n        \"Reduce heat to low, cover and simmer for 60 minutes, stirring occasionally\",\n        \"Cut potatoes into 1-inch chunks and carrots into thick rounds\",\n        \"Add potatoes and carrots to pot, stir to combine\",\n        \"Continue simmering covered for another 45 minutes until beef is fork-tender and vegetables are cooked through\",\n        \"Remove bay leaves, taste and adjust seasoning with salt and pepper\",\n        \"Let rest for 5 minutes before serving to allow flavors to meld\"\n      ]\n    },\n    {\n      \"name\": \"Braised Beef with Root Vegetables\",\n      \"description\": \"Slow-braised beef with caramelized vegetables in a deeply savory reduction.\",\n      \"servings\": 6,\n      \"cookingTime\": 120,\n      \"difficulty\": \"medium\",\n      \"ingredients\": [\n        \"beef chunks: 900g\",\n        \"potatoes: 5 medium\",\n        \"carrots: 4 medium\",\n        \"onions: 2 large\",\n        \"beef broth: 3 cups\",\n        \"Worcestershire sauce: 2 tbsp\",\n        \"garlic: 4 cloves\",\n        \"rosemary: 2 sprigs\",\n        \"vegetable oil: 3 tbsp\",\n        \"salt: to taste\",\n        \"black pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Season beef chunks generously with salt and pepper on all sides\",\n        \"Heat 2 tbsp oil in large Dutch oven over high heat until shimmering\",\n        \"Sear beef in batches until deep golden brown on all sides, about 8 minutes total per batch, set aside\",\n        \"Reduce heat to medium, add remaining oil and sliced onions\",\n        \"Cook onions until deeply caramelized, about 10 minutes, stirring frequently\",\n        \"Add minced garlic and cook for 1 minute until fragrant\",\n        \"Return beef to pot, add beef broth and Worcestershire sauce\",\n        \"Tuck rosemary sprigs into liquid, bring to boil\",\n        \"Reduce to gentle simmer, cover tightly and braise for 60 minutes\",\n        \"Cut potatoes into quarters and carrots into large chunks\",\n        \"Nestle vegetables around beef in pot, ensuring they're partially submerged\",\n        \"Cover and continue braising for 45 minutes until beef is melt-in-your-mouth tender\",\n        \"Remove rosemary sprigs, check vegetables are fork-tender\",\n        \"If liquid is too thin, remove lid and simmer for 5-10 minutes to reduce\",\n        \"Taste and adjust seasoning, serve in shallow bowls with plenty of braising liquid\"\n      ]\n    },\n    {\n      \"name\": \"Rustic Beef and Vegetable Pot Roast\",\n      \"description\": \"A one-pot wonder with fork-tender beef and perfectly cooked vegetables in savory gravy.\",\n      \"servings\": 6,\n      \"cookingTime\": 120,\n      \"difficulty\": \"medium\",\n      \"ingredients\": [\n        \"beef chunks: 850g\",\n        \"potatoes: 6 medium\",\n        \"carrots: 4 large\",\n        \"onions: 2 medium\",\n        \"beef broth: 3.5 cups\",\n        \"flour: 2 tbsp\",\n        \"garlic: 3 cloves\",\n        \"bay leaf: 1\",\n        \"paprika: 1 tsp\",\n        \"vegetable oil: 2 tbsp\",\n        \"salt: to taste\",\n        \"black pepper: to taste\"\n      ],\n      \"instructions\": [\n        \"Mix flour with salt, pepper, and paprika in shallow dish\",\n        \"Coat beef chunks in seasoned flour mixture\",\n        \"Heat oil in large pot over medium-high heat\",\n        \"Brown beef pieces on all sides until crusty, about 6-8 minutes total, remove and set aside\",\n        \"Add quartered onions to pot and cook until golden, about 5 minutes\",\n        \"Add minced garlic and cook for 30 seconds\",\n        \"Return beef to pot, pour in beef broth and add bay leaf\",\n        \"Bring to boil, then reduce to low simmer\",\n        \"Cover and cook for 60 minutes, stirring every 20 minutes\",\n        \"Cut potatoes into large chunks and slice carrots into thick pieces\",\n        \"Add vegetables to pot, arranging them around the beef\",\n        \"Cover and continue cooking for 45 minutes until everything is tender\",\n        \"Remove bay leaf and check that beef shreds easily with fork\",\n        \"If gravy is too thin, remove solids and simmer liquid uncovered for 5 minutes to thicken\",\n        \"Return everything to pot, adjust seasoning and serve hot\"\n      ]\n    }\n  ]\n}"
+  },
+  {
+    "timestamp": "2026-01-18T11:44:19.756Z",
+    "testName": "Light breakfast eggs",
+    "request": {
+      "ingredients": [
+        "eggs",
+        "spinach",
+        "mushrooms"
+      ],
+      "servings": 1,
+      "maxCookingTime": 15,
+      "mealType": "breakfast",
+      "cuisineType": "any",
+      "cookingMethod": "pan-fry",
+      "difficulty": "easy",
+      "allergies": [
+        "milk"
+      ],
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\n  \"menus\": [\n    {\n      \"name\": \"Spinach and Mushroom Scramble\",\n      \"description\": \"A quick and nutritious breakfast with sautéed vegetables and fluffy scrambled eggs.\",\n      \"servings\": 1,\n      \"cookingTime\": 10,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"eggs: 2\",\n        \"spinach: 1 cup\",\n        \"mushrooms: 4-5\",\n        \"garlic: 1 clove\",\n        \"olive oil: 1 tbsp\",\n        \"salt: pinch\",\n        \"black pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Slice mushrooms and mince garlic\",\n        \"Heat olive oil in a non-stick pan over medium heat\",\n        \"Add mushrooms and cook for 3-4 minutes until golden and moisture evaporates\",\n        \"Add garlic and cook for 30 seconds until fragrant\",\n        \"Add spinach and stir until wilted, about 1 minute\",\n        \"Meanwhile, crack eggs into a bowl and beat with a fork, season with salt and pepper\",\n        \"Push vegetables to one side of the pan, pour eggs into the empty space\",\n        \"Let eggs sit for 10 seconds, then gently scramble with a spatula\",\n        \"Once eggs are nearly set but still slightly wet, fold vegetables into eggs\",\n        \"Remove from heat and serve immediately\"\n      ]\n    },\n    {\n      \"name\": \"Mushroom and Egg Stir-Fry\",\n      \"description\": \"A simple Asian-inspired breakfast with tender mushrooms and soft scrambled eggs over spinach.\",\n      \"servings\": 1,\n      \"cookingTime\": 12,\n      \"difficulty\": \"easy\",\n      \"ingredients\": [\n        \"eggs: 2\",\n        \"mushrooms: 5-6\",\n        \"spinach: 1.5 cups\",\n        \"soy sauce: 1 tsp\",\n        \"sesame oil: 1 tsp\",\n        \"vegetable oil: 1 tbsp\",\n        \"garlic: 1 clove\",\n        \"black pepper: pinch\"\n      ],\n      \"instructions\": [\n        \"Slice mushrooms and mince garlic\",\n        \"Beat eggs in a bowl with a pinch of pepper\",\n        \"Heat vegetable oil in a pan over medium-high heat\",\n        \"Add mushrooms and stir-fry for 3 minutes until browned\",\n        \"Add garlic and cook for 20 seconds\",\n        \"Push mushrooms to the side, add sesame oil to the empty space\",\n        \"Pour in beaten eggs and let sit for 15 seconds\",\n        \"Gently scramble eggs until just set, then mix with mushrooms\",\n        \"Add spinach and drizzle soy sauce around the edge of pan\",\n        \"Toss everything together until spinach wilts, about 1 minute\",\n        \"Serve immediately\"\n      ]\n    }\n  ]\n}"
   }
 ]
