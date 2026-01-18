@@ -2,7 +2,7 @@
   {
     "name": "Simple chicken dinner",
     "request": {
-      "ingredients": ["chicken breast", "rice", "broccoli"],
+      "ingredients": ["chicken breast", "bread", "broccoli"],
       "servings": 2,
       "maxCookingTime": 45,
       "mealType": "dinner",
