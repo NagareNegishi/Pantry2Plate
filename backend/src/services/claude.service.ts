@@ -75,6 +75,21 @@ function cleanApiResponse(text: string): string {
   }
   
   // Strip markdown code fences and any surrounding text
+  /**
+   * NOTE: match returns an array where:
+   * - index 0 is the full matched string
+   * - index 1 is the first captured group (the JSON content)
+   * - index 2, 3, ... are subsequent captured groups (if any)
+   *
+   * () this part captures the portion we want -> the captured part will be in index n
+   * /```           // Match opening backticks (don't save)
+   * (?:json)?      // Match "json" if it exists (don't save - that's what ?: does)
+   * \s*            // Match whitespace (don't save)
+   * ([\s\S]*?)     // Match JSON content (SAVE THIS - has parentheses!)
+   * \s*            // Match whitespace (don't save)
+   * ```/           // Match closing backticks (don't save)
+   * /i             // Case insensitive
+   */
   const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
   if (codeBlockMatch && codeBlockMatch[1]) {
     return codeBlockMatch[1].trim();
@@ -120,9 +135,14 @@ export async function generateMenuSuggestions(request: MenuRequestImpl) {
     throw new Error('Unexpected response format from Claude API');
   }
 
+  // before cleaning
+  console.log('Raw Claude Response:', firstBlock.text);
+
   const cleanedText = cleanApiResponse(firstBlock.text);
-  console.log(cleanedText);
-  return firstBlock.text;
+
+  // after cleaning
+  console.log('Cleaned Claude Response:', cleanedText);
+  return cleanedText;
 }
 
 /**
