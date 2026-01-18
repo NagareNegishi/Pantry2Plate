@@ -29,6 +29,8 @@ const config = {
       },
     ],
   },
+  // Setup environment variables from .env file before tests
+  setupFiles: ['dotenv/config'],
 };
 
 export default config;
