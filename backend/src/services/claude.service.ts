@@ -75,7 +75,7 @@ export async function generateMenuSuggestions(request: MenuRequestImpl) {
   const prompt = formatMenuPrompt(request);
   const message = await client.messages.create({
     model: CLAUDE_CONFIG.model,
-    max_tokens: 10,   // small for testing   //CLAUDE_CONFIG.maxTokens,
+    max_tokens: CLAUDE_CONFIG.maxTokens,
     temperature: CLAUDE_CONFIG.temperature,
     system: CLAUDE_CONFIG.system,
     messages: [{ role: 'user', content: prompt }]
