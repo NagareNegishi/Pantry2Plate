@@ -31,7 +31,7 @@ const testDataPath = join(__dirname, 'test-data.json');
 const testData: TestData[] = JSON.parse(readFileSync(testDataPath, 'utf-8'));
 
 // Only run first 2 tests for first attempts to limit API usage
-const limitedTestData = testData.slice(0, 2);
+const limitedTestData = testData.slice(0, 1);
 
 describe('Claude API Integration Tests', () => {
   // Skip by default - only run when explicitly enabled

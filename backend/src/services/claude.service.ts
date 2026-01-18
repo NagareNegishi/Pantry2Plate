@@ -61,6 +61,39 @@ export function formatMenuPrompt(request: MenuRequestImpl): string {
 
 
 /**
+ * Clean Claude API response text
+ * Strips markdown code fences and extracts JSON content
+ * @param text Raw response text from Claude
+ * @returns Cleaned text (JSON string or INSUFFICIENT_INGREDIENTS)
+ */
+function cleanApiResponse(text: string): string {
+  text = text.trim();
+  
+  // Handle INSUFFICIENT_INGREDIENTS (plain text response)
+  if (text === 'INSUFFICIENT_INGREDIENTS') {
+    return text;
+  }
+  
+  // Strip markdown code fences and any surrounding text
+  const codeBlockMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (codeBlockMatch && codeBlockMatch[1]) {
+    return codeBlockMatch[1].trim();
+  }
+  
+  // If no code block found, try to extract JSON directly
+  if (text.includes('{')) {
+    const start = text.indexOf('{');
+    const end = text.lastIndexOf('}');
+    if (start !== -1 && end !== -1 && end > start) {
+      return text.substring(start, end + 1);
+    }
+  }
+  
+  return text;
+}
+
+
+/**
  * Generate menu suggestions from Claude API based on prompt
  * @param request Menu request from user
  * @returns Claude response content
@@ -87,7 +120,8 @@ export async function generateMenuSuggestions(request: MenuRequestImpl) {
     throw new Error('Unexpected response format from Claude API');
   }
 
-  // console.log(firstBlock.text);
+  const cleanedText = cleanApiResponse(firstBlock.text);
+  console.log(cleanedText);
   return firstBlock.text;
 }
 
