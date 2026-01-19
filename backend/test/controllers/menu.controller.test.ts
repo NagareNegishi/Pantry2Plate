@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals';
 
 const mockGenerateMenuSuggestions: any = jest.fn();
 
@@ -24,6 +24,16 @@ describe('menu.controller', () => {
       json: jest.fn()
     };
   });
+
+  // Silence console.error during tests
+  beforeEach(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks(); // Restore the original console.log after each test
+  });
+
 
   // Valid request and response
   it('should validate and return menu response', async () => {
@@ -76,6 +86,13 @@ describe('menu.controller', () => {
     );
     await generateMenu(mockReq, mockRes);
     expect(mockRes.status).toHaveBeenCalledWith(500);
+  });
+
+  it('should return 502 for invalid service response', async () => {
+    mockReq.body = { ingredients: ['pasta'] };
+    mockGenerateMenuSuggestions.mockResolvedValue('not valid json at all');
+    await generateMenu(mockReq, mockRes);
+    expect(mockRes.status).toHaveBeenCalledWith(502);
   });
 
   // Case API response contains invalid formats
