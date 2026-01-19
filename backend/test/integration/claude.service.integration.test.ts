@@ -6,6 +6,8 @@
  * RUN_INTEGRATION_TESTS=true ENABLE_CLAUDE_API=true npm test -- claude.service.integration
  * On Windows (this package.json script uses cross-env):
  * npx cross-env RUN_INTEGRATION_TESTS=true ENABLE_CLAUDE_API=true npm test -- claude.service.integration
+ *
+ * script "test:integration" added to backend/package.json for convenience.
  */
 
 

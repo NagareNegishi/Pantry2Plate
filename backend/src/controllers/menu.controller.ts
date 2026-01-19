@@ -40,8 +40,12 @@ export const generateMenu = async (req: Request, res: Response) => {
     res.status(200).json( { response: menuResponse } );
 
   } catch (error) {
-    // Simple error handling
-    console.error('Error in generateMenu:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    if (error instanceof SyntaxError) {
+      console.error('JSON Parse Error in generateMenu:', error);
+      return res.status(502).json({ error: 'Invalid response format from Claude API' });
+    } else {
+      console.error('Error in generateMenu:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   }
 };
