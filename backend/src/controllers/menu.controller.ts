@@ -7,6 +7,8 @@ import type { ValidationResult } from '@pantry2plate/shared';
 import { MenuRequestImpl, MenuResponseImpl } from '@pantry2plate/shared';
 import { type Request, type Response } from 'express';
 import { generateMenuSuggestions } from '../services/claude.service.js';
+// For Anthropic specific errors handling: https://github.com/anthropics/anthropic-sdk-typescript
+import Anthropic from '@anthropic-ai/sdk';
 
 // Pseudo-code structure
 export const generateMenu = async (req: Request, res: Response) => {
@@ -41,11 +43,23 @@ export const generateMenu = async (req: Request, res: Response) => {
 
   } catch (error) {
     if (error instanceof SyntaxError) {
-      console.error('JSON Parse Error in generateMenu:', error);
+      console.error('JSON Parse Error:', error);
       return res.status(502).json({ error: 'Invalid response format from Claude API' });
+    } else if (error instanceof Anthropic.RateLimitError) {  // Check BEFORE APIError
+      console.error('Claude API Rate Limit:', error.message);
+      return res.status(429).json({ error: 'Rate limit exceeded, please try again later' });
+    } else if (error instanceof Anthropic.AuthenticationError) {  // Check BEFORE APIError
+      console.error('Claude API Authentication Error:', error.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    } else if (error instanceof Anthropic.APIConnectionError) {
+      console.error('Claude API Connection Error:', error.message);
+      return res.status(502).json({ error: 'Unable to connect to Claude API' });
+    } else if (error instanceof Anthropic.APIError) {  // General case LAST
+      console.error('Claude API Error:', error.message);
+      return res.status(502).json({ error: 'Error from Claude API' });
     } else {
-      console.error('Error in generateMenu:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      console.error('Unexpected error:', error);
+      return res.status(500).json({ error: 'Internal server error' });  // Add return here too
     }
   }
 };
