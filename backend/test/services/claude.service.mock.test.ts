@@ -43,6 +43,7 @@ describe('generateMenuSuggestions - mocked', () => {
     mockCreate.mockClear(); // Clear mock call history before each test
   });
 
+
   // Valid response
   it('should parse valid menu response', async () => {
     mockCreate.mockResolvedValue({
@@ -107,6 +108,7 @@ describe('generateMenuSuggestions - mocked', () => {
       .rejects.toThrow('Unexpected response format from Claude API');
   });
 
+
   // Valid response with multiple menus
   it('should parse valid menu with multiple responses', async () => {
     mockCreate.mockResolvedValue({
@@ -157,20 +159,35 @@ describe('generateMenuSuggestions - mocked', () => {
     expect(parsed.menus[1].instructions).toEqual(['Cook pasta', 'Prepare meat sauce', 'Combine and serve']);
   });
 
-  // Response with markdown-wrapped JSON
-it('should clean markdown-wrapped JSON response', async () => {
-  mockCreate.mockResolvedValue({
-    content: [{
-      type: 'text',
-      text: '```json\n{"menus": [{"name": "Test", "description": "Test dish", "servings": 2, "cookingTime": 20, "difficulty": "easy", "ingredients": ["pasta: 200g"], "instructions": ["Cook"]}]}\n```'
-    }]
+
+  // Valid response, but wrapped in markdown or extra text
+  it('should clean markdown-wrapped JSON response', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{
+        type: 'text',
+        text: '```json\n{"menus": [{"name": "Test", "description": "Test dish", "servings": 2, "cookingTime": 20, "difficulty": "easy", "ingredients": ["pasta: 200g"], "instructions": ["Cook"]}]}\n```'
+      }]
+    });
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    const result = await generateMenuSuggestions(request);
+    const parsed = JSON.parse(result); // Should parse cleanly
+    expect(parsed.menus).toBeDefined();
+    expect(parsed.menus[0].name).toBe('Test');
   });
-  const request = new MenuRequestImpl({ ingredients: ['pasta'] });
-  const result = await generateMenuSuggestions(request);
-  const parsed = JSON.parse(result); // Should parse cleanly
-  expect(parsed.menus).toBeDefined();
-  expect(parsed.menus[0].name).toBe('Test');
-});
+
+  it('should extract JSON from text without code fences', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{
+        type: 'text',
+        text: 'Here is your menu: {"menus": [{"name": "Test", "description": "Test dish", "servings": 2, "cookingTime": 20, "difficulty": "easy", "ingredients": ["pasta: 200g"], "instructions": ["Cook"]}]} Hope this helps!'
+      }]
+    });
+    const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+    const result = await generateMenuSuggestions(request);
+    const parsed = JSON.parse(result);
+    expect(parsed.menus).toBeDefined();
+    expect(parsed.menus[0].name).toBe('Test');
+  });
 
 
 });
