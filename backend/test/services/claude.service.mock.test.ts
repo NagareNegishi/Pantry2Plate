@@ -157,4 +157,20 @@ describe('generateMenuSuggestions - mocked', () => {
     expect(parsed.menus[1].instructions).toEqual(['Cook pasta', 'Prepare meat sauce', 'Combine and serve']);
   });
 
+  // Response with markdown-wrapped JSON
+it('should clean markdown-wrapped JSON response', async () => {
+  mockCreate.mockResolvedValue({
+    content: [{
+      type: 'text',
+      text: '```json\n{"menus": [{"name": "Test", "description": "Test dish", "servings": 2, "cookingTime": 20, "difficulty": "easy", "ingredients": ["pasta: 200g"], "instructions": ["Cook"]}]}\n```'
+    }]
+  });
+  const request = new MenuRequestImpl({ ingredients: ['pasta'] });
+  const result = await generateMenuSuggestions(request);
+  const parsed = JSON.parse(result); // Should parse cleanly
+  expect(parsed.menus).toBeDefined();
+  expect(parsed.menus[0].name).toBe('Test');
+});
+
+
 });
