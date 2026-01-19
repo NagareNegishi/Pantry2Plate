@@ -30,8 +30,8 @@ export const generateMenu = async (req: Request, res: Response) => {
     const menuResponse = new MenuResponseImpl(parsed);
     const responseValidation: ValidationResult = menuResponse.validate();
     if (!responseValidation.valid) {
-      return res.status(500).json({
-        error: 'Invalid response from menu generation service',
+      return res.status(502).json({
+        error: 'Claude API returned invalid menu format',
         details: responseValidation.errors
       });
     }

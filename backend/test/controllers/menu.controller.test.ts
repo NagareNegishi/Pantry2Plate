@@ -79,20 +79,25 @@ describe('menu.controller', () => {
   });
 
   // Case API response is invalid
-  it('should return 500 for invalid service response', async () => {
+  it('should return 502 for invalid service response 1', async () => {
     mockReq.body = { ingredients: ['pasta'] };
     mockGenerateMenuSuggestions.mockResolvedValue(
       JSON.stringify({ invalid: 'data' })
     );
     await generateMenu(mockReq, mockRes);
-    expect(mockRes.status).toHaveBeenCalledWith(500);
+    expect(mockRes.status).toHaveBeenCalledWith(502);
+    expect(mockRes.json).toHaveBeenCalledWith({
+      error: 'Claude API returned invalid menu format',
+      details: expect.any(Array)
+    });
   });
 
-  it('should return 502 for invalid service response', async () => {
+  it('should return 502 for invalid service response 2', async () => {
     mockReq.body = { ingredients: ['pasta'] };
     mockGenerateMenuSuggestions.mockResolvedValue('not valid json at all');
     await generateMenu(mockReq, mockRes);
     expect(mockRes.status).toHaveBeenCalledWith(502);
+    expect(mockRes.json).toHaveBeenCalledWith({ error: 'Invalid response format from Claude API' });
   });
 
   // Case API response contains invalid formats
@@ -260,10 +265,10 @@ describe('menu.controller', () => {
     );
 
     await generateMenu(mockReq, mockRes);
-    // both will be removed, so return 500 error
-    expect(mockRes.status).toHaveBeenCalledWith(500);
+    // both will be removed, so return 502 error
+    expect(mockRes.status).toHaveBeenCalledWith(502);
     const response = mockRes.json.mock.calls[0][0];
-    expect(response.error).toBe('Invalid response from menu generation service');
+    expect(response.error).toBe('Claude API returned invalid menu format');
     expect(response.details.length).toBe(2);
   });
 
