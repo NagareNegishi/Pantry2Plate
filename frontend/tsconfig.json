@@ -21,7 +21,12 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    // for vitest and jest-dom
+    // vitest/globals - tells TypeScript about global test functions (only needed if using globals: true)
+    // @testing-library/jest-dom - provides type definitions for custom matchers, but we are importing it in setup file
+    // "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

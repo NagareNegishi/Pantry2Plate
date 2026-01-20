@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    // globals: true,
-    // setupFiles: './src/setupTests.ts',
+    // globals: true, // if I want to skip importing 'describe', 'it', 'expect' in each test file
+    setupFiles: ['./vitest.setup.ts'], // it runs this file before each test file
   },
 })
