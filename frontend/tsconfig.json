@@ -1,4 +1,11 @@
 {
+  // For shadcn/ui, if we are making tsconfig.app.json
+  // "files": [],
+  // "references": [
+  //   { "path": "./tsconfig.app.json" },
+  //   { "path": "./tsconfig.node.json" }
+  // ],
+
   // reference: https://github.com/tsconfig/bases/blob/main/bases/vite-react.json
   "compilerOptions": {
     "target": "ES2022",
@@ -27,6 +34,13 @@
     // vitest/globals - tells TypeScript about global test functions (only needed if using globals: true)
     // @testing-library/jest-dom - provides type definitions for custom matchers, but we are importing it in setup file
     // "types": ["vitest/globals", "@testing-library/jest-dom"]
+
+    // For shadcn/ui
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
