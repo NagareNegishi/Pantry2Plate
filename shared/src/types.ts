@@ -14,4 +14,5 @@ export interface ValidationResult {
  */
 export const MIN_COOKING_TIME = 10;
 export const MAX_COOKING_TIME = 720;
+export const MIN_SERVINGS = 1;
 export const MAX_SERVINGS = 12;
