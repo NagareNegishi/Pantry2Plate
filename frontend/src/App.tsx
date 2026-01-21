@@ -7,6 +7,7 @@ import type { ValidationResult } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
 
 import { useState } from 'react';
+import { CookingTimeInput } from './components/CookingTimeInput';
 import { ServingsInput } from './components/ServingsInput';
 
 const request = new MenuRequestImpl({
@@ -27,12 +28,17 @@ function App() {
   // we name currentValue and setter function appropriately
   // Setter function is provided by React (we can name it whatever we want)
   const [servings, setServings] = useState(1); // Default to 1 serving
+  const [cookingTime, setCookingTime] = useState(60); // Default to 60 minutes
 
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Pantry2Plate</h1>
+
       <ServingsInput value={servings} onChange={setServings} />
       <p className="mt-4">Selected servings: {servings}</p>
+      
+      <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
+      <p className="mt-4">Selected cooking time: {cookingTime} minutes</p>
     </div>
   );
 }
