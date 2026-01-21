@@ -42,6 +42,7 @@ export function CookingTimeInput({ value, onChange }: CookingTimeInputProps) {
         type="number"
         min={10}
         max={720}
+        step={5}
         value={value}
         onChange={handleChange}
       />
