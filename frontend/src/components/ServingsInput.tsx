@@ -5,7 +5,8 @@
  */
 import { Input } from "@/components/ui/input"; // @/ is an alias to src/
 import { Label } from "@/components/ui/label";
-
+import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
+import { useState } from "react";
 
 /**
  * Props for the ServingsInput component.
@@ -24,14 +25,36 @@ interface ServingsInputProps {
  */
 export function ServingsInput({ value, onChange }: ServingsInputProps) {
 
-  // Handler for input changes
-  // React.ChangeEvent is a TypeScript generic type from React for event handling
+  // Local state for the input display (allows any string while typing)
+  const [displayValue, setDisplayValue] = useState(value.toString());
+
+  // Handler for input changes, React.ChangeEvent is a TypeScript generic type from React for event handling
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseInt(e.target.value, 10); // Convert input string to number (e.target.value is always a string)
-    
-    // Enforce min/max constraints
-    if (newValue >= 1 && newValue <= 12) {
+    const inputValue = e.target.value; // e.target.value is always a string
+    setDisplayValue(inputValue);  // Update display immediately (no validation)
+
+    // Try to parse -> update
+    if (inputValue === '') return; // Allow empty input (user clearing field)
+    const newValue = parseInt(inputValue, 10); // Convert input string to number
+    if (!isNaN(newValue) && newValue >= MIN_SERVINGS && newValue <= MAX_SERVINGS) {
       onChange(newValue);
+    }
+  };
+
+  // When user leaves input, enforce valid value
+  const handleBlur = () => {
+    const num = parseInt(displayValue, 10);
+    if (isNaN(num) || displayValue === '') { // Empty or invalid → reset to minimum
+      setDisplayValue(MIN_SERVINGS.toString());
+      onChange(MIN_SERVINGS);
+    } else if (num < MIN_SERVINGS) { // Too low → set to minimum
+      setDisplayValue(MIN_SERVINGS.toString());
+      onChange(MIN_SERVINGS);
+    } else if (num > MAX_SERVINGS) { // Too high → set to maximum
+      setDisplayValue(MAX_SERVINGS.toString());
+      onChange(MAX_SERVINGS);
+    } else { // Valid → just ensure display matches
+      setDisplayValue(num.toString());
     }
   };
 
@@ -43,8 +66,9 @@ export function ServingsInput({ value, onChange }: ServingsInputProps) {
         type="number"
         min={1}
         max={12}
-        value={value}
+        value={displayValue}
         onChange={handleChange}
+        onBlur={handleBlur}
       />
     </div>
   );
