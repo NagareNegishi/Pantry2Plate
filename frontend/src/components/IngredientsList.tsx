@@ -109,37 +109,35 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
           !INGREDIENT_REGEX.test(currentInput.trim()) ||
           value.length >= MAX_INGREDIENTS
         }
-      >Add</Button>
+        variant="outline"
+        className="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200"
+      >
+        Add
+      </Button>
+
       {/* List of added ingredients */}
-      <ul>
+      <div className="flex flex-wrap gap-2 mt-2"> {/* flex flex-wrap automatically wraps tags */}
         {value.map((ingredient, index) => (
-          <li key={index} className="group flex items-center gap-2">
-            <span>{ingredient}</span>
+          <div key={index} className="relative group">
+            <Badge
+              variant="secondary"
+              className="px-6 py-1.5 text-sm"
+            >
+              <span>{ingredient}</span>
+            </Badge>
             <Button
               onClick={() => handleRemove(index)}
               size="icon"
               variant="ghost"
               // Show delete icon only on hover
-              className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-              <Trash2 className="h-4 w-4 translate-y-[2px]" />
+              className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
+            >
+              <Trash2 className="h-3 w-3 text-destructive" />
             </Button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+
     </div>
   );
-}
-
-
-
-export function BadgeDemo() {
-  return (
-    <div className="flex w-full flex-wrap justify-center gap-2">
-      <Badge>Badge</Badge>
-      <Badge variant="secondary">Secondary</Badge>
-      <Badge variant="destructive">Destructive</Badge>
-      <Badge variant="outline">Outline</Badge>
-    </div>
-  )
 }
