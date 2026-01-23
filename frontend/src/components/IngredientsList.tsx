@@ -84,8 +84,12 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         {value.map((ingredient, index) => (
           <li key={index}>
             {ingredient}
-            <Button onClick={() => handleRemove(index)}>
-              <Trash2 className="h-4 w-4" />
+            <Button
+              onClick={() => handleRemove(index)}
+              size="icon"
+              variant="ghost"
+              >
+              <Trash2 className="h-4 w-4 translate-y-[2px]" />
             </Button>
           </li>
         ))}
