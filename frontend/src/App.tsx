@@ -49,7 +49,6 @@ function App() {
       <p className="mt-4">Selected difficulty: {difficulty}</p>
 
       <IngredientsList value={ingredients} onChange={setIngredients} />
-      <p className="mt-4">Current ingredients: {ingredients.join(', ')}</p>
     </div>
   );
 }
