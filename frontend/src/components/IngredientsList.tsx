@@ -54,7 +54,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         value={currentInput}
         onChange={(e) => setCurrentInput(e.target.value)}
       />
-
+      {/* Add Button */}
       <Button
         onClick={handleAdd}
         disabled={
@@ -62,6 +62,14 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
           value.length >= MAX_INGREDIENTS
         }
       >Add</Button>
+      {/* List of added ingredients */}
+      <ul>
+        {value.map((ingredient, index) => (
+          <li key={index}>
+            {ingredient}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
