@@ -7,6 +7,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { COMMON_INGREDIENTS } from "@/constants/ingredients";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -85,6 +86,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         Letters, spaces, and hyphens only (1-20 characters)
       </p>
       <Input
+        list="ingredients-list" // For datalist suggestions
         id="ingredients"
         type="text"
         placeholder="e.g., chicken, rice, tomatoes"
@@ -92,6 +94,12 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         onChange={(e) => setCurrentInput(e.target.value)}
         onKeyDown={handleEnter}
       />
+      {/* Datalist for common ingredients suggestions */}
+      <datalist id="ingredients-list">
+        {COMMON_INGREDIENTS.map((ingredient) => (
+          <option key={ingredient} value={ingredient} />
+        ))}
+      </datalist>
 
       {/* Add Button */}
       <Button
