@@ -4,6 +4,7 @@
  * Allows users to input a ingredients(letters, spaces, hyphens only, 1-20 chars)
  * For time being, up to 10 ingredients.
  */
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -130,3 +131,15 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
   );
 }
 
+
+
+export function BadgeDemo() {
+  return (
+    <div className="flex w-full flex-wrap justify-center gap-2">
+      <Badge>Badge</Badge>
+      <Badge variant="secondary">Secondary</Badge>
+      <Badge variant="destructive">Destructive</Badge>
+      <Badge variant="outline">Outline</Badge>
+    </div>
+  )
+}
