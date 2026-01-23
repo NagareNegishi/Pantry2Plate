@@ -5,8 +5,9 @@
  * For time being, up to 10 ingredients.
  */
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input"; // @/ is an alias to src/
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Trash2 } from "lucide-react";
 import { useState } from "react";
 
 const MAX_INGREDIENTS = 10;
@@ -42,6 +43,21 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
     }
   };
 
+  // Enter key adds ingredient
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent form unintended submission
+      handleAdd();
+    }
+  }
+
+  // Allow removal of ingredients
+  const handleRemove = (index: number) => {
+    onChange(value.filter((_, i) => i !== index)); // Remove ingredient at index
+    // Note: _ indicates "unused", we only care about index
+    // React requires a new array reference to trigger re-render, so splice is not used
+  };
+
 
 
   return (
@@ -53,6 +69,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         placeholder="input ingredients here"
         value={currentInput}
         onChange={(e) => setCurrentInput(e.target.value)}
+        onKeyDown={handleEnter}
       />
       {/* Add Button */}
       <Button
@@ -67,6 +84,9 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         {value.map((ingredient, index) => (
           <li key={index}>
             {ingredient}
+            <Button onClick={() => handleRemove(index)}>
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </li>
         ))}
       </ul>
