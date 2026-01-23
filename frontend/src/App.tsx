@@ -10,6 +10,7 @@ import { MenuRequestImpl } from '@pantry2plate/shared';
 import { useState } from 'react';
 import { CookingTimeInput } from './components/CookingTimeInput';
 import { DifficultySelect } from './components/DifficultySelect';
+import { IngredientsList } from './components/IngredientsList';
 import { ServingsInput } from './components/ServingsInput';
 
 const request = new MenuRequestImpl({
@@ -32,6 +33,7 @@ function App() {
   const [servings, setServings] = useState(1); // Default to 1 serving
   const [cookingTime, setCookingTime] = useState(60); // Default to 60 minutes
   const [difficulty, setDifficulty] = useState<Difficulty>('any'); // Default to 'any' difficulty
+  const [ingredients, setIngredients] = useState<string[]>([]); // Default to empty ingredients list
 
   return (
     <div className="p-8">
@@ -45,6 +47,9 @@ function App() {
 
       <DifficultySelect value={difficulty} onChange={setDifficulty} />
       <p className="mt-4">Selected difficulty: {difficulty}</p>
+
+      <IngredientsList value={ingredients} onChange={setIngredients} />
+      <p className="mt-4">Current ingredients: {ingredients.join(', ')}</p>
     </div>
   );
 }
