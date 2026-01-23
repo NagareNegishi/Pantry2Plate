@@ -1,14 +1,9 @@
-
-
 // test connection from shared module
 import type { Difficulty, ValidationResult } from '@pantry2plate/shared'; // Types only (disappear at runtime)
 import { MenuRequestImpl } from '@pantry2plate/shared'; // Actual classes/values (exist at runtime)
 
 import { useState } from 'react';
-import { CookingTimeInput } from './components/CookingTimeInput';
-import { DifficultySelect } from './components/DifficultySelect';
-import { IngredientsList } from './components/IngredientsList';
-import { ServingsInput } from './components/ServingsInput';
+import { BasicInputs } from './components/BasicInputs';
 
 import { Toaster } from "@/components/ui/sonner";
 
@@ -25,17 +20,18 @@ function App() {
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-4">Pantry2Plate</h1>
+      <BasicInputs
+        servings={servings}
+        setServings={setServings}
+        cookingTime={cookingTime}
+        setCookingTime={setCookingTime}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+        ingredients={ingredients}
+        setIngredients={setIngredients}
+      />
 
-      <ServingsInput value={servings} onChange={setServings} />
-      <p className="mt-4">Selected servings: {servings}</p>
-      
-      <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
-      <p className="mt-4">Selected cooking time: {cookingTime} minutes</p>
 
-      <DifficultySelect value={difficulty} onChange={setDifficulty} />
-      <p className="mt-4">Selected difficulty: {difficulty}</p>
-
-      <IngredientsList value={ingredients} onChange={setIngredients} />
 
       <Toaster /> {/* Toast notifications container */}
     </div>

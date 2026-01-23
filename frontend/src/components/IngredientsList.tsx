@@ -29,7 +29,7 @@ interface IngredientsListProps {
 /**
  * IngredientsList Component
  * @param IngredientsListProps but as destructured props
- * @returns
+ * @returns An input field to add ingredients with validation and a list to display added ingredients
  */
 export function IngredientsList({ value, onChange }: IngredientsListProps) {
 
