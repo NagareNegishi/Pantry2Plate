@@ -43,9 +43,11 @@ export function BasicInputs({
   return (
     <div className="space-y-4">
       <IngredientsList value={ingredients} onChange={setIngredients} />
-      <ServingsInput value={servings} onChange={setServings} />
-      <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
-      <DifficultySelect value={difficulty} onChange={setDifficulty} />
+      <div className="flex gap-4">
+        <ServingsInput value={servings} onChange={setServings} />
+        <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
+        <DifficultySelect value={difficulty} onChange={setDifficulty} />
+      </div>
     </div>
   );
 }

@@ -34,8 +34,13 @@ interface DifficultySelectProps {
 export function DifficultySelect({ value, onChange }: DifficultySelectProps ) {
   
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="difficulty">Difficulty</Label>
+    <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
+      <Label
+        htmlFor="difficulty"
+        className="text-base"
+      >
+        Difficulty
+      </Label>
       <Select
         value={value}
         onValueChange={(value) => onChange(value as Difficulty)}

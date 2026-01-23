@@ -59,8 +59,14 @@ export function ServingsInput({ value, onChange }: ServingsInputProps) {
   };
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="servings">Servings</Label>
+    // <div className="grid w-full max-w-24 items-center gap-1.5"> // left aligned
+    <div className="flex flex-col w-full max-w-24 items-center gap-1.5">
+      <Label
+        htmlFor="servings"
+        className="text-base"
+      >
+        Servings
+      </Label>
       <Input
         id="servings"
         type="number"

@@ -60,8 +60,13 @@ export function CookingTimeInput({ value, onChange }: CookingTimeInputProps) {
   };
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="cookingTime">Cooking Time</Label>
+    <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
+      <Label
+        htmlFor="cookingTime"
+        className="text-base"
+      >
+        Cooking Time
+      </Label>
       <Input
         id="cookingTime"
         type="number"

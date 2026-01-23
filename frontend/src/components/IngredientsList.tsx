@@ -82,7 +82,12 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
 
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="ingredients">Ingredients</Label>
+      <Label
+        htmlFor="ingredients"
+        className="text-base"
+      >
+        Ingredients
+      </Label>
       <p className="text-sm text-muted-foreground">
         Letters, spaces, and hyphens only (1-20 characters)
       </p>
