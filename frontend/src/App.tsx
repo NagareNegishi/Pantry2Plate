@@ -1,11 +1,8 @@
 
 
 // test connection from shared module
-// Types only (disappear at runtime)
-import type { ValidationResult } from '@pantry2plate/shared';
-// Actual classes/values (exist at runtime)
-import type { Difficulty } from '@pantry2plate/shared';
-import { MenuRequestImpl } from '@pantry2plate/shared';
+import type { Difficulty, ValidationResult } from '@pantry2plate/shared'; // Types only (disappear at runtime)
+import { MenuRequestImpl } from '@pantry2plate/shared'; // Actual classes/values (exist at runtime)
 
 import { useState } from 'react';
 import { CookingTimeInput } from './components/CookingTimeInput';
@@ -13,17 +10,7 @@ import { DifficultySelect } from './components/DifficultySelect';
 import { IngredientsList } from './components/IngredientsList';
 import { ServingsInput } from './components/ServingsInput';
 
-const request = new MenuRequestImpl({
-  ingredients: ['chicken', 'rice'],
-  dietaryRestrictions: ['vegetarian', 'gluten-free'],
-  mealType: 'dinner',
-  servings: 2
-});
-
-const validation: ValidationResult = request.validate();
-console.log('Validation Result front:', validation);
-
-
+import { Toaster } from "@/components/ui/sonner";
 
 
 function App() {
@@ -49,8 +36,25 @@ function App() {
       <p className="mt-4">Selected difficulty: {difficulty}</p>
 
       <IngredientsList value={ingredients} onChange={setIngredients} />
+
+      <Toaster /> {/* Toast notifications container */}
     </div>
   );
 }
 
 export default App
+
+
+
+
+// Example usage of MenuRequestImpl and ValidationResult, connect to app later
+
+const request = new MenuRequestImpl({
+  ingredients: ['chicken', 'rice'],
+  dietaryRestrictions: ['vegetarian', 'gluten-free'],
+  mealType: 'dinner',
+  servings: 2
+});
+
+const validation: ValidationResult = request.validate();
+console.log('Validation Result front:', validation);

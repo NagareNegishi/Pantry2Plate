@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const MAX_INGREDIENTS = 10;
 const INGREDIENT_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
@@ -37,10 +38,29 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
   // Handler for input changes
   const handleAdd = () => {
     const inputValue = currentInput.trim();
-    if (INGREDIENT_REGEX.test(inputValue) && value.length < MAX_INGREDIENTS) {
-      onChange([...value, inputValue]);
-      setCurrentInput('');  // Clear input after adding
+    // Case invalid format
+    if (!INGREDIENT_REGEX.test(inputValue)) {
+      toast.error("Invalid ingredient", {
+        description: "Use only letters, spaces, and hyphens (1-20 characters)",
+      });
+      return;
     }
+    // Case duplicate
+    if (value.includes(inputValue)) {
+      toast.error("Duplicate ingredient", {
+        description: `"${inputValue}" is already in the list`,
+      });
+      return;
+    }
+    // Case max reached
+    if (value.length >= MAX_INGREDIENTS) {
+      toast.error("Maximum reached", {
+        description: `You can only add up to ${MAX_INGREDIENTS} ingredients`,
+      });
+      return;
+    }
+    onChange([...value, inputValue]);
+    setCurrentInput('');  // Clear input after adding
   };
 
   // Enter key adds ingredient
@@ -57,8 +77,6 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
     // Note: _ indicates "unused", we only care about index
     // React requires a new array reference to trigger re-render, so splice is not used
   };
-
-
 
   return (
     <div className="grid w-full max-w-sm items-center gap-1.5">
