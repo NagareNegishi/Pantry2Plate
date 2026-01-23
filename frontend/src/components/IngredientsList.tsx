@@ -54,9 +54,14 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
         value={currentInput}
         onChange={(e) => setCurrentInput(e.target.value)}
       />
-      // some list here
-      
-      <Button>inputValue</Button>
+
+      <Button
+        onClick={handleAdd}
+        disabled={
+          !INGREDIENT_REGEX.test(currentInput.trim()) ||
+          value.length >= MAX_INGREDIENTS
+        }
+      >Add</Button>
     </div>
   );
 }
