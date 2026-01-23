@@ -82,12 +82,14 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
       {/* List of added ingredients */}
       <ul>
         {value.map((ingredient, index) => (
-          <li key={index}>
-            {ingredient}
+          <li key={index} className="group flex items-center gap-2">
+            <span>{ingredient}</span>
             <Button
               onClick={() => handleRemove(index)}
               size="icon"
               variant="ghost"
+              // Show delete icon only on hover
+              className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
               >
               <Trash2 className="h-4 w-4 translate-y-[2px]" />
             </Button>
