@@ -4,10 +4,12 @@
 // Types only (disappear at runtime)
 import type { ValidationResult } from '@pantry2plate/shared';
 // Actual classes/values (exist at runtime)
+import type { Difficulty } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
 
 import { useState } from 'react';
 import { CookingTimeInput } from './components/CookingTimeInput';
+import { DifficultySelect } from './components/DifficultySelect';
 import { ServingsInput } from './components/ServingsInput';
 
 const request = new MenuRequestImpl({
@@ -29,6 +31,7 @@ function App() {
   // Setter function is provided by React (we can name it whatever we want)
   const [servings, setServings] = useState(1); // Default to 1 serving
   const [cookingTime, setCookingTime] = useState(60); // Default to 60 minutes
+  const [difficulty, setDifficulty] = useState<Difficulty>('any'); // Default to 'any' difficulty
 
   return (
     <div className="p-8">
@@ -39,6 +42,9 @@ function App() {
       
       <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
       <p className="mt-4">Selected cooking time: {cookingTime} minutes</p>
+
+      <DifficultySelect value={difficulty} onChange={setDifficulty} />
+      <p className="mt-4">Selected difficulty: {difficulty}</p>
     </div>
   );
 }
