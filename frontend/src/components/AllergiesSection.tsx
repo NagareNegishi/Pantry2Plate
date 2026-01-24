@@ -4,16 +4,19 @@
  * Allows users to choose from predefined allergiess. See Allergy in shared module.
  */
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { Allergy } from '@pantry2plate/shared';
+import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
-
+const MAX_CUSTOM_ALLERGIES = 5; // arbitrary limit to prevent abuse
 // List of allergies for dynamic rendering
 const ALLERGIES: Allergy[] = [
     'peanuts', 'tree-nuts', 'milk', 'eggs', 'wheat',
@@ -53,12 +56,30 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   };
 
   // Handler for adding custom allergies
-  const handleAdd = () => {
+  const handleCustomAdd = () => {
     const trimmed = displayCustom.trim();
     // Case invalid format
     if (!CUSTOM_REGEX.test(trimmed)) {
       toast.error("Invalid allergies", {
         description: "Use only letters, spaces, and hyphens (1-20 characters)",
+      });
+      setDisplayCustom('');
+      setIsValid(false);
+      return;
+    }
+    // Case duplicate
+    if (customValue.includes(trimmed)) {
+      toast.error("Duplicate allergy", {
+        description: `"${trimmed}" is already in the list`,
+      });
+      setDisplayCustom('');
+      setIsValid(false);
+      return;
+    }
+    // Case max reached
+    if (customValue.length >= MAX_CUSTOM_ALLERGIES) {
+      toast.error("Maximum reached", {
+        description: `You can only add up to ${MAX_CUSTOM_ALLERGIES} custom allergies`,
       });
       setDisplayCustom('');
       setIsValid(false);
@@ -73,11 +94,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // Prevent form submission if inside a form
-      handleAdd();
-
-      // // display all allergies and custom allergies for debugging
-      // console.log("Allergies:", value);
-      // console.log("Custom Allergies:", customValue);
+      handleCustomAdd();
     }
   };
 
@@ -86,11 +103,10 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   useEffect(
     // FIRST ARGUMENT: The effect function
     () => {
-      if (value[0] !== 'other') {
+      if (!value.includes('other')) {
         setDisplayCustom('');
-        // onCustomChange('');
-        
         setIsValid(false);
+        // do not clear already added custom allergies
       }
     },
     // SECOND ARGUMENT: Dependency array
@@ -133,7 +149,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
           type="text"
           value={displayCustom}
           onChange={handleChange}
-          onBlur={handleAdd}
+          onBlur={handleCustomAdd}
           onKeyDown={handleEnter}
           placeholder="Enter allergies"
           maxLength={20}
@@ -144,6 +160,55 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
           }
         />
       )}
+
+
+      {/* Display selected allergies as badges */}
+      <div className="flex flex-wrap gap-2 mt-2">
+        {/* Predefined allergies */}
+        {value.filter(a => a !== 'other').map((allergy, index) => (
+          <div key={index} className="relative group">
+            <Badge
+              variant="secondary"
+              className="px-6 py-1.5 text-sm"
+            >
+              <span>{allergy}</span>
+            </Badge>
+            <Button
+              onClick={() => handleToggle(allergy)}
+              size="icon"
+              variant="ghost"
+              // Show delete icon only on hover
+              className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
+            >
+              <Trash2 className="h-3 w-3 text-destructive" />
+            </Button>
+          </div>
+        ))}
+        
+        {/* Custom allergies */}
+        {customValue.map((allergy, index) => (
+          <div key={index} className="relative group">
+            <Badge
+              variant="secondary"
+              className="px-6 py-1.5 text-sm"
+            >
+              <span>{allergy}</span>
+            </Badge>
+            <Button
+              onClick={() => {
+                const newCustom = customValue.filter((_, i) => i !== index);
+                onCustomChange(newCustom);
+              }}
+              size="icon"
+              variant="ghost"
+              // Show delete icon only on hover
+              className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
+            >
+              <Trash2 className="h-3 w-3 text-destructive" />
+            </Button>
+          </div>
+        ))}
+      </div>
 
     </div>
   );
