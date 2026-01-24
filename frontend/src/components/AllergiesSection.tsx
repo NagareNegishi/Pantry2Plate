@@ -67,11 +67,29 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       setIsValid(false);
       return;
     }
+    const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     // Case duplicate
-    if (customValue.includes(trimmed)) {
+    if (customValue.includes(normalized)) {
       toast.error("Duplicate allergy", {
-        description: `"${trimmed}" is already in the list`,
+        description: `"${normalized}" is already in the list`,
       });
+      setDisplayCustom('');
+      setIsValid(false);
+      return;
+    }
+    // Case conflict with predefined allergies
+    if (ALLERGIES.includes(normalized as Allergy)) {
+      // auto-select instead of error
+      if (!value.includes(normalized as Allergy)) {
+        onChange([...value, normalized as Allergy]);
+        toast.success("Selected predefined allergy", {
+          description: `"${trimmed}" has been selected from predefined options`,
+        });
+      } else {
+        toast.info("Already selected", {
+          description: `"${trimmed}" is already checked`,
+        });
+      }
       setDisplayCustom('');
       setIsValid(false);
       return;
@@ -85,7 +103,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       setIsValid(false);
       return;
     }
-    onCustomChange([...customValue, trimmed]);
+    onCustomChange([...customValue, normalized]);
     setDisplayCustom('');
     setIsValid(true);
   };
@@ -165,8 +183,8 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       {/* Display selected allergies as badges */}
       <div className="flex flex-wrap gap-2 mt-2">
         {/* Predefined allergies */}
-        {value.filter(a => a !== 'other').map((allergy, index) => (
-          <div key={index} className="relative group">
+        {value.filter(a => a !== 'other').map((allergy) => (
+          <div key={allergy} className="relative group">
             <Badge
               variant="secondary"
               className="px-6 py-1.5 text-sm"
@@ -186,8 +204,8 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
         ))}
         
         {/* Custom allergies */}
-        {customValue.map((allergy, index) => (
-          <div key={index} className="relative group">
+        {customValue.map((allergy) => (
+          <div key={allergy} className="relative group">
             <Badge
               variant="secondary"
               className="px-6 py-1.5 text-sm"
@@ -196,7 +214,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
             </Badge>
             <Button
               onClick={() => {
-                const newCustom = customValue.filter((_, i) => i !== index);
+                const newCustom = customValue.filter((_, i) => i !== customValue.indexOf(allergy));
                 onCustomChange(newCustom);
               }}
               size="icon"
