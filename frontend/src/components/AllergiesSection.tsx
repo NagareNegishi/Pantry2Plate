@@ -3,17 +3,18 @@
  * A reusable input component for selecting the type of allergy.
  * Allows users to choose from predefined allergiess. See Allergy in shared module.
  */
-// import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
 import { Label } from "@/components/ui/label";
 import type { Allergy } from '@pantry2plate/shared';
-// import { useEffect, useState } from "react";
-// import { toast } from "sonner";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 
+// List of allergies for dynamic rendering
 const ALLERGIES: Allergy[] = [
     'peanuts', 'tree-nuts', 'milk', 'eggs', 'wheat',
     'soy', 'fish', 'shellfish', 'sesame', 'corn',
@@ -40,56 +41,60 @@ interface AllergiesSectionProps {
  */
 export function AllergiesSection({ value, onChange, customValue, onCustomChange }: AllergiesSectionProps ) {
   
-  // // Local state for the input display (allows any string while typing)
-  // const [displayCustom, setDisplayCustom] = useState('');
-  // const [isValid, setIsValid] = useState(false);
+  // Local state for the input display (allows any string while typing)
+  const [displayCustom, setDisplayCustom] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
-  // // Handler for custom input changes
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const input = e.target.value;
-  //   setDisplayCustom(input);
-  //   setIsValid(CUSTOM_REGEX.test(input.trim()));
-  // };
+  // Handler for custom input changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setDisplayCustom(input);
+    setIsValid(CUSTOM_REGEX.test(input.trim()));
+  };
 
-  // // Handler for adding custom allergies
-  // const handleAdd = () => {
-  //   const trimmed = displayCustom.trim();
-  //   // Case invalid format
-  //   if (!CUSTOM_REGEX.test(trimmed)) {
-  //     toast.error("Invalid allergies", {
-  //       description: "Use only letters, spaces, and hyphens (1-20 characters)",
-  //     });
-  //     setDisplayCustom('');
-  //     setIsValid(false);
-  //     return;
-  //   }
-  //   onCustomChange([...customValue, trimmed]);
-  //   setDisplayCustom('');
-  //   setIsValid(true);
-  // };
+  // Handler for adding custom allergies
+  const handleAdd = () => {
+    const trimmed = displayCustom.trim();
+    // Case invalid format
+    if (!CUSTOM_REGEX.test(trimmed)) {
+      toast.error("Invalid allergies", {
+        description: "Use only letters, spaces, and hyphens (1-20 characters)",
+      });
+      setDisplayCustom('');
+      setIsValid(false);
+      return;
+    }
+    onCustomChange([...customValue, trimmed]);
+    setDisplayCustom('');
+    setIsValid(true);
+  };
 
-  // // When user presses Enter in custom input
-  // const handleEnter = (e: React.KeyboardEvent) => {
-  //   if (e.key === 'Enter') {
-  //     e.preventDefault(); // Prevent form submission if inside a form
-  //     handleAdd();
-  //   }
-  // };
+  // When user presses Enter in custom input
+  const handleEnter = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent form submission if inside a form
+      handleAdd();
 
-  // // Reset custom input when switching away from 'other'
-  // // NOTE: First argument is the code to run, second argument determines when to run it
-  // useEffect(
-  //   // FIRST ARGUMENT: The effect function
-  //   () => {
-  //     if (value[0] !== 'other') {
-  //       setDisplayCustom('');
-  //       // onCustomChange('');
+      // // display all allergies and custom allergies for debugging
+      // console.log("Allergies:", value);
+      // console.log("Custom Allergies:", customValue);
+    }
+  };
+
+  // Reset custom input when switching away from 'other'
+  // NOTE: First argument is the code to run, second argument determines when to run it
+  useEffect(
+    // FIRST ARGUMENT: The effect function
+    () => {
+      if (value[0] !== 'other') {
+        setDisplayCustom('');
+        // onCustomChange('');
         
-  //       setIsValid(false);
-  //     }
-  //   },
-  //   // SECOND ARGUMENT: Dependency array
-  //   [value, onCustomChange]);
+        setIsValid(false);
+      }
+    },
+    // SECOND ARGUMENT: Dependency array
+    [value, onCustomChange]);
 
 
   const handleToggle = (allergy: Allergy) => {
@@ -122,11 +127,8 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       </div>
       ))}
 
-
-
-
       {/* custom input only shows if 'other' is selected */}
-      {/* {value === 'other' && (
+      {value.includes('other') && (
         <Input
           type="text"
           value={displayCustom}
@@ -141,7 +143,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
               : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
           }
         />
-      )} */}
+      )}
 
     </div>
   );

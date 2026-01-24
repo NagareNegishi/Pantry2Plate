@@ -12,7 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 
 // for advanced inputs later
-import type { CookingMethod, CuisineType, MealType } from '@pantry2plate/shared';
+import type { Allergy, CookingMethod, CuisineType, MealType } from '@pantry2plate/shared';
 import { AdvancedSection } from './components/AdvancedSection';
 
 
@@ -38,6 +38,11 @@ function App() {
   const [customCuisineType, setCustomCuisineType] = useState<string>('');
   const [cookingMethod, setCookingMethod] = useState<CookingMethod>('any');
   const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
+
+
+  const [allergies, setAllergies] = useState<Allergy[]>([]);
+  const [customAllergies, setCustomAllergies] = useState<string[]>([]);
+
 
 
   return (
@@ -68,6 +73,11 @@ function App() {
         setCookingMethod={setCookingMethod}
         customCookingMethod={customCookingMethod}
         setCustomCookingMethod={setCustomCookingMethod}
+
+        allergies={allergies}
+        setAllergies={setAllergies}
+        customAllergies={customAllergies}
+        setCustomAllergies={setCustomAllergies}
       />
 
 
