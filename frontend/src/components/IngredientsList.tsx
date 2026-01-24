@@ -39,18 +39,19 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
 
   // Handler for input changes
   const handleAdd = () => {
-    const inputValue = currentInput.trim();
+    const trimmed = currentInput.trim();
     // Case invalid format
-    if (!INGREDIENT_REGEX.test(inputValue)) {
+    if (!INGREDIENT_REGEX.test(trimmed)) {
       toast.error("Invalid ingredient", {
         description: "Use only letters, spaces, and hyphens (1-20 characters)",
       });
       return;
     }
+    const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     // Case duplicate
-    if (value.includes(inputValue)) {
+    if (value.includes(normalized)) {
       toast.error("Duplicate ingredient", {
-        description: `"${inputValue}" is already in the list`,
+        description: `"${normalized}" is already in the list`,
       });
       return;
     }
@@ -61,7 +62,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
       });
       return;
     }
-    onChange([...value, inputValue]);
+    onChange([...value, normalized]);
     setCurrentInput('');  // Clear input after adding
   };
 
