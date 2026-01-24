@@ -140,18 +140,18 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   }
 
   return (
-    <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
+    <div className="flex flex-col w-full max-w-54 gap-1.5">
 
       <Label
         htmlFor="allergy-type"
-        className="text-base"
+        className="text-base self-center"
       >
         Allergies
       </Label>
 
       {/* Checkbox list for allergies */}
       {ALLERGIES.map((allergy) => (
-      <div key={allergy} className="flex items-center space-x-2">
+      <div key={allergy} className="flex space-x-2">
         <Checkbox
           id={allergy}
           checked={value.includes(allergy)}
