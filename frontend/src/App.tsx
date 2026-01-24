@@ -8,6 +8,16 @@ import { BasicInputs } from './components/BasicInputs';
 import { Toaster } from "@/components/ui/sonner";
 
 
+
+
+
+// for advanced inputs later
+import type { MealType } from '@pantry2plate/shared';
+import { AdvancedSection } from './components/AdvancedSection';
+
+
+
+
 function App() {
   // useState returns array : [currentValue, Setter function]
   // we name currentValue and setter function appropriately
@@ -16,6 +26,12 @@ function App() {
   const [cookingTime, setCookingTime] = useState(60); // Default to 60 minutes
   const [difficulty, setDifficulty] = useState<Difficulty>('any'); // Default to 'any' difficulty
   const [ingredients, setIngredients] = useState<string[]>([]); // Default to empty ingredients list
+
+
+// State for advanced inputs later
+  const [mealType, setMealType] = useState<MealType>('any'); // Default to 'any' meal type
+  const [customMealType, setCustomMealType] = useState<string>(''); // Default to empty custom meal type
+
 
   return (
     <div className="p-8">
@@ -30,6 +46,15 @@ function App() {
         ingredients={ingredients}
         setIngredients={setIngredients}
       />
+
+
+      <AdvancedSection
+        mealType={mealType}
+        setMealType={setMealType}
+        customMealType={customMealType}
+        setCustomMealType={setCustomMealType}
+      />
+
 
 
 
