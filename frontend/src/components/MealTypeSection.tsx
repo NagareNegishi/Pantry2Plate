@@ -42,6 +42,15 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
+  const [isValid, setIsValid] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setDisplayCustom(input);
+    setIsValid(CUSTOM_REGEX.test(input.trim()));
+  };
+
+
 
   const handleAdd = () => {
     const trimmed = displayCustom.trim();
@@ -51,21 +60,24 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
         description: "Use only letters, spaces, and hyphens (1-20 characters)",
       });
       setDisplayCustom('');
+      setIsValid(false);
       return;
     }
     onCustomChange(trimmed);
+    setIsValid(true);
   };
 
+  // When user presses Enter in custom input
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      e.preventDefault();
+      e.preventDefault(); // Prevent form submission if inside a form
       handleAdd();
     }
   };
 
 
   return (
-    <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
+    <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
       <Label
         htmlFor="meal-type"
         className="text-base"
@@ -98,11 +110,16 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
         <Input
           type="text"
           value={displayCustom}
-          onChange={(e) => setDisplayCustom(e.target.value)}
+          onChange={handleChange}
           onBlur={handleAdd}
           onKeyDown={handleKeyDown}
           placeholder="Enter meal type"
           maxLength={20}
+          className={
+            isValid === true
+              ? 'border-green-500 focus-visible:ring-green-500'
+              : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
+          }
         />
       )}
 
