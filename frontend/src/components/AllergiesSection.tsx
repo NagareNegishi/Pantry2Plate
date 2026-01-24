@@ -3,22 +3,22 @@
  * A reusable input component for selecting the type of allergy.
  * Allows users to choose from predefined allergiess. See Allergy in shared module.
  */
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+// NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
+// https://www.radix-ui.com/primitives/docs/components/checkbox
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import type { Allergy } from '@pantry2plate/shared';
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+// import { useEffect, useState } from "react";
+// import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
+
+const ALLERGIES: Allergy[] = [
+    'peanuts', 'tree-nuts', 'milk', 'eggs', 'wheat',
+    'soy', 'fish', 'shellfish', 'sesame', 'corn',
+    'mustard', 'celery', 'sulfites', 'lupin', 'other'
+  ];
 
 /**
  * Props for the AllergiesSection component
@@ -40,57 +40,65 @@ interface AllergiesSectionProps {
  */
 export function AllergiesSection({ value, onChange, customValue, onCustomChange }: AllergiesSectionProps ) {
   
-  // Local state for the input display (allows any string while typing)
-  const [displayCustom, setDisplayCustom] = useState('');
-  const [isValid, setIsValid] = useState(false);
+  // // Local state for the input display (allows any string while typing)
+  // const [displayCustom, setDisplayCustom] = useState('');
+  // const [isValid, setIsValid] = useState(false);
 
-  // Handler for custom input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setDisplayCustom(input);
-    setIsValid(CUSTOM_REGEX.test(input.trim()));
-  };
+  // // Handler for custom input changes
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const input = e.target.value;
+  //   setDisplayCustom(input);
+  //   setIsValid(CUSTOM_REGEX.test(input.trim()));
+  // };
 
-  // Handler for adding custom allergies
-  const handleAdd = () => {
-    const trimmed = displayCustom.trim();
-    // Case invalid format
-    if (!CUSTOM_REGEX.test(trimmed)) {
-      toast.error("Invalid allergies", {
-        description: "Use only letters, spaces, and hyphens (1-20 characters)",
-      });
-      setDisplayCustom('');
-      setIsValid(false);
-      return;
-    }
-    onCustomChange([...customValue, trimmed]);
-    setDisplayCustom('');
-    setIsValid(true);
-  };
+  // // Handler for adding custom allergies
+  // const handleAdd = () => {
+  //   const trimmed = displayCustom.trim();
+  //   // Case invalid format
+  //   if (!CUSTOM_REGEX.test(trimmed)) {
+  //     toast.error("Invalid allergies", {
+  //       description: "Use only letters, spaces, and hyphens (1-20 characters)",
+  //     });
+  //     setDisplayCustom('');
+  //     setIsValid(false);
+  //     return;
+  //   }
+  //   onCustomChange([...customValue, trimmed]);
+  //   setDisplayCustom('');
+  //   setIsValid(true);
+  // };
 
-  // When user presses Enter in custom input
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission if inside a form
-      handleAdd();
-    }
-  };
+  // // When user presses Enter in custom input
+  // const handleEnter = (e: React.KeyboardEvent) => {
+  //   if (e.key === 'Enter') {
+  //     e.preventDefault(); // Prevent form submission if inside a form
+  //     handleAdd();
+  //   }
+  // };
 
-  // Reset custom input when switching away from 'other'
-  // NOTE: First argument is the code to run, second argument determines when to run it
-  useEffect(
-    // FIRST ARGUMENT: The effect function
-    () => {
-      if (value[0] !== 'other') {
-        setDisplayCustom('');
-        // onCustomChange('');
+  // // Reset custom input when switching away from 'other'
+  // // NOTE: First argument is the code to run, second argument determines when to run it
+  // useEffect(
+  //   // FIRST ARGUMENT: The effect function
+  //   () => {
+  //     if (value[0] !== 'other') {
+  //       setDisplayCustom('');
+  //       // onCustomChange('');
         
-        setIsValid(false);
-      }
-    },
-    // SECOND ARGUMENT: Dependency array
-    [value, onCustomChange]);
+  //       setIsValid(false);
+  //     }
+  //   },
+  //   // SECOND ARGUMENT: Dependency array
+  //   [value, onCustomChange]);
 
+
+  const handleToggle = (allergy: Allergy) => {
+    if (value.includes(allergy)) {
+      onChange(value.filter(a => a !== allergy));
+    } else {
+      onChange([...value, allergy]);
+    }
+  }
 
   return (
     <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
@@ -101,38 +109,24 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       >
         Allergies
       </Label>
-      <Select
-        value={value}
-        onValueChange={(value) => onChange(value as Allergy)}
-      >
-        <SelectTrigger className="w-full max-w-40">
-          <SelectValue placeholder="Select a Allergies" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Allergies</SelectLabel>
-            <SelectItem value="peanuts">Peanuts</SelectItem>
-            <SelectItem value="tree-nuts">Tree Nuts</SelectItem>
-            <SelectItem value="milk">Milk</SelectItem>
-            <SelectItem value="eggs">Eggs</SelectItem>
-            <SelectItem value="wheat">Wheat</SelectItem>
-            <SelectItem value="soy">Soy</SelectItem>
-            <SelectItem value="fish">Fish</SelectItem>
-            <SelectItem value="shellfish">Shellfish</SelectItem>
-            <SelectItem value="sesame">Sesame</SelectItem>
-            <SelectItem value="corn">Corn</SelectItem>
-            <SelectItem value="mustard">Mustard</SelectItem>
-            <SelectItem value="celery">Celery</SelectItem>
-            <SelectItem value="sulfites">Sulfites</SelectItem>
-            <SelectItem value="lupin">Lupin</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+
+      {/* Checkbox list for allergies */}
+      {ALLERGIES.map((allergy) => (
+      <div key={allergy} className="flex items-center space-x-2">
+        <Checkbox
+          id={allergy}
+          checked={value.includes(allergy)}
+          onCheckedChange={() => handleToggle(allergy)}
+        />
+        <Label htmlFor={allergy}>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}</Label>
+      </div>
+      ))}
+
+
 
 
       {/* custom input only shows if 'other' is selected */}
-      {value === 'other' && (
+      {/* {value === 'other' && (
         <Input
           type="text"
           value={displayCustom}
@@ -147,8 +141,12 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
               : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
           }
         />
-      )}
+      )} */}
 
     </div>
   );
 }
+
+
+
+
