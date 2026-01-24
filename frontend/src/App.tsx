@@ -12,27 +12,32 @@ import { Toaster } from "@/components/ui/sonner";
 
 
 // for advanced inputs later
-import type { CuisineType, MealType } from '@pantry2plate/shared';
+import type { CookingMethod, CuisineType, MealType } from '@pantry2plate/shared';
 import { AdvancedSection } from './components/AdvancedSection';
 
 
 
 
 function App() {
-  // useState returns array : [currentValue, Setter function]
-  // we name currentValue and setter function appropriately
-  // Setter function is provided by React (we can name it whatever we want)
+  /*
+   * NOTE:
+   * useState returns array : [currentValue, Setter function]
+   * we name currentValue and setter function appropriately
+   * Setter function is provided by React (we can name it whatever we want)
+   */
+
+  // State for basic inputs
   const [servings, setServings] = useState(1); // Default to 1 serving
   const [cookingTime, setCookingTime] = useState(60); // Default to 60 minutes
   const [difficulty, setDifficulty] = useState<Difficulty>('any'); // Default to 'any' difficulty
   const [ingredients, setIngredients] = useState<string[]>([]); // Default to empty ingredients list
-
-
-// State for advanced inputs later
-  const [mealType, setMealType] = useState<MealType>('any'); // Default to 'any' meal type
+  // State for advanced inputs
+  const [mealType, setMealType] = useState<MealType>('any');
   const [customMealType, setCustomMealType] = useState<string>(''); // Default to empty custom meal type
-  const [cuisineType, setCuisineType] = useState<CuisineType>('any'); // Default to 'any' cuisine type
-  const [customCuisineType, setCustomCuisineType] = useState<string>(''); // Default to empty custom cuisine type
+  const [cuisineType, setCuisineType] = useState<CuisineType>('any');
+  const [customCuisineType, setCustomCuisineType] = useState<string>('');
+  const [cookingMethod, setCookingMethod] = useState<CookingMethod>('any');
+  const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
 
 
   return (
@@ -59,6 +64,10 @@ function App() {
         setCuisineType={setCuisineType}
         customCuisineType={customCuisineType}
         setCustomCuisineType={setCustomCuisineType}
+        cookingMethod={cookingMethod}
+        setCookingMethod={setCookingMethod}
+        customCookingMethod={customCookingMethod}
+        setCustomCookingMethod={setCustomCookingMethod}
       />
 
 
