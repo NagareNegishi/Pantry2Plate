@@ -25,12 +25,12 @@ const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-2
  */
 interface AllergiesSectionProps {
   // Current value of the allergies
-  value: Allergy;
+  value: Allergy[];
   // Function parent component provides to handle value changes
-  onChange: (value: Allergy) => void;
+  onChange: (value: Allergy[]) => void;
   // If custom allergies 'other' is selected
-  customValue: string;
-  onCustomChange: (value: string) => void;
+  customValue: string[];
+  onCustomChange: (value: string[]) => void;
 }
 
 /**
@@ -41,7 +41,7 @@ interface AllergiesSectionProps {
 export function AllergiesSection({ value, onChange, customValue, onCustomChange }: AllergiesSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
-  const [displayCustom, setDisplayCustom] = useState(customValue);
+  const [displayCustom, setDisplayCustom] = useState('');
   const [isValid, setIsValid] = useState(false);
 
   // Handler for custom input changes
