@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { MealType } from '@pantry2plate/shared';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
@@ -44,14 +44,14 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
   const [displayCustom, setDisplayCustom] = useState(customValue);
   const [isValid, setIsValid] = useState(false);
 
+  // Handler for custom input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     setDisplayCustom(input);
     setIsValid(CUSTOM_REGEX.test(input.trim()));
   };
 
-
-
+  // Handler for adding custom meal type
   const handleAdd = () => {
     const trimmed = displayCustom.trim();
     // Case invalid format
@@ -75,9 +75,24 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
     }
   };
 
+  // Reset custom input when switching away from 'other'
+  // NOTE: First argument is the code to run, second argument determines when to run it
+  useEffect(
+    // FIRST ARGUMENT: The effect function
+    () => {
+      if (value !== 'other') {
+        setDisplayCustom('');
+        onCustomChange('');
+        setIsValid(false);
+      }
+    },
+    // SECOND ARGUMENT: Dependency array
+    [value, onCustomChange]);
+
 
   return (
     <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
+
       <Label
         htmlFor="meal-type"
         className="text-base"
@@ -88,7 +103,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
         value={value}
         onValueChange={(value) => onChange(value as MealType)}
       >
-        <SelectTrigger className="w-full max-w-48">
+        <SelectTrigger className="w-full max-w-40">
           <SelectValue placeholder="Select a Meal Type" />
         </SelectTrigger>
         <SelectContent>
@@ -106,6 +121,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
         </SelectContent>
       </Select>
 
+      {/* custom input only shows if 'other' is selected */}
       {value === 'other' && (
         <Input
           type="text"
@@ -122,7 +138,6 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
           }
         />
       )}
-
 
     </div>
   );
