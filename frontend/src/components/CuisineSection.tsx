@@ -68,7 +68,7 @@ export function CuisineSection({ value, onChange, customValue, onCustomChange }:
   };
 
   // When user presses Enter in custom input
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // Prevent form submission if inside a form
       handleAdd();
@@ -133,7 +133,7 @@ export function CuisineSection({ value, onChange, customValue, onCustomChange }:
           value={displayCustom}
           onChange={handleChange}
           onBlur={handleAdd}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleEnter}
           placeholder="Enter cuisine type"
           maxLength={20}
           className={

@@ -63,12 +63,13 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       setIsValid(false);
       return;
     }
-    onCustomChange(trimmed);
+    onCustomChange([...customValue, trimmed]);
+    setDisplayCustom('');
     setIsValid(true);
   };
 
   // When user presses Enter in custom input
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleEnter = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault(); // Prevent form submission if inside a form
       handleAdd();
@@ -80,9 +81,10 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   useEffect(
     // FIRST ARGUMENT: The effect function
     () => {
-      if (value !== 'other') {
+      if (value[0] !== 'other') {
         setDisplayCustom('');
-        onCustomChange('');
+        // onCustomChange('');
+        
         setIsValid(false);
       }
     },
@@ -136,7 +138,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
           value={displayCustom}
           onChange={handleChange}
           onBlur={handleAdd}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleEnter}
           placeholder="Enter allergies"
           maxLength={20}
           className={
