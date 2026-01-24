@@ -12,7 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 
 // for advanced inputs later
-import type { MealType } from '@pantry2plate/shared';
+import type { CuisineType, MealType } from '@pantry2plate/shared';
 import { AdvancedSection } from './components/AdvancedSection';
 
 
@@ -31,6 +31,8 @@ function App() {
 // State for advanced inputs later
   const [mealType, setMealType] = useState<MealType>('any'); // Default to 'any' meal type
   const [customMealType, setCustomMealType] = useState<string>(''); // Default to empty custom meal type
+  const [cuisineType, setCuisineType] = useState<CuisineType>('any'); // Default to 'any' cuisine type
+  const [customCuisineType, setCustomCuisineType] = useState<string>(''); // Default to empty custom cuisine type
 
 
   return (
@@ -53,6 +55,10 @@ function App() {
         setMealType={setMealType}
         customMealType={customMealType}
         setCustomMealType={setCustomMealType}
+        cuisineType={cuisineType}
+        setCuisineType={setCuisineType}
+        customCuisineType={customCuisineType}
+        setCustomCuisineType={setCustomCuisineType}
       />
 
 

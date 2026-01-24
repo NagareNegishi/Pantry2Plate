@@ -1,7 +1,7 @@
 /**
- * MealTypeSection.tsx
- * A reusable input component for selecting the type of meal.
- * Allows users to choose from predefined meal types. See MealType in shared module.
+ * CuisineSection.tsx
+ * A reusable input component for selecting the cuisine type.
+ * Allows users to choose from predefined cuisine types. See CuisineType in shared module.
  */
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,31 +14,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { MealType } from '@pantry2plate/shared';
+import type { CuisineType } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 
 /**
- * Props for the MealTypeSection component
+ * Props for the CuisineSection component
  */
-interface MealTypeSectionProps {
-  // Current value of the meal type
-  value: MealType;
+interface CuisineSectionProps {
+  // Current value of the cuisine type
+  value: CuisineType;
   // Function parent component provides to handle value changes
-  onChange: (value: MealType) => void;
-  // If custom meal type 'other' is selected
+  onChange: (value: CuisineType) => void;
+  // If custom cuisine type 'other' is selected
   customValue: string;
   onCustomChange: (value: string) => void;
 }
 
 /**
- * MealTypeSection Component
- * @param MealTypeSectionProps but as destructured props
- * @returns A dropdown for selecting recipe meal type
+ * CuisineSection Component
+ * @param CuisineSectionProps but as destructured props
+ * @returns A dropdown for selecting recipe cuisine type
  */
-export function MealTypeSection({ value, onChange, customValue, onCustomChange }: MealTypeSectionProps ) {
+export function CuisineSection({ value, onChange, customValue, onCustomChange }: CuisineSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
@@ -51,12 +51,12 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
     setIsValid(CUSTOM_REGEX.test(input.trim()));
   };
 
-  // Handler for adding custom meal type
+  // Handler for adding custom cuisine type
   const handleAdd = () => {
     const trimmed = displayCustom.trim();
     // Case invalid format
     if (!CUSTOM_REGEX.test(trimmed)) {
-      toast.error("Invalid meal type", {
+      toast.error("Invalid cuisine type", {
         description: "Use only letters, spaces, and hyphens (1-20 characters)",
       });
       setDisplayCustom('');
@@ -76,9 +76,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
   };
 
   // Reset custom input when switching away from 'other'
-  // NOTE: First argument is the code to run, second argument determines when to run it
   useEffect(
-    // FIRST ARGUMENT: The effect function
     () => {
       if (value !== 'other') {
         setDisplayCustom('');
@@ -86,7 +84,6 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
         setIsValid(false);
       }
     },
-    // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
 
@@ -94,28 +91,36 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
     <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
 
       <Label
-        htmlFor="meal-type"
+        htmlFor="cuisine-type"
         className="text-base"
       >
-        Meal Type
+        Cuisine Type
       </Label>
       <Select
         value={value}
-        onValueChange={(value) => onChange(value as MealType)}
+        onValueChange={(value) => onChange(value as CuisineType)}
       >
         <SelectTrigger className="w-full max-w-40">
-          <SelectValue placeholder="Select a Meal Type" />
+          <SelectValue placeholder="Select a cuisine type" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Meal Type</SelectLabel>
+            <SelectLabel>Cuisine Type</SelectLabel>
             <SelectItem value="any">Any</SelectItem>
-            <SelectItem value="breakfast">Breakfast</SelectItem>
-            <SelectItem value="lunch">Lunch</SelectItem>
-            <SelectItem value="dinner">Dinner</SelectItem>
-            <SelectItem value="snack">Snack</SelectItem>
-            <SelectItem value="brunch">Brunch</SelectItem>
-            <SelectItem value="dessert">Dessert</SelectItem>
+            <SelectItem value="Italian">Italian</SelectItem>
+            <SelectItem value="Chinese">Chinese</SelectItem>
+            <SelectItem value="Mexican">Mexican</SelectItem>
+            <SelectItem value="Japanese">Japanese</SelectItem>
+            <SelectItem value="Indian">Indian</SelectItem>
+            <SelectItem value="Thai">Thai</SelectItem>
+            <SelectItem value="French">French</SelectItem>
+            <SelectItem value="Mediterranean">Mediterranean</SelectItem>
+            <SelectItem value="American">American</SelectItem>
+            <SelectItem value="Korean">Korean</SelectItem>
+            <SelectItem value="Vietnamese">Vietnamese</SelectItem>
+            <SelectItem value="Greek">Greek</SelectItem>
+            <SelectItem value="Spanish">Spanish</SelectItem>
+            <SelectItem value="Middle Eastern">Middle Eastern</SelectItem>
             <SelectItem value="other">Other</SelectItem>
           </SelectGroup>
         </SelectContent>
@@ -129,7 +134,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
           onChange={handleChange}
           onBlur={handleAdd}
           onKeyDown={handleKeyDown}
-          placeholder="Enter meal type"
+          placeholder="Enter cuisine type"
           maxLength={20}
           className={
             isValid === true

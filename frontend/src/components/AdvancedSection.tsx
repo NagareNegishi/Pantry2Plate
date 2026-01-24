@@ -3,7 +3,8 @@
  * Collection of advanced input components for recipe parameters.
  * Receives state and setters from parent component (App.tsx).
  */
-import type { MealType } from '@pantry2plate/shared';
+import type { CuisineType, MealType } from '@pantry2plate/shared';
+import { CuisineSection } from './CuisineSection';
 import { MealTypeSection } from './MealTypeSection';
 
 
@@ -15,6 +16,10 @@ interface AdvancedSectionProps {
   setMealType: (value: MealType) => void;
   customMealType: string;
   setCustomMealType: (value: string) => void;
+  cuisineType: CuisineType;
+  setCuisineType: (value: CuisineType) => void;
+  customCuisineType: string;
+  setCustomCuisineType: (value: string) => void;
 }
 
 
@@ -27,7 +32,11 @@ export function AdvancedSection({
   mealType,
   setMealType,
   customMealType,
-  setCustomMealType
+  setCustomMealType,
+  cuisineType,
+  setCuisineType,
+  customCuisineType,
+  setCustomCuisineType
 }: AdvancedSectionProps) {
   return (
     <div className="space-y-4">
@@ -36,6 +45,12 @@ export function AdvancedSection({
         onChange={setMealType}
         customValue={customMealType}
         onCustomChange={setCustomMealType}
+      />
+      <CuisineSection
+        value={cuisineType}
+        onChange={setCuisineType}
+        customValue={customCuisineType}
+        onCustomChange={setCustomCuisineType}
       />
     </div>
   );
