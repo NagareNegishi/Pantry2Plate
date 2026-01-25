@@ -151,15 +151,11 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
       <Accordion type="single" collapsible>
         <AccordionItem value="allergies">
           
-          <AccordionTrigger>
-            <Label
-              className="text-base self-center"
-            >
-              Allergies
-            </Label>
+          <AccordionTrigger className="text-base">
+            <span className="flex-grow text-center">Allergies</span>
           </AccordionTrigger>
 
-          <AccordionContent>
+          <AccordionContent className="px-1">
             {/* Checkbox list for allergies */}
             {ALLERGIES.map((allergy) => (
             <div key={allergy} className="flex space-x-2">
@@ -168,7 +164,12 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
                 checked={value.includes(allergy)}
                 onCheckedChange={() => handleToggle(allergy)}
               />
-              <Label htmlFor={allergy}>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}</Label>
+              <Label
+                htmlFor={allergy}
+                className="text-sm"
+                >
+                  {allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}
+              </Label>
             </div>
             ))}
 
@@ -189,8 +190,10 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
                 }
               />
             )}
+          </AccordionContent>
 
-            {/* Display selected allergies as badges */}
+          {/* Display selected allergies as badges */}
+          {(value.length > 0 || customValue.length > 0) && (
             <div className="flex flex-wrap gap-2 mt-2">
               {/* Predefined allergies */}
               {value.filter(a => a !== 'other').map((allergy) => (
@@ -237,8 +240,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
                 </div>
               ))}
             </div>
-          </AccordionContent>
-
+          )}
         </AccordionItem>
       </Accordion>
 
