@@ -2,6 +2,8 @@
  * FlavorProfilesSection.tsx
  * A reusable input component for selecting the type of flavor profiles.
  * Allows users to choose from predefined flavor profiles. See FlavorProfile in shared module.
+ * NOTE: FlavorProfile type has 'any' option, however it is not included in checkbox list here.
+ * if both values and customValues are empty, it implies 'any'.
  */
 import { Checkbox } from "@/components/ui/checkbox";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
@@ -22,12 +24,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
-const MAX_CUSTOM_FLAVOR_PROFILES = 5; // arbitrary limit to prevent abuse
+const MAX_FLAVOR_PROFILES = 3;
 // List of flavor profiles for dynamic rendering
 const FLAVOR_PROFILES: FlavorProfile[] = [
     'sweet', 'spicy', 'savory', 'sour', 'umami', 'bitter', 'other'
   ];
-  // how to treat 'any'?
 
 /**
  * Props for the FlavorProfilesSection component
@@ -62,8 +63,18 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
 
   // Handler for adding custom flavor profiles
   const handleCustomAdd = () => {
-    const trimmed = displayCustom.trim();
+    // Case max reached
+    const flavorCount = value.filter(f => f !== 'other').length + customValue.length;
+    if (flavorCount >= MAX_FLAVOR_PROFILES) {
+      toast.error("Maximum reached", {
+        description: `You can only add up to ${MAX_FLAVOR_PROFILES} flavor profiles`,
+      });
+      setDisplayCustom('');
+      setIsValid(false);
+      return;
+    }
     // Case invalid format
+    const trimmed = displayCustom.trim();
     if (!CUSTOM_REGEX.test(trimmed)) {
       toast.error("Invalid flavor profiles", {
         description: "Use only letters, spaces, and hyphens (1-20 characters)",
@@ -72,8 +83,8 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
       setIsValid(false);
       return;
     }
-    const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     // Case duplicate
+    const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     if (customValue.includes(normalized)) {
       toast.error("Duplicate flavor profiles", {
         description: `"${normalized}" is already in the list`,
@@ -99,15 +110,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
       setIsValid(false);
       return;
     }
-    // Case max reached
-    if (customValue.length >= MAX_CUSTOM_FLAVOR_PROFILES) {
-      toast.error("Maximum reached", {
-        description: `You can only add up to ${MAX_CUSTOM_FLAVOR_PROFILES} custom flavor profiles`,
-      });
-      setDisplayCustom('');
-      setIsValid(false);
-      return;
-    }
+
     onCustomChange([...customValue, normalized]);
     setDisplayCustom('');
     setIsValid(true);
@@ -135,11 +138,18 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
     // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
-
+  // Handler for toggling checkbox
   const handleToggle = (flavor: FlavorProfile) => {
     if (value.includes(flavor)) {
       onChange(value.filter(a => a !== flavor));
     } else {
+      const flavorCount = value.filter(f => f !== 'other').length + customValue.length;
+      if (flavorCount >= MAX_FLAVOR_PROFILES) {
+        toast.error("Maximum reached", {
+          description: `You can only add up to ${MAX_FLAVOR_PROFILES} flavor profiles`,
+        });
+        return;
+      }
       onChange([...value, flavor]);
     }
   }
@@ -151,7 +161,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
         <AccordionItem value="flavor profiles">
           
           <AccordionTrigger className="text-base">
-            <span className="flex-grow text-center">Allergies</span>
+            <span className="flex-grow text-center">Flavor Profiles</span>
           </AccordionTrigger>
 
           <AccordionContent className="px-1">
