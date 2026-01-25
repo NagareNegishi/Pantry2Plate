@@ -51,11 +51,11 @@ export function BasicInputs({
 }: BasicInputsProps) {
   return (
     <div className={cn("space-y-6", className)}>
-      <IngredientsList value={ingredients} onChange={setIngredients} />
-      <div className="flex gap-6">
-        <ServingsInput value={servings} onChange={setServings} />
-        <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
-        <DifficultySelect value={difficulty} onChange={setDifficulty} />
+      <IngredientsList value={ingredients} onChange={setIngredients} className="w-full"/>
+      <div className="flex gap-6 w-full">
+        <ServingsInput value={servings} onChange={setServings} className="flex-1"/>
+        <CookingTimeInput value={cookingTime} onChange={setCookingTime} className="flex-1"/>
+        <DifficultySelect value={difficulty} onChange={setDifficulty} className="flex-1"/>
       </div>
     </div>
   );

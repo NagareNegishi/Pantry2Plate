@@ -93,7 +93,7 @@ export function IngredientsList({ value, onChange, className }: IngredientsListP
       >
         Ingredients
       </Label>
-      <p className="text-sm text-muted-foreground">
+      <p className="text-base text-muted-foreground">
         Letters, spaces, and hyphens only (1-20 characters)
       </p>
       <Input
@@ -131,7 +131,7 @@ export function IngredientsList({ value, onChange, className }: IngredientsListP
           <div key={index} className="relative group">
             <Badge
               variant="secondary"
-              className="px-6 py-1.5 text-sm"
+              className="px-6 py-1.5 text-base"
             >
               <span>{ingredient}</span>
             </Badge>
