@@ -12,7 +12,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 
 // for advanced inputs later
-import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, MealType } from '@pantry2plate/shared';
+import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { AdvancedSection } from './components/AdvancedSection';
 
 
@@ -44,6 +44,8 @@ function App() {
   const [customAllergies, setCustomAllergies] = useState<string[]>([]);
   const [dietaryRestrictions, setDietaryRestrictions] = useState<DietaryRestriction[]>([]);
   const [customDietaryRestrictions, setCustomDietaryRestrictions] = useState<string[]>([]);
+  const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
+  const [customFlavorProfiles, setCustomFlavorProfiles] = useState<string[]>([]);
 
 
 
@@ -84,6 +86,10 @@ function App() {
         setDietaryRestrictions={setDietaryRestrictions}
         customDietaryRestrictions={customDietaryRestrictions}
         setCustomDietaryRestrictions={setCustomDietaryRestrictions}
+        flavorProfiles={flavorProfiles}
+        setFlavorProfiles={setFlavorProfiles}
+        customFlavorProfiles={customFlavorProfiles}
+        setCustomFlavorProfiles={setCustomFlavorProfiles}
       />
 
 
