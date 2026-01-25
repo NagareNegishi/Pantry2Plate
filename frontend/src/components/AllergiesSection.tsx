@@ -4,6 +4,7 @@
  * Allows users to choose from predefined allergiess. See Allergy in shared module.
  */
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
 import {
@@ -41,6 +42,9 @@ interface AllergiesSectionProps {
   // If custom allergies 'other' is selected
   customValue: string[];
   onCustomChange: (value: string[]) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -48,7 +52,7 @@ interface AllergiesSectionProps {
  * @param AllergiesSectionProps but as destructured props
  * @returns A dropdown for selecting recipe allergies
  */
-export function AllergiesSection({ value, onChange, customValue, onCustomChange }: AllergiesSectionProps ) {
+export function AllergiesSection({ value, onChange, customValue, onCustomChange, className }: AllergiesSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState('');
@@ -146,7 +150,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   }
 
   return (
-    <div className="flex flex-col w-full max-w-54 gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-54 gap-1.5", className)}>
 
       <Accordion type="single" collapsible>
         <AccordionItem value="allergies">

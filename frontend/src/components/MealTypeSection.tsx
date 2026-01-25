@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import type { MealType } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -31,6 +32,9 @@ interface MealTypeSectionProps {
   // If custom meal type 'other' is selected
   customValue: string;
   onCustomChange: (value: string) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -38,7 +42,7 @@ interface MealTypeSectionProps {
  * @param MealTypeSectionProps but as destructured props
  * @returns A dropdown for selecting recipe meal type
  */
-export function MealTypeSection({ value, onChange, customValue, onCustomChange }: MealTypeSectionProps ) {
+export function MealTypeSection({ value, onChange, customValue, onCustomChange, className }: MealTypeSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
@@ -91,7 +95,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange }
 
 
   return (
-    <div className="flex flex-col w-full max-w-40 items-center gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-40 items-center gap-1.5", className)}>
 
       <Label
         htmlFor="meal-type"

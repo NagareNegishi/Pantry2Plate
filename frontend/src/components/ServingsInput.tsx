@@ -5,6 +5,7 @@
  */
 import { Input } from "@/components/ui/input"; // @/ is an alias to src/
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
 import { useState } from "react";
 
@@ -16,6 +17,9 @@ interface ServingsInputProps {
   value: number;
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -23,7 +27,7 @@ interface ServingsInputProps {
  * @param ServingsInputProps but as destructured props
  * @returns A number input field for selecting servings between 1 and 12
  */
-export function ServingsInput({ value, onChange }: ServingsInputProps) {
+export function ServingsInput({ value, onChange, className }: ServingsInputProps) {
 
   // Local state for the input display (allows any string while typing)
   const [displayValue, setDisplayValue] = useState(value.toString());
@@ -60,7 +64,7 @@ export function ServingsInput({ value, onChange }: ServingsInputProps) {
 
   return (
     // <div className="grid w-full max-w-24 items-center gap-1.5"> // left aligned
-    <div className="flex flex-col w-full max-w-24 items-center gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-24 items-center gap-1.5", className)}>
       <Label
         htmlFor="servings"
         className="text-lg"

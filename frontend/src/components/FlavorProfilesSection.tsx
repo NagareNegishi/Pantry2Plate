@@ -6,6 +6,7 @@
  * if both values and customValues are empty, it implies 'any'.
  */
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
 import {
@@ -41,6 +42,9 @@ interface FlavorProfilesSectionProps {
   // If custom flavor profiles 'other' is selected
   customValue: string[];
   onCustomChange: (value: string[]) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -48,7 +52,7 @@ interface FlavorProfilesSectionProps {
  * @param FlavorProfilesSectionProps but as destructured props
  * @returns A dropdown for selecting recipe flavor profiles
  */
-export function FlavorProfilesSection({ value, onChange, customValue, onCustomChange }: FlavorProfilesSectionProps ) {
+export function FlavorProfilesSection({ value, onChange, customValue, onCustomChange, className }: FlavorProfilesSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState('');
@@ -155,7 +159,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
   }
 
   return (
-    <div className="flex flex-col w-full max-w-54 gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-54 gap-1.5", className)}>
 
       <Accordion type="single" collapsible>
         <AccordionItem value="flavor profiles">

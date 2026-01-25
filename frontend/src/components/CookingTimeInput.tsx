@@ -5,6 +5,7 @@
  */
 import { Input } from "@/components/ui/input"; // @/ is an alias to src/
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import { MAX_COOKING_TIME, MIN_COOKING_TIME } from '@pantry2plate/shared';
 import { useState } from "react";
 
@@ -17,6 +18,9 @@ interface CookingTimeInputProps {
   value: number;
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -24,7 +28,7 @@ interface CookingTimeInputProps {
  * @param CookingTimeInputProps but as destructured props
  * @returns A number input field for selecting cooking time between 10 and 720 minutes
  */
-export function CookingTimeInput({ value, onChange }: CookingTimeInputProps) {
+export function CookingTimeInput({ value, onChange, className }: CookingTimeInputProps) {
 
   // Local state for the input display (allows any string while typing)
   const [displayValue, setDisplayValue] = useState(value.toString());
@@ -60,7 +64,7 @@ export function CookingTimeInput({ value, onChange }: CookingTimeInputProps) {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-32 items-center gap-1.5", className)}>
       <Label
         htmlFor="cookingTime"
         className="text-lg"

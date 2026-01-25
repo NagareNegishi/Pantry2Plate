@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { COMMON_INGREDIENTS } from "@/constants/ingredients";
+import { cn } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -25,6 +26,9 @@ interface IngredientsListProps {
   value: string[];
   // Function parent component provides to update the list
   onChange: (value: string[]) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -32,7 +36,7 @@ interface IngredientsListProps {
  * @param IngredientsListProps but as destructured props
  * @returns An input field to add ingredients with validation and a list to display added ingredients
  */
-export function IngredientsList({ value, onChange }: IngredientsListProps) {
+export function IngredientsList({ value, onChange, className }: IngredientsListProps) {
 
   // Local state for the input display (allows any string while typing)
   const [currentInput, setCurrentInput] = useState('');
@@ -82,7 +86,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
   };
 
   return (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
+    <div className={cn("grid w-full max-w-sm items-center gap-1.5", className)}>
       <Label
         htmlFor="ingredients"
         className="text-xl"

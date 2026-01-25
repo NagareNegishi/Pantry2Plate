@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import type { Difficulty } from '@pantry2plate/shared';
 
 
@@ -24,6 +25,9 @@ interface DifficultySelectProps {
   value: Difficulty;
   // Function parent component provides to handle value changes
   onChange: (value: Difficulty) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -31,10 +35,10 @@ interface DifficultySelectProps {
  * @param DifficultySelectProps but as destructured props
  * @returns A dropdown for selecting recipe difficulty
  */
-export function DifficultySelect({ value, onChange }: DifficultySelectProps ) {
+export function DifficultySelect({ value, onChange, className }: DifficultySelectProps ) {
   
   return (
-    <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-32 items-center gap-1.5", className)}>
       <Label
         htmlFor="difficulty"
         className="text-lg"

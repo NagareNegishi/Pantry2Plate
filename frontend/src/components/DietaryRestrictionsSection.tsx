@@ -4,6 +4,7 @@
  * Allows users to choose from predefined dietary restrictions. See DietaryRestriction in shared module.
  */
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
 import {
@@ -41,6 +42,9 @@ interface DietaryRestrictionsSectionProps {
   // If custom dietary restrictions 'other' is selected
   customValue: string[];
   onCustomChange: (value: string[]) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 /**
@@ -48,7 +52,7 @@ interface DietaryRestrictionsSectionProps {
  * @param DietaryRestrictionsSectionProps but as destructured props
  * @returns A dropdown for selecting recipe dietary restrictions
  */
-export function DietaryRestrictionsSection({ value, onChange, customValue, onCustomChange }: DietaryRestrictionsSectionProps ) {
+export function DietaryRestrictionsSection({ value, onChange, customValue, onCustomChange, className }: DietaryRestrictionsSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState('');
@@ -146,7 +150,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
   }
 
   return (
-    <div className="flex flex-col w-full max-w-54 gap-1.5">
+    <div className={cn("flex flex-col w-full max-w-54 gap-1.5", className)}>
 
       <Accordion type="single" collapsible>
         <AccordionItem value="dietary restrictions">

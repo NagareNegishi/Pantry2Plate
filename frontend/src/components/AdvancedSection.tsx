@@ -9,6 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { AllergiesSection } from './AllergiesSection';
 import { CookingMethodSection } from './CookingMethodSection';
@@ -52,6 +53,9 @@ interface AdvancedSectionProps {
   setFlavorProfiles: (value: FlavorProfile[]) => void;
   customFlavorProfiles: string[];
   setCustomFlavorProfiles: (value: string[]) => void;
+
+  // Optional className for styling
+  className?: string;
 }
 
 
@@ -85,59 +89,61 @@ export function AdvancedSection({
   setFlavorProfiles,
   customFlavorProfiles,
   setCustomFlavorProfiles,
+  className
 }: AdvancedSectionProps) {
   return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="advanced">
+    <div className={cn(className)}>
+      <Accordion type="single" collapsible>
+        <AccordionItem value="advanced">
 
-        <AccordionTrigger className="text-2xl">
-          <span className="flex-grow text-center">Advanced Options</span>
-        </AccordionTrigger>
+          <AccordionTrigger className="text-2xl">
+            <span className="flex-grow text-center">Advanced Options</span>
+          </AccordionTrigger>
 
-        <AccordionContent className="px-2 pb-2">
-          <div className="space-y-4">
-            <MealTypeSection
-              value={mealType}
-              onChange={setMealType}
-              customValue={customMealType}
-              onCustomChange={setCustomMealType}
-            />
-            <CuisineSection
-              value={cuisineType}
-              onChange={setCuisineType}
-              customValue={customCuisineType}
-              onCustomChange={setCustomCuisineType}
-            />
-            <CookingMethodSection
-              value={cookingMethod}
-              onChange={setCookingMethod}
-              customValue={customCookingMethod}
-              onCustomChange={setCustomCookingMethod}
-            />
-            <AllergiesSection
-              value={allergies}
-              onChange={setAllergies}
-              customValue={customAllergies}
-              onCustomChange={setCustomAllergies}
-            />
-            <DietaryRestrictionsSection
-              value={dietaryRestrictions}
-              onChange={setDietaryRestrictions}
-              customValue={customDietaryRestrictions}
-              onCustomChange={setCustomDietaryRestrictions}
-            />
-            <FlavorProfilesSection
-              value={flavorProfiles}
-              onChange={setFlavorProfiles}
-              customValue={customFlavorProfiles}
-              onCustomChange={setCustomFlavorProfiles}
-            />
-          </div>
-        </AccordionContent>
+          <AccordionContent className="px-2 pb-2">
+            <div className="space-y-4">
+              <MealTypeSection
+                value={mealType}
+                onChange={setMealType}
+                customValue={customMealType}
+                onCustomChange={setCustomMealType}
+              />
+              <CuisineSection
+                value={cuisineType}
+                onChange={setCuisineType}
+                customValue={customCuisineType}
+                onCustomChange={setCustomCuisineType}
+              />
+              <CookingMethodSection
+                value={cookingMethod}
+                onChange={setCookingMethod}
+                customValue={customCookingMethod}
+                onCustomChange={setCustomCookingMethod}
+              />
+              <AllergiesSection
+                value={allergies}
+                onChange={setAllergies}
+                customValue={customAllergies}
+                onCustomChange={setCustomAllergies}
+              />
+              <DietaryRestrictionsSection
+                value={dietaryRestrictions}
+                onChange={setDietaryRestrictions}
+                customValue={customDietaryRestrictions}
+                onCustomChange={setCustomDietaryRestrictions}
+              />
+              <FlavorProfilesSection
+                value={flavorProfiles}
+                onChange={setFlavorProfiles}
+                customValue={customFlavorProfiles}
+                onCustomChange={setCustomFlavorProfiles}
+              />
+            </div>
+          </AccordionContent>
 
-      </AccordionItem>
-    </Accordion>
-
+        </AccordionItem>
+      </Accordion>
+    </div>
   );
 }
 
