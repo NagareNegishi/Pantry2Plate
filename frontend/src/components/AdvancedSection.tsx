@@ -3,6 +3,12 @@
  * Collection of advanced input components for recipe parameters.
  * Receives state and setters from parent component (App.tsx).
  */
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { AllergiesSection } from './AllergiesSection';
 import { CookingMethodSection } from './CookingMethodSection';
@@ -31,9 +37,6 @@ interface AdvancedSectionProps {
   setCookingMethod: (value: CookingMethod) => void;
   customCookingMethod: string;
   setCustomCookingMethod: (value: string) => void;
-
-
-
   // Allergies
   allergies: Allergy[];
   setAllergies: (value: Allergy[]) => void;
@@ -70,8 +73,6 @@ export function AdvancedSection({
   setCookingMethod,
   customCookingMethod,
   setCustomCookingMethod,
-
-  
   allergies,
   setAllergies,
   customAllergies,
@@ -86,45 +87,58 @@ export function AdvancedSection({
   setCustomFlavorProfiles,
 }: AdvancedSectionProps) {
   return (
-    <div className="space-y-4">
-      <MealTypeSection
-        value={mealType}
-        onChange={setMealType}
-        customValue={customMealType}
-        onCustomChange={setCustomMealType}
-      />
-      <CuisineSection
-        value={cuisineType}
-        onChange={setCuisineType}
-        customValue={customCuisineType}
-        onCustomChange={setCustomCuisineType}
-      />
-      <CookingMethodSection
-        value={cookingMethod}
-        onChange={setCookingMethod}
-        customValue={customCookingMethod}
-        onCustomChange={setCustomCookingMethod}
-      />
+    <Accordion type="single" collapsible>
+      <AccordionItem value="advanced">
 
+        <AccordionTrigger className="text-2xl">
+          <span className="flex-grow text-center">Advanced Options</span>
+        </AccordionTrigger>
 
-      <AllergiesSection
-        value={allergies}
-        onChange={setAllergies}
-        customValue={customAllergies}
-        onCustomChange={setCustomAllergies}
-      />
-      <DietaryRestrictionsSection
-        value={dietaryRestrictions}
-        onChange={setDietaryRestrictions}
-        customValue={customDietaryRestrictions}
-        onCustomChange={setCustomDietaryRestrictions}
-      />
-      <FlavorProfilesSection
-        value={flavorProfiles}
-        onChange={setFlavorProfiles}
-        customValue={customFlavorProfiles}
-        onCustomChange={setCustomFlavorProfiles}
-      />
-    </div>
+        <AccordionContent className="px-2 pb-2">
+          <div className="space-y-4">
+            <MealTypeSection
+              value={mealType}
+              onChange={setMealType}
+              customValue={customMealType}
+              onCustomChange={setCustomMealType}
+            />
+            <CuisineSection
+              value={cuisineType}
+              onChange={setCuisineType}
+              customValue={customCuisineType}
+              onCustomChange={setCustomCuisineType}
+            />
+            <CookingMethodSection
+              value={cookingMethod}
+              onChange={setCookingMethod}
+              customValue={customCookingMethod}
+              onCustomChange={setCustomCookingMethod}
+            />
+            <AllergiesSection
+              value={allergies}
+              onChange={setAllergies}
+              customValue={customAllergies}
+              onCustomChange={setCustomAllergies}
+            />
+            <DietaryRestrictionsSection
+              value={dietaryRestrictions}
+              onChange={setDietaryRestrictions}
+              customValue={customDietaryRestrictions}
+              onCustomChange={setCustomDietaryRestrictions}
+            />
+            <FlavorProfilesSection
+              value={flavorProfiles}
+              onChange={setFlavorProfiles}
+              customValue={customFlavorProfiles}
+              onCustomChange={setCustomFlavorProfiles}
+            />
+          </div>
+        </AccordionContent>
+
+      </AccordionItem>
+    </Accordion>
+
   );
 }
+
+

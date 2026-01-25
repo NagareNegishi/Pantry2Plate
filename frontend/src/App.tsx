@@ -51,49 +51,50 @@ function App() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Pantry2Plate</h1>
-      <BasicInputs
-        servings={servings}
-        setServings={setServings}
-        cookingTime={cookingTime}
-        setCookingTime={setCookingTime}
-        difficulty={difficulty}
-        setDifficulty={setDifficulty}
-        ingredients={ingredients}
-        setIngredients={setIngredients}
-      />
+      <h1 className="text-center text-4xl font-bold mb-4 ">Pantry2Plate</h1>
+      {/* Basic Inputs Section */}
+      <div className="max-w-md mx-auto bg-slate-50 rounded-lg p-6 mb-6">
+        <BasicInputs
+          servings={servings}
+          setServings={setServings}
+          cookingTime={cookingTime}
+          setCookingTime={setCookingTime}
+          difficulty={difficulty}
+          setDifficulty={setDifficulty}
+          ingredients={ingredients}
+          setIngredients={setIngredients}
+        />
+      </div>
 
-
-      <AdvancedSection
-        mealType={mealType}
-        setMealType={setMealType}
-        customMealType={customMealType}
-        setCustomMealType={setCustomMealType}
-        cuisineType={cuisineType}
-        setCuisineType={setCuisineType}
-        customCuisineType={customCuisineType}
-        setCustomCuisineType={setCustomCuisineType}
-        cookingMethod={cookingMethod}
-        setCookingMethod={setCookingMethod}
-        customCookingMethod={customCookingMethod}
-        setCustomCookingMethod={setCustomCookingMethod}
-
-        allergies={allergies}
-        setAllergies={setAllergies}
-        customAllergies={customAllergies}
-        setCustomAllergies={setCustomAllergies}
-        dietaryRestrictions={dietaryRestrictions}
-        setDietaryRestrictions={setDietaryRestrictions}
-        customDietaryRestrictions={customDietaryRestrictions}
-        setCustomDietaryRestrictions={setCustomDietaryRestrictions}
-        flavorProfiles={flavorProfiles}
-        setFlavorProfiles={setFlavorProfiles}
-        customFlavorProfiles={customFlavorProfiles}
-        setCustomFlavorProfiles={setCustomFlavorProfiles}
-      />
-
-
-
+      {/* Advanced Section */}
+      <div className="max-w-md mx-auto bg-blue-50 rounded-lg p-6">
+        <AdvancedSection
+          mealType={mealType}
+          setMealType={setMealType}
+          customMealType={customMealType}
+          setCustomMealType={setCustomMealType}
+          cuisineType={cuisineType}
+          setCuisineType={setCuisineType}
+          customCuisineType={customCuisineType}
+          setCustomCuisineType={setCustomCuisineType}
+          cookingMethod={cookingMethod}
+          setCookingMethod={setCookingMethod}
+          customCookingMethod={customCookingMethod}
+          setCustomCookingMethod={setCustomCookingMethod}
+          allergies={allergies}
+          setAllergies={setAllergies}
+          customAllergies={customAllergies}
+          setCustomAllergies={setCustomAllergies}
+          dietaryRestrictions={dietaryRestrictions}
+          setDietaryRestrictions={setDietaryRestrictions}
+          customDietaryRestrictions={customDietaryRestrictions}
+          setCustomDietaryRestrictions={setCustomDietaryRestrictions}
+          flavorProfiles={flavorProfiles}
+          setFlavorProfiles={setFlavorProfiles}
+          customFlavorProfiles={customFlavorProfiles}
+          setCustomFlavorProfiles={setCustomFlavorProfiles}
+        />
+      </div>
 
       <Toaster /> {/* Toast notifications container */}
     </div>
