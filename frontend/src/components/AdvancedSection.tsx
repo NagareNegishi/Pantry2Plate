@@ -3,10 +3,11 @@
  * Collection of advanced input components for recipe parameters.
  * Receives state and setters from parent component (App.tsx).
  */
-import type { Allergy, CookingMethod, CuisineType, MealType } from '@pantry2plate/shared';
+import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, MealType } from '@pantry2plate/shared';
 import { AllergiesSection } from './AllergiesSection';
 import { CookingMethodSection } from './CookingMethodSection';
 import { CuisineSection } from './CuisineSection';
+import { DietaryRestrictionsSection } from './DietaryRestrictionsSection';
 import { MealTypeSection } from './MealTypeSection';
 
 
@@ -37,6 +38,11 @@ interface AdvancedSectionProps {
   setAllergies: (value: Allergy[]) => void;
   customAllergies: string[];
   setCustomAllergies: (value: string[]) => void;
+  // Dietary restrictions
+  dietaryRestrictions: DietaryRestriction[];
+  setDietaryRestrictions: (value: DietaryRestriction[]) => void;
+  customDietaryRestrictions: string[];
+  setCustomDietaryRestrictions: (value: string[]) => void;
 }
 
 
@@ -64,6 +70,10 @@ export function AdvancedSection({
   setAllergies,
   customAllergies,
   setCustomAllergies,
+  dietaryRestrictions,
+  setDietaryRestrictions,
+  customDietaryRestrictions,
+  setCustomDietaryRestrictions,
 }: AdvancedSectionProps) {
   return (
     <div className="space-y-4">
@@ -92,6 +102,12 @@ export function AdvancedSection({
         onChange={setAllergies}
         customValue={customAllergies}
         onCustomChange={setCustomAllergies}
+      />
+      <DietaryRestrictionsSection
+        value={dietaryRestrictions}
+        onChange={setDietaryRestrictions}
+        customValue={customDietaryRestrictions}
+        onCustomChange={setCustomDietaryRestrictions}
       />
     </div>
   );
