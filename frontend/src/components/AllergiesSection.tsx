@@ -6,6 +6,12 @@
 import { Checkbox } from "@/components/ui/checkbox";
 // NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
 // https://www.radix-ui.com/primitives/docs/components/checkbox
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -142,96 +148,101 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   return (
     <div className="flex flex-col w-full max-w-54 gap-1.5">
 
-      <Label
-        htmlFor="allergy-type"
-        className="text-base self-center"
-      >
-        Allergies
-      </Label>
-
-      {/* Checkbox list for allergies */}
-      {ALLERGIES.map((allergy) => (
-      <div key={allergy} className="flex space-x-2">
-        <Checkbox
-          id={allergy}
-          checked={value.includes(allergy)}
-          onCheckedChange={() => handleToggle(allergy)}
-        />
-        <Label htmlFor={allergy}>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}</Label>
-      </div>
-      ))}
-
-      {/* custom input only shows if 'other' is selected */}
-      {value.includes('other') && (
-        <Input
-          type="text"
-          value={displayCustom}
-          onChange={handleChange}
-          onBlur={handleCustomAdd}
-          onKeyDown={handleEnter}
-          placeholder="Enter allergies"
-          maxLength={20}
-          className={
-            isValid === true
-              ? 'border-green-500 focus-visible:ring-green-500'
-              : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
-          }
-        />
-      )}
-
-
-      {/* Display selected allergies as badges */}
-      <div className="flex flex-wrap gap-2 mt-2">
-        {/* Predefined allergies */}
-        {value.filter(a => a !== 'other').map((allergy) => (
-          <div key={allergy} className="relative group">
-            <Badge
-              variant="secondary"
-              className="px-6 py-1.5 text-sm"
+      <Accordion type="single" collapsible defaultValue="allergies">
+        <AccordionItem value="allergies">
+          
+          <AccordionTrigger>
+            <Label
+              htmlFor="allergy-type"
+              className="text-base self-center"
             >
-              <span>{allergy}</span>
-            </Badge>
-            <Button
-              onClick={() => handleToggle(allergy)}
-              size="icon"
-              variant="ghost"
-              // Show delete icon only on hover
-              className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
-            >
-              <Trash2 className="h-3 w-3 text-destructive" />
-            </Button>
-          </div>
-        ))}
-        
-        {/* Custom allergies */}
-        {customValue.map((allergy) => (
-          <div key={allergy} className="relative group">
-            <Badge
-              variant="secondary"
-              className="px-6 py-1.5 text-sm"
-            >
-              <span>{allergy}</span>
-            </Badge>
-            <Button
-              onClick={() => {
-                const newCustom = customValue.filter((_, i) => i !== customValue.indexOf(allergy));
-                onCustomChange(newCustom);
-              }}
-              size="icon"
-              variant="ghost"
-              // Show delete icon only on hover
-              className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
-            >
-              <Trash2 className="h-3 w-3 text-destructive" />
-            </Button>
-          </div>
-        ))}
-      </div>
+              Allergies
+            </Label>
+          </AccordionTrigger>
+
+          <AccordionContent>
+            {/* Checkbox list for allergies */}
+            {ALLERGIES.map((allergy) => (
+            <div key={allergy} className="flex space-x-2">
+              <Checkbox
+                id={allergy}
+                checked={value.includes(allergy)}
+                onCheckedChange={() => handleToggle(allergy)}
+              />
+              <Label htmlFor={allergy}>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}</Label>
+            </div>
+            ))}
+
+            {/* custom input only shows if 'other' is selected */}
+            {value.includes('other') && (
+              <Input
+                type="text"
+                value={displayCustom}
+                onChange={handleChange}
+                onBlur={handleCustomAdd}
+                onKeyDown={handleEnter}
+                placeholder="Enter allergies"
+                maxLength={20}
+                className={
+                  isValid === true
+                    ? 'border-green-500 focus-visible:ring-green-500'
+                    : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
+                }
+              />
+            )}
+
+            {/* Display selected allergies as badges */}
+            <div className="flex flex-wrap gap-2 mt-2">
+              {/* Predefined allergies */}
+              {value.filter(a => a !== 'other').map((allergy) => (
+                <div key={allergy} className="relative group">
+                  <Badge
+                    variant="secondary"
+                    className="px-6 py-1.5 text-sm"
+                  >
+                    <span>{allergy}</span>
+                  </Badge>
+                  <Button
+                    onClick={() => handleToggle(allergy)}
+                    size="icon"
+                    variant="ghost"
+                    // Show delete icon only on hover
+                    className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
+                  >
+                    <Trash2 className="h-3 w-3 text-destructive" />
+                  </Button>
+                </div>
+              ))}
+              
+              {/* Custom allergies */}
+              {customValue.map((allergy) => (
+                <div key={allergy} className="relative group">
+                  <Badge
+                    variant="secondary"
+                    className="px-6 py-1.5 text-sm"
+                  >
+                    <span>{allergy}</span>
+                  </Badge>
+                  <Button
+                    onClick={() => {
+                      const newCustom = customValue.filter((_, i) => i !== customValue.indexOf(allergy));
+                      onCustomChange(newCustom);
+                    }}
+                    size="icon"
+                    variant="ghost"
+                    // Show delete icon only on hover
+                    className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
+                  >
+                    <Trash2 className="h-3 w-3 text-destructive" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </AccordionContent>
+
+        </AccordionItem>
+      </Accordion>
 
     </div>
   );
 }
-
-
-
-
