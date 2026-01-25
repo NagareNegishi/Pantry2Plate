@@ -148,12 +148,11 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange 
   return (
     <div className="flex flex-col w-full max-w-54 gap-1.5">
 
-      <Accordion type="single" collapsible defaultValue="allergies">
+      <Accordion type="single" collapsible>
         <AccordionItem value="allergies">
           
           <AccordionTrigger>
             <Label
-              htmlFor="allergy-type"
               className="text-base self-center"
             >
               Allergies
