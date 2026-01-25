@@ -85,7 +85,7 @@ export function IngredientsList({ value, onChange }: IngredientsListProps) {
     <div className="grid w-full max-w-sm items-center gap-1.5">
       <Label
         htmlFor="ingredients"
-        className="text-base"
+        className="text-xl"
       >
         Ingredients
       </Label>

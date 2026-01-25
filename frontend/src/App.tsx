@@ -53,7 +53,7 @@ function App() {
     <div className="p-8">
       <h1 className="text-center text-4xl font-bold mb-4 ">Pantry2Plate</h1>
       {/* Basic Inputs Section */}
-      <div className="max-w-md mx-auto bg-slate-50 rounded-lg p-6 mb-6">
+      <div className="max-w-3xl mx-auto bg-slate-50 rounded-lg p-6 mb-6">
         <BasicInputs
           servings={servings}
           setServings={setServings}
@@ -67,7 +67,7 @@ function App() {
       </div>
 
       {/* Advanced Section */}
-      <div className="max-w-md mx-auto bg-blue-50 rounded-lg p-6">
+      <div className="max-w-3xl mx-auto bg-blue-50 rounded-lg p-6">
         <AdvancedSection
           mealType={mealType}
           setMealType={setMealType}

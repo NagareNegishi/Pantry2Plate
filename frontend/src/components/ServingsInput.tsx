@@ -63,7 +63,7 @@ export function ServingsInput({ value, onChange }: ServingsInputProps) {
     <div className="flex flex-col w-full max-w-24 items-center gap-1.5">
       <Label
         htmlFor="servings"
-        className="text-base"
+        className="text-lg"
       >
         Servings
       </Label>

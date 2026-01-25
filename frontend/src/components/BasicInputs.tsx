@@ -41,9 +41,9 @@ export function BasicInputs({
   setIngredients
 }: BasicInputsProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <IngredientsList value={ingredients} onChange={setIngredients} />
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <ServingsInput value={servings} onChange={setServings} />
         <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
         <DifficultySelect value={difficulty} onChange={setDifficulty} />

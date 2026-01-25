@@ -37,7 +37,7 @@ export function DifficultySelect({ value, onChange }: DifficultySelectProps ) {
     <div className="flex flex-col w-full max-w-32 items-center gap-1.5">
       <Label
         htmlFor="difficulty"
-        className="text-base"
+        className="text-lg"
       >
         Difficulty
       </Label>
