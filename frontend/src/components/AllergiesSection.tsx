@@ -170,7 +170,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
               />
               <Label
                 htmlFor={allergy}
-                className="text-sm"
+                className="text-base"
                 >
                   {allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}
               </Label>
@@ -204,7 +204,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
                 <div key={allergy} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{allergy}</span>
                   </Badge>
@@ -225,7 +225,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
                 <div key={allergy} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{allergy}</span>
                   </Badge>

@@ -170,7 +170,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
               />
               <Label
                 htmlFor={restriction}
-                className="text-sm"
+                className="text-base"
                 >
                   {restriction.charAt(0).toUpperCase() + restriction.slice(1).replace('-', ' ')}
               </Label>
@@ -204,7 +204,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
                 <div key={restriction} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{restriction}</span>
                   </Badge>
@@ -225,7 +225,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
                 <div key={restriction} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{restriction}</span>
                   </Badge>

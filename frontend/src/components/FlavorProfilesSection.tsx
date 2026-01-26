@@ -179,7 +179,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
               />
               <Label
                 htmlFor={flavor}
-                className="text-sm"
+                className="text-base"
                 >
                   {flavor.charAt(0).toUpperCase() + flavor.slice(1).replace('-', ' ')}
               </Label>
@@ -213,7 +213,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
                 <div key={flavor} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{flavor}</span>
                   </Badge>
@@ -234,7 +234,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
                 <div key={flavor} className="relative group">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-1.5 text-sm"
+                    className="px-6 py-1.5 text-base"
                   >
                     <span>{flavor}</span>
                   </Badge>
