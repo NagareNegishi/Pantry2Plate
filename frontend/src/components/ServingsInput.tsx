@@ -67,7 +67,7 @@ export function ServingsInput({ value, onChange, className }: ServingsInputProps
     <div className={cn("flex flex-col w-full max-w-24 items-center gap-1.5", className)}>
       <Label
         htmlFor="servings"
-        className="text-lg"
+        className="text-xl"
       >
         Servings
       </Label>

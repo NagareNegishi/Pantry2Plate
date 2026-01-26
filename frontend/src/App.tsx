@@ -62,7 +62,7 @@ function App() {
         setDifficulty={setDifficulty}
         ingredients={ingredients}
         setIngredients={setIngredients}
-        className="max-w-3xl mx-auto bg-slate-50 rounded-lg p-6 mb-6"
+        className="max-w-2xl mx-auto bg-slate-50 rounded-lg p-6 mb-6"
       />
 
       {/* Advanced Section */}

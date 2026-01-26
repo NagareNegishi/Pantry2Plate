@@ -86,10 +86,10 @@ export function IngredientsList({ value, onChange, className }: IngredientsListP
   };
 
   return (
-    <div className={cn("grid w-full max-w-sm items-center gap-1.5", className)}>
+    <div className={cn("grid w-full max-w-md items-center gap-1.5", className)}>
       <Label
         htmlFor="ingredients"
-        className="text-xl"
+        className="text-2xl"
       >
         Ingredients
       </Label>

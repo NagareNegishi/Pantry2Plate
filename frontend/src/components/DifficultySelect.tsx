@@ -38,10 +38,10 @@ interface DifficultySelectProps {
 export function DifficultySelect({ value, onChange, className }: DifficultySelectProps ) {
   
   return (
-    <div className={cn("flex flex-col w-full max-w-32 items-center gap-1.5", className)}>
+    <div className={cn("flex flex-col w-full max-w-48 items-center gap-1.5", className)}>
       <Label
         htmlFor="difficulty"
-        className="text-lg"
+        className="text-xl"
       >
         Difficulty
       </Label>

@@ -67,20 +67,23 @@ export function CookingTimeInput({ value, onChange, className }: CookingTimeInpu
     <div className={cn("flex flex-col w-full max-w-32 items-center gap-1.5", className)}>
       <Label
         htmlFor="cookingTime"
-        className="text-lg"
+        className="text-xl whitespace-nowrap"
       >
         Cooking Time
       </Label>
-      <Input
-        id="cookingTime"
-        type="number"
-        min={MIN_COOKING_TIME}
-        max={MAX_COOKING_TIME}
-        step={5}
-        value={displayValue}
-        onChange={handleChange}
-        onBlur={handleBlur}
-      />
+      <div className="flex items-center gap-1">
+        <Input
+          id="cookingTime"
+          type="number"
+          min={MIN_COOKING_TIME}
+          max={MAX_COOKING_TIME}
+          step={5}
+          value={displayValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <span className="text-sm text-muted-foreground">minutes</span>
+      </div>
     </div>
   );
 }
