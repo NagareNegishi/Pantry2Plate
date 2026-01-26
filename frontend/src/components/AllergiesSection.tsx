@@ -150,7 +150,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
   }
 
   return (
-    <div className={cn("flex flex-col w-full max-w-54 gap-1.5", className)}>
+    <div className={cn("flex flex-col gap-1.5", className)}>
 
       <Accordion type="single" collapsible>
         <AccordionItem value="allergies">
@@ -198,7 +198,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
 
           {/* Display selected allergies as badges */}
           {(value.length > 0 || customValue.length > 0) && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2 px-1">
               {/* Predefined allergies */}
               {value.filter(a => a !== 'other').map((allergy) => (
                 <div key={allergy} className="relative group">

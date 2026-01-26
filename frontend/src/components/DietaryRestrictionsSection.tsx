@@ -150,7 +150,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
   }
 
   return (
-    <div className={cn("flex flex-col w-full max-w-54 gap-1.5", className)}>
+    <div className={cn("flex flex-col gap-1.5", className)}>
 
       <Accordion type="single" collapsible>
         <AccordionItem value="dietary restrictions">
@@ -198,7 +198,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
 
           {/* Display selected dietary restrictions as badges */}
           {(value.length > 0 || customValue.length > 0) && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2 px-1">
               {/* Predefined dietary restrictions */}
               {value.filter(a => a !== 'other').map((restriction) => (
                 <div key={restriction} className="relative group">

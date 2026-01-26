@@ -207,7 +207,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
 
           {/* Display selected flavor profiles as badges */}
           {(value.length > 0 || customValue.length > 0) && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2 px-1">
               {/* Predefined flavor profiles */}
               {value.filter(a => a !== 'other').map((flavor) => (
                 <div key={flavor} className="relative group">

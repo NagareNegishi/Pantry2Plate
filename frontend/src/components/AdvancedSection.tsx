@@ -93,30 +93,28 @@ export function AdvancedSection({
 }: AdvancedSectionProps) {
   return (
     <div className={cn("space-y-6 flex flex-col items-center", className)}>
-      <Accordion type="single" collapsible>
-        <AccordionItem value="advanced">
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="advanced" className="w-full">
 
           <AccordionTrigger className="text-2xl">
             <span className="flex-grow text-center">Advanced Options</span>
           </AccordionTrigger>
 
-          <AccordionContent className="px-2 pb-2">
-            <div className="space-y-4">
-              <div className="flex gap-8">
+          <AccordionContent className="px-2 pb-2 w-full">
+            <div className="space-y-4  w-full">
+              <div className="grid grid-cols-2 gap-8 w-full">
                 {/* most critical pair */}
                 <AllergiesSection
                   value={allergies}
                   onChange={setAllergies}
                   customValue={customAllergies}
                   onCustomChange={setCustomAllergies}
-                  className="flex-1"
                 />
                 <DietaryRestrictionsSection
                   value={dietaryRestrictions}
                   onChange={setDietaryRestrictions}
                   customValue={customDietaryRestrictions}
                   onCustomChange={setCustomDietaryRestrictions}
-                  className="flex-1"
                 />
               </div>
               <MealTypeSection
