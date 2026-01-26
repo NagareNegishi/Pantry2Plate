@@ -164,7 +164,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
       <Accordion type="single" collapsible>
         <AccordionItem value="flavor profiles">
           
-          <AccordionTrigger className="text-base">
+          <AccordionTrigger className="text-xl whitespace-nowrap">
             <span className="flex-grow text-center">Flavor Profiles</span>
           </AccordionTrigger>
 

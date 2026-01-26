@@ -96,7 +96,7 @@ export function CuisineSection({ value, onChange, customValue, onCustomChange, c
 
       <Label
         htmlFor="cuisine-type"
-        className="text-base"
+        className="text-xl whitespace-nowrap"
       >
         Cuisine Type
       </Label>

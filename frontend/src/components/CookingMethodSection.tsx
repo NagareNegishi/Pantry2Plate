@@ -99,7 +99,7 @@ export function CookingMethodSection({ value, onChange, customValue, onCustomCha
 
       <Label
         htmlFor="cooking-method"
-        className="text-base"
+        className="text-xl whitespace-nowrap"
       >
         Cooking Method
       </Label>

@@ -99,7 +99,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
 
       <Label
         htmlFor="meal-type"
-        className="text-base"
+        className="text-xl whitespace-nowrap"
       >
         Meal Type
       </Label>

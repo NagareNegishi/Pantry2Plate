@@ -91,7 +91,7 @@ function App() {
         setFlavorProfiles={setFlavorProfiles}
         customFlavorProfiles={customFlavorProfiles}
         setCustomFlavorProfiles={setCustomFlavorProfiles}
-        className="max-w-3xl mx-auto bg-blue-50 rounded-lg p-6"
+        className="max-w-2xl mx-auto bg-blue-50 rounded-lg p-6"
       />
 
       <Toaster /> {/* Toast notifications container */}

@@ -155,7 +155,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
       <Accordion type="single" collapsible>
         <AccordionItem value="allergies">
           
-          <AccordionTrigger className="text-base">
+          <AccordionTrigger className="text-xl whitespace-nowrap">
             <span className="flex-grow text-center">Allergies</span>
           </AccordionTrigger>
 

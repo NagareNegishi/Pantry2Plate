@@ -92,7 +92,7 @@ export function AdvancedSection({
   className
 }: AdvancedSectionProps) {
   return (
-    <div className={cn(className)}>
+    <div className={cn("space-y-6 flex flex-col items-center", className)}>
       <Accordion type="single" collapsible>
         <AccordionItem value="advanced">
 
@@ -102,6 +102,23 @@ export function AdvancedSection({
 
           <AccordionContent className="px-2 pb-2">
             <div className="space-y-4">
+              <div className="flex gap-8">
+                {/* most critical pair */}
+                <AllergiesSection
+                  value={allergies}
+                  onChange={setAllergies}
+                  customValue={customAllergies}
+                  onCustomChange={setCustomAllergies}
+                  className="flex-1"
+                />
+                <DietaryRestrictionsSection
+                  value={dietaryRestrictions}
+                  onChange={setDietaryRestrictions}
+                  customValue={customDietaryRestrictions}
+                  onCustomChange={setCustomDietaryRestrictions}
+                  className="flex-1"
+                />
+              </div>
               <MealTypeSection
                 value={mealType}
                 onChange={setMealType}
@@ -120,18 +137,6 @@ export function AdvancedSection({
                 customValue={customCookingMethod}
                 onCustomChange={setCustomCookingMethod}
               />
-              <AllergiesSection
-                value={allergies}
-                onChange={setAllergies}
-                customValue={customAllergies}
-                onCustomChange={setCustomAllergies}
-              />
-              <DietaryRestrictionsSection
-                value={dietaryRestrictions}
-                onChange={setDietaryRestrictions}
-                customValue={customDietaryRestrictions}
-                onCustomChange={setCustomDietaryRestrictions}
-              />
               <FlavorProfilesSection
                 value={flavorProfiles}
                 onChange={setFlavorProfiles}
@@ -146,5 +151,3 @@ export function AdvancedSection({
     </div>
   );
 }
-
-

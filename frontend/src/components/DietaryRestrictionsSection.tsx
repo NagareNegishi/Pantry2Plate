@@ -155,7 +155,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
       <Accordion type="single" collapsible>
         <AccordionItem value="dietary restrictions">
           
-          <AccordionTrigger className="text-base">
+          <AccordionTrigger className="text-xl whitespace-nowrap">
             <span className="flex-grow text-center">Dietary Restrictions</span>
           </AccordionTrigger>
 
