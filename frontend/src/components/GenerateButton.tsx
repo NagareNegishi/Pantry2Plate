@@ -3,6 +3,7 @@
  * A button component to trigger recipe generation.
  */
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 /**
  * Props for the GenerateButton component.
@@ -24,7 +25,7 @@ export function GenerateButton({ onClick, disabled, isLoading, className }: Gene
     <Button
       onClick={onClick}
       disabled={disabled}
-      className={className}
+      className={cn("flex flex-col items-center", className)}
     >
       {isLoading ? 'Generating...' : 'Generate Menu'}
     </Button>
