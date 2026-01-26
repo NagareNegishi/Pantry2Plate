@@ -215,7 +215,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{flavor}</span>
+                    <span>{flavor.charAt(0).toUpperCase() + flavor.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => handleToggle(flavor)}
@@ -236,7 +236,7 @@ export function FlavorProfilesSection({ value, onChange, customValue, onCustomCh
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{flavor}</span>
+                    <span>{flavor.charAt(0).toUpperCase() + flavor.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => {

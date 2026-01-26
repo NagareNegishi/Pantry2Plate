@@ -133,7 +133,7 @@ export function IngredientsList({ value, onChange, className }: IngredientsListP
               variant="secondary"
               className="px-6 py-1.5 text-base"
             >
-              <span>{ingredient}</span>
+              <span>{ingredient.charAt(0).toUpperCase() + ingredient.slice(1).replaceAll('-', ' ')}</span>
             </Badge>
             <Button
               onClick={() => handleRemove(index)}

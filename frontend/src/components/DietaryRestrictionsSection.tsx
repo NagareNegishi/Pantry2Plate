@@ -206,7 +206,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{restriction}</span>
+                    <span>{restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => handleToggle(restriction)}
@@ -227,7 +227,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{restriction}</span>
+                    <span>{restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => {

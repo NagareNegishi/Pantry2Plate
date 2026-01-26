@@ -206,7 +206,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{allergy}</span>
+                    <span>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => handleToggle(allergy)}
@@ -227,7 +227,7 @@ export function AllergiesSection({ value, onChange, customValue, onCustomChange,
                     variant="secondary"
                     className="px-6 py-1.5 text-base"
                   >
-                    <span>{allergy}</span>
+                    <span>{allergy.charAt(0).toUpperCase() + allergy.slice(1).replaceAll('-', ' ')}</span>
                   </Badge>
                   <Button
                     onClick={() => {
