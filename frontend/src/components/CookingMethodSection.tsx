@@ -95,7 +95,7 @@ export function CookingMethodSection({ value, onChange, customValue, onCustomCha
 
 
   return (
-    <div className={cn("flex flex-col w-full max-w-40 items-center gap-1.5", className)}>
+    <div className={cn("flex flex-col w-full max-w-48 items-center gap-1.5", className)}>
 
       <Label
         htmlFor="cooking-method"
@@ -107,7 +107,7 @@ export function CookingMethodSection({ value, onChange, customValue, onCustomCha
         value={value}
         onValueChange={(value) => onChange(value as CookingMethod)}
       >
-        <SelectTrigger className="w-full max-w-40">
+        <SelectTrigger className="w-full max-w-48">
           <SelectValue placeholder="Select a cooking method" />
         </SelectTrigger>
         <SelectContent>

@@ -101,9 +101,9 @@ export function AdvancedSection({
           </AccordionTrigger>
 
           <AccordionContent className="px-2 pb-2 w-full">
-            <div className="space-y-4  w-full">
+            <div className="space-y-12  w-full">
+              {/* critical requirements at the top */}
               <div className="grid grid-cols-2 gap-8 w-full">
-                {/* most critical pair */}
                 <AllergiesSection
                   value={allergies}
                   onChange={setAllergies}
@@ -117,30 +117,33 @@ export function AdvancedSection({
                   onCustomChange={setCustomDietaryRestrictions}
                 />
               </div>
-              <MealTypeSection
-                value={mealType}
-                onChange={setMealType}
-                customValue={customMealType}
-                onCustomChange={setCustomMealType}
-              />
-              <CuisineSection
-                value={cuisineType}
-                onChange={setCuisineType}
-                customValue={customCuisineType}
-                onCustomChange={setCustomCuisineType}
-              />
-              <CookingMethodSection
-                value={cookingMethod}
-                onChange={setCookingMethod}
-                customValue={customCookingMethod}
-                onCustomChange={setCustomCookingMethod}
-              />
-              <FlavorProfilesSection
-                value={flavorProfiles}
-                onChange={setFlavorProfiles}
-                customValue={customFlavorProfiles}
-                onCustomChange={setCustomFlavorProfiles}
-              />
+              <div className="grid grid-cols-2 gap-8 w-full justify-items-center">
+                <MealTypeSection
+                  value={mealType}
+                  onChange={setMealType}
+                  customValue={customMealType}
+                  onCustomChange={setCustomMealType}
+                />
+                <CuisineSection
+                  value={cuisineType}
+                  onChange={setCuisineType}
+                  customValue={customCuisineType}
+                  onCustomChange={setCustomCuisineType}
+                />
+                <CookingMethodSection
+                  value={cookingMethod}
+                  onChange={setCookingMethod}
+                  customValue={customCookingMethod}
+                  onCustomChange={setCustomCookingMethod}
+                  className="pt-4" // align with other sections
+                />
+                <FlavorProfilesSection
+                  value={flavorProfiles}
+                  onChange={setFlavorProfiles}
+                  customValue={customFlavorProfiles}
+                  onCustomChange={setCustomFlavorProfiles}
+                />
+              </div>
             </div>
           </AccordionContent>
 
