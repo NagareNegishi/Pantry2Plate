@@ -104,6 +104,8 @@ function App() {
       console.log('Error generating menu:', error);
       toast.error('Failed to generate menu');
     } finally {
+      // wait 3 seconds to simulate loading
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       setIsLoading(false);
     }
   };
@@ -156,7 +158,7 @@ function App() {
         onClick={handleGenerate}
         disabled={ingredients.length === 0 || isLoading}
         isLoading={isLoading}
-        className="max-w-2xl mx-auto w-full"
+        className="max-w-3xl mx-auto min-w-lg"
       />
       <Toaster /> {/* Toast notifications container */}
     </div>
