@@ -1,21 +1,20 @@
 // test connection from shared module
-import type { Difficulty, ValidationResult } from '@pantry2plate/shared'; // Types only (disappear at runtime)
-import { MenuRequestImpl } from '@pantry2plate/shared'; // Actual classes/values (exist at runtime)
-
-import { useState } from 'react';
-import { BasicInputs } from './components/BasicInputs';
-
 import { Toaster } from "@/components/ui/sonner";
-
-
-
-
-
-// for advanced inputs later
-import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
+import type {
+  Allergy,
+  CookingMethod,
+  CuisineType,
+  DietaryRestriction,
+  Difficulty,
+  FlavorProfile,
+  MealType,
+  ValidationResult
+} from '@pantry2plate/shared';
+import { MenuRequestImpl } from '@pantry2plate/shared';
+import { useMemo, useState } from 'react';
+import { toast } from "sonner";
 import { AdvancedSection } from './components/AdvancedSection';
-
-
+import { BasicInputs } from './components/BasicInputs';
 
 
 function App() {
@@ -38,16 +37,73 @@ function App() {
   const [customCuisineType, setCustomCuisineType] = useState<string>('');
   const [cookingMethod, setCookingMethod] = useState<CookingMethod>('any');
   const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
-
-
   const [allergies, setAllergies] = useState<Allergy[]>([]);
   const [customAllergies, setCustomAllergies] = useState<string[]>([]);
   const [dietaryRestrictions, setDietaryRestrictions] = useState<DietaryRestriction[]>([]);
   const [customDietaryRestrictions, setCustomDietaryRestrictions] = useState<string[]>([]);
   const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
   const [customFlavorProfiles, setCustomFlavorProfiles] = useState<string[]>([]);
+  // Loading state for generation process
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Memoized MenuRequest object to avoid unnecessary recalculations
+  const menuRequest = useMemo(() => {
+    return new MenuRequestImpl({
+      ingredients,
+      allergies,
+      allergiesCustom: customAllergies,
+      dietaryRestrictions,
+      dietaryRestrictionsCustom: customDietaryRestrictions,
+      servings,
+      mealType,
+      mealTypeCustom: customMealType,
+      flavorProfiles,
+      flavorProfilesCustom: customFlavorProfiles,
+      cuisineType,
+      cuisineTypeCustom: customCuisineType,
+      cookingMethod,
+      cookingMethodCustom: customCookingMethod,
+      maxCookingTime: cookingTime,
+      difficulty
+    });
+  }, [
+    ingredients,
+    allergies,
+    customAllergies,
+    dietaryRestrictions,
+    customDietaryRestrictions,
+    servings,
+    mealType,
+    customMealType,
+    flavorProfiles,
+    customFlavorProfiles,
+    cuisineType,
+    customCuisineType,
+    cookingMethod,
+    customCookingMethod,
+    cookingTime,
+    difficulty
+  ]);
 
+  const validation: ValidationResult = useMemo(() => {
+    return menuRequest.validate();
+  }, [menuRequest]);
+
+  const handleGenerate = async () => {
+    if (!validation.valid) {
+      toast.error(validation.errors.join(', '));
+      return;
+    }
+    setIsLoading(true);
+    try {
+      // API call here
+    } catch (error) {
+      // handle error
+      toast.error('Failed to generate menu');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="p-8">
@@ -94,24 +150,10 @@ function App() {
         className="max-w-2xl mx-auto bg-blue-50 rounded-lg p-6"
       />
 
+
       <Toaster /> {/* Toast notifications container */}
     </div>
   );
 }
 
 export default App
-
-
-
-
-// Example usage of MenuRequestImpl and ValidationResult, connect to app later
-
-const request = new MenuRequestImpl({
-  ingredients: ['chicken', 'rice'],
-  dietaryRestrictions: ['vegetarian', 'gluten-free'],
-  mealType: 'dinner',
-  servings: 2
-});
-
-const validation: ValidationResult = request.validate();
-console.log('Validation Result front:', validation);
