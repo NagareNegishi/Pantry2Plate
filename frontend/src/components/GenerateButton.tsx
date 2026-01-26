@@ -25,7 +25,14 @@ export function GenerateButton({ onClick, disabled, isLoading, className }: Gene
     <Button
       onClick={onClick}
       disabled={disabled}
-      className={cn("flex flex-col items-center", className)}
+      className={cn(
+        "flex flex-col items-center", // Centered content
+        "my-6 py-6 rounded-xl", // Vertical spacing, Taller button, Rounded corners
+        "text-lg font-semibold", // Bigger, bolder text
+        "bg-green-500 hover:bg-green-600 disabled:bg-green-300",
+        "disabled:!cursor-not-allowed", // Show not-allowed cursor
+        "transition-colors", // Smooth color transitions
+        className)}
     >
       {isLoading ? 'Generating...' : 'Generate Menu'}
     </Button>
