@@ -15,6 +15,7 @@ import { useMemo, useState } from 'react';
 import { toast } from "sonner";
 import { AdvancedSection } from './components/AdvancedSection';
 import { BasicInputs } from './components/BasicInputs';
+import { GenerateButton } from './components/GenerateButton';
 
 
 function App() {
@@ -97,8 +98,10 @@ function App() {
     setIsLoading(true);
     try {
       // API call here
+      console.log('Generating menu with request:', menuRequest);
     } catch (error) {
       // handle error
+      console.log('Error generating menu:', error);
       toast.error('Failed to generate menu');
     } finally {
       setIsLoading(false);
@@ -120,7 +123,6 @@ function App() {
         setIngredients={setIngredients}
         className="max-w-2xl mx-auto bg-slate-50 rounded-lg p-6 mb-6"
       />
-
       {/* Advanced Section */}
       <AdvancedSection
         mealType={mealType}
@@ -149,11 +151,15 @@ function App() {
         setCustomFlavorProfiles={setCustomFlavorProfiles}
         className="max-w-2xl mx-auto bg-blue-50 rounded-lg p-6"
       />
-
-
+      {/* Button to generate menu */}
+      <GenerateButton
+        onClick={handleGenerate}
+        disabled={ingredients.length === 0 || isLoading}
+        isLoading={isLoading}
+        className="max-w-2xl mx-auto w-full"
+      />
       <Toaster /> {/* Toast notifications container */}
     </div>
   );
 }
-
 export default App
