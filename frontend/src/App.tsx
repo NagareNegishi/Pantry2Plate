@@ -17,6 +17,8 @@ import { AdvancedSection } from './components/AdvancedSection';
 import { BasicInputs } from './components/BasicInputs';
 import { GenerateButton } from './components/GenerateButton';
 
+// Env Variables must be prefixed with VITE_ to be accessible in the frontend
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
 
 function App() {
   /*
@@ -52,7 +54,7 @@ function App() {
     return new MenuRequestImpl({
       ingredients,
       allergies,
-      allergiesCustom: customAllergies,
+      allergiesCustom: customAllergies, // name mismatch handled
       dietaryRestrictions,
       dietaryRestrictionsCustom: customDietaryRestrictions,
       servings,
@@ -67,7 +69,7 @@ function App() {
       maxCookingTime: cookingTime,
       difficulty
     });
-  }, [
+  }, [ // if any of these change, recalculate
     ingredients,
     allergies,
     customAllergies,
@@ -97,8 +99,25 @@ function App() {
     }
     setIsLoading(true);
     try {
-      // API call here
+      // send request to backend
+      const response = await fetch(`${BACKEND_URL}/api/menu/generate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(menuRequest)
+      });
+
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      // handle response data (e.g., display generated menu)
+      console.log('Generated Menu:', data);
       console.log('Generating menu with request:', menuRequest);
+
+      
     } catch (error) {
       // handle error
       console.log('Error generating menu:', error);
