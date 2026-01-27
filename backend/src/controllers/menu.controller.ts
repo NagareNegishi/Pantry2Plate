@@ -7,16 +7,19 @@ import type { ValidationResult } from '@pantry2plate/shared';
 import { MenuRequestImpl, MenuResponseImpl } from '@pantry2plate/shared';
 import { type Request, type Response } from 'express';
 import { generateMenuSuggestions } from '../services/claude.service.js';
+import { cacheProductionPair, logProductionResult } from '../utils/production-logger.js';
 // For Anthropic specific errors handling: https://github.com/anthropics/anthropic-sdk-typescript
 import Anthropic from '@anthropic-ai/sdk';
 
 // Pseudo-code structure
 export const generateMenu = async (req: Request, res: Response) => {
+  let menuRequest: MenuRequestImpl | undefined;
   try {
     // Validate request body
-    const menuRequest: MenuRequestImpl = new MenuRequestImpl(req.body);
+    menuRequest = new MenuRequestImpl(req.body);
     const validation: ValidationResult = menuRequest.validate();
     if (!validation.valid && validation.errors.includes('At least one ingredient is required')) {
+      logProductionResult('validation_error', menuRequest, undefined, validation.errors.join(', '));
       return res.status(400).json({ error: 'Invalid request', details: validation.errors });
     }
 
@@ -25,6 +28,7 @@ export const generateMenu = async (req: Request, res: Response) => {
 
     // Case: insufficient ingredients/impossible request
     if (response === "INSUFFICIENT_INGREDIENTS") {
+      logProductionResult('insufficient', menuRequest, response);
       return res.status(400).json({ error: 'Cannot generate recipes with provided ingredients'});
     }
     // Validate response
@@ -32,16 +36,26 @@ export const generateMenu = async (req: Request, res: Response) => {
     const menuResponse = new MenuResponseImpl(parsed);
     const responseValidation: ValidationResult = menuResponse.validate();
     if (!responseValidation.valid) {
+      logProductionResult('api_error', menuRequest, response, responseValidation.errors.join(', '));
       return res.status(502).json({
         error: 'Claude API returned invalid menu format',
         details: responseValidation.errors
       });
     }
 
-    // Return response
+    // Success: log AND cache, then return
+    logProductionResult('success', menuRequest, response);
+    cacheProductionPair(menuRequest, response);
     res.status(200).json( { response: menuResponse } );
 
   } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    if (menuRequest) {
+      logProductionResult('api_error', menuRequest, undefined, errorMsg);
+    } else {
+      console.error('Error before menuRequest creation:', errorMsg);
+    }
+    // Handle specific Anthropic errors
     if (error instanceof SyntaxError) {
       console.error('JSON Parse Error:', error);
       return res.status(502).json({ error: 'Invalid response format from Claude API' });
