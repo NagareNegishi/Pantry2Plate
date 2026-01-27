@@ -11,7 +11,7 @@ import type {
   ValidationResult
 } from '@pantry2plate/shared';
 import { MenuRequestImpl } from '@pantry2plate/shared';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from "sonner";
 import { AdvancedSection } from './components/AdvancedSection';
 import { BasicInputs } from './components/BasicInputs';
@@ -226,6 +226,17 @@ function App() {
     }
   };
 
+
+  // Scroll to results when menuData updates
+  const resultsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (menuData && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [menuData]);
+
+
   return (
     <div className="p-8">
       <h1 className="text-center text-4xl font-bold mb-4 ">Pantry2Plate</h1>
@@ -288,6 +299,7 @@ function App() {
       <ResultsSection
         menuData={menuData}
         className="mt-6 max-w-3xl mx-auto"
+        ref={resultsRef}
       />
 
       <Toaster /> {/* Toast notifications container */}
