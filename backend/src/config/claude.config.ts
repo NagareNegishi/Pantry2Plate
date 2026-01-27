@@ -116,8 +116,9 @@ export const CLAUDE_CONFIG = {
   Do not include any text before or after the JSON.
 
   If you cannot generate ANY reasonable recipes with the given ingredients:
-  - Return exactly: "INSUFFICIENT_INGREDIENTS"
-  - Do NOT return JSON
+  - Return ONLY the exact string: INSUFFICIENT_INGREDIENTS
+  - NO explanation, NO JSON, NO additional text whatsoever
+  - The entire response must be exactly 24 characters: "INSUFFICIENT_INGREDIENTS"
   - Do NOT try to force recipes that don't work
   `
 };
