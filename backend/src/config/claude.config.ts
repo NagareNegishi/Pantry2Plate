@@ -19,9 +19,11 @@ export const CLAUDE_CONFIG = {
   - Recipes MUST comply with all dietary restrictions
 
   INGREDIENT HANDLING:
-  - If an ingredient conflicts with dietary restrictions, IGNORE that ingredient completely and generate recipes using only the compatible ingredients
-  - If an ingredient appears to be a misspelling of a common food item, interpret it correctly and use the proper spelling in the recipe.
-  - Ignore any ingredients that are clearly not food items.
+  - If an ingredient conflicts with dietary restrictions, IGNORE that ingredient completely
+  - Generate recipes using only the remaining compatible ingredients
+  - If the remaining ingredients (after filtering) are insufficient to create reasonable recipes, return INSUFFICIENT_INGREDIENTS
+  - If an ingredient appears to be a misspelling of a common food item, interpret it correctly and use the proper spelling in the recipe
+  - Ignore any ingredients that are clearly not food items
 
   Only suggest recipes where:
   - The main proteins, grains, and vegetables come from the user's list
