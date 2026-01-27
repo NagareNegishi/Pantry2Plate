@@ -100,3 +100,47 @@ export function logProductionResult(
   logs.push(log);
   writeFileSync(logFile, JSON.stringify(logs, null, 2));
 }
+
+
+/**
+ * Cache ONLY successful request-response pairs for analysis
+ */
+export function cacheProductionPair(
+  request: MenuRequestImpl,
+  response: string
+): void {
+  if (!ENABLE_CACHE) return;
+
+  if (!existsSync(CACHE_DIR)) {
+    mkdirSync(CACHE_DIR, { recursive: true });
+  }
+
+  const date = new Date().toISOString().split('T')[0];
+  const cacheFile = join(CACHE_DIR, `successful-pairs-${date}.json`);
+
+  let pairs: SuccessfulPair[] = [];
+  if (existsSync(cacheFile)) {
+    pairs = JSON.parse(readFileSync(cacheFile, 'utf-8'));
+  }
+
+  const pair: SuccessfulPair = {
+    timestamp: new Date().toISOString(),
+    request: {
+      ingredients: request.ingredients,
+      servings: request.servings,
+      maxCookingTime: request.maxCookingTime,
+      mealType: request.mealType,
+      cuisineType: request.cuisineType,
+      cookingMethod: request.cookingMethod,
+      difficulty: request.difficulty
+    },
+    response
+  };
+
+  if (request.allergies.length > 0) pair.request.allergies = request.allergies;
+  if (request.dietaryRestrictions.length > 0) pair.request.dietaryRestrictions = request.dietaryRestrictions;
+  if (request.flavorProfiles.length > 0) pair.request.flavorProfiles = request.flavorProfiles;
+
+  pairs.push(pair);
+  writeFileSync(cacheFile, JSON.stringify(pairs, null, 2));
+}
