@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { AdvancedSection } from './components/AdvancedSection';
 import { BasicInputs } from './components/BasicInputs';
 import { GenerateButton } from './components/GenerateButton';
+import { ResultsSection } from "./components/ResultsSection";
 
 // Env Variables must be prefixed with VITE_ to be accessible in the frontend
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
@@ -92,10 +93,20 @@ function App() {
     return menuRequest.validate();
   }, [menuRequest]);
 
+  // State for generated menu results
+  const [menuData, setMenuData] = useState<{
+    menus: Array<{
+      name: string;
+      description: string;
+      servings: number;
+      cookingTime: number;
+      difficulty: string;
+      ingredients: string[];
+      instructions: string[];
+    }>;
+  } | null>(null);
 
-
-  const [menuText, setMenuText] = useState('');
-
+  // Handler for generating menu
   const handleGenerate = async () => {
     if (!validation.valid) {
       toast.error(validation.errors.join(', '));
@@ -202,36 +213,7 @@ function App() {
 
       console.log('Menu generated successfully:', data.response);
 
-      // create simple text and add it to return content
-      let text = 'Generated Menus:\n\n';
-      data.response.menus.forEach((item: any, index: number) => {
-        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-        text += `Recipe ${index + 1}: ${item.name}\n`;
-        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        
-        text += `Description: ${item.description}\n\n`;
-        
-        text += `Servings: ${item.servings}\n\n`;
-        text += `Cooking Time: ${item.cookingTime} minutes\n\n`;
-        text += `Difficulty: ${item.difficulty}\n\n`;
-        
-        text += `Ingredients:\n`;
-        item.ingredients.forEach((ing: string) => {
-          text += `  • ${ing}\n`;
-        });
-        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        
-        text += `\nInstructions:\n`;
-        item.instructions.forEach((step: string, i: number) => {
-          text += `  ${i + 1}. ${step}\n`;
-        });
-        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        
-        text += `\n\n`;
-      });
-
-
-      setMenuText(text);
+      setMenuData(data.response);
       toast.success('Menu generated successfully!');
 
 
@@ -295,12 +277,11 @@ function App() {
         className="max-w-3xl mx-auto min-w-lg"
       />
 
-
-      {/* Display generated menu text */}
-      <p className="whitespace-pre-wrap max-w-3xl mx-auto bg-white rounded-lg p-6 mt-6">
-        {menuText}
-      </p>
-
+      {/* Display generated menu results */}
+      <ResultsSection
+        menuData={menuData}
+        className="mt-6 max-w-3xl mx-auto"
+      />
 
       <Toaster /> {/* Toast notifications container */}
     </div>
