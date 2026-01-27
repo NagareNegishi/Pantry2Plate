@@ -8,7 +8,7 @@ export const CLAUDE_CONFIG = {
   apiKey: process.env.ANTHROPIC_API_KEY,              // env variable
   enabled: process.env.ENABLE_CLAUDE_API === 'true',  // Safety flag
   model: 'claude-sonnet-4-5-20250929',    // See available models with Claude API
-  maxTokens: 10,//2048,                        // See Claude API token rates and limits
+  maxTokens: 2048,                        // See Claude API token rates and limits
   temperature: 0.7,                       // 0.0 for analytical/multiple choice <-> 1.0 for creative/generative tasks
   system:
   `You are a helpful culinary assistant that generates menu suggestions based on available ingredients and dietary preferences.

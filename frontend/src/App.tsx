@@ -123,13 +123,13 @@ function App() {
 
       // create simple text and add it to return content
       let text = 'Generated Menu:\n';
-      data.response.menuItems.forEach((item: any, index: number) => {
+      data.response.menus.forEach((item: any, index: number) => {
         text += `\n${index + 1}. ${item.name}\n`;
         text += `Description: ${item.description}\n`;
         text += `Ingredients: ${item.ingredients.join(', ')}\n`;
       });
       setMenuText(text);
-      toast.success(menuText, { duration: 10000 }); // Show for 10 seconds
+      toast.success('Menu generated successfully!');
 
 
     } catch (error) {
