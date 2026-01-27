@@ -122,12 +122,34 @@ function App() {
 
 
       // create simple text and add it to return content
-      let text = 'Generated Menu:\n';
+      let text = 'Generated Menus:\n\n';
       data.response.menus.forEach((item: any, index: number) => {
-        text += `\n${index + 1}. ${item.name}\n`;
-        text += `Description: ${item.description}\n`;
-        text += `Ingredients: ${item.ingredients.join(', ')}\n`;
+        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+        text += `Recipe ${index + 1}: ${item.name}\n`;
+        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+        
+        text += `Description: ${item.description}\n\n`;
+        
+        text += `Servings: ${item.servings}\n\n`;
+        text += `Cooking Time: ${item.cookingTime} minutes\n\n`;
+        text += `Difficulty: ${item.difficulty}\n\n`;
+        
+        text += `Ingredients:\n`;
+        item.ingredients.forEach((ing: string) => {
+          text += `  • ${ing}\n`;
+        });
+        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+        
+        text += `\nInstructions:\n`;
+        item.instructions.forEach((step: string, i: number) => {
+          text += `  ${i + 1}. ${step}\n`;
+        });
+        text += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+        
+        text += `\n\n`;
       });
+
+
       setMenuText(text);
       toast.success('Menu generated successfully!');
 
@@ -194,8 +216,9 @@ function App() {
 
 
       {/* Display generated menu text */}
-      <p>{menuText}</p>
-
+      <p className="whitespace-pre-wrap max-w-3xl mx-auto bg-white rounded-lg p-6 mt-6">
+        {menuText}
+      </p>
 
 
       <Toaster /> {/* Toast notifications container */}
