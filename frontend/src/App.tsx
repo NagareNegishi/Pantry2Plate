@@ -94,7 +94,7 @@ function App() {
 
 
 
-  let menuText = ''; // To display generated menu text
+  const [menuText, setMenuText] = useState('');
 
   const handleGenerate = async () => {
     if (!validation.valid) {
@@ -119,24 +119,24 @@ function App() {
       }
       const data = await response.json();
       console.log('Menu generated successfully:', data.response);
+
+
       // create simple text and add it to return content
-      menuText = 'Generated Menu:\n';
-      data.response.recipes.forEach((recipe: any, index: number) => {
-        menuText += `\nRecipe ${index + 1}:\n`;
-        menuText += `Title: ${recipe.title}\n`;
-        menuText += `Ingredients: ${recipe.ingredients.join(', ')}\n`;
-        menuText += `Instructions: ${recipe.instructions}\n`;
+      let text = 'Generated Menu:\n';
+      data.response.menuItems.forEach((item: any, index: number) => {
+        text += `\n${index + 1}. ${item.name}\n`;
+        text += `Description: ${item.description}\n`;
+        text += `Ingredients: ${item.ingredients.join(', ')}\n`;
       });
+      setMenuText(text);
       toast.success(menuText, { duration: 10000 }); // Show for 10 seconds
 
 
     } catch (error) {
       // handle error
       console.log('Error generating menu:', error);
-      toast.error('Failed to generate menu');
+      toast.error('Failed to connect to server');
     } finally {
-      // wait 3 seconds to simulate loading
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       setIsLoading(false);
     }
   };
