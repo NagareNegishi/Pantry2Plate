@@ -36,17 +36,17 @@ export function ResultsSection({ menuData, className }: ResultsSectionProps) {
       {menuData.menus.map((menu, index) => (
         <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           {/* Recipe Header with separator */}
-          <div className="border-b-2 border-gray-300 pb-3 mb-4">
+          <div className="border-b-3 border-gray-300 pb-3 mb-4">
             <h2 className="text-2xl font-bold text-gray-800">
               Recipe {index + 1}: {menu.name}
             </h2>
           </div>
 
           {/* Description */}
-          <p className="text-gray-600 mb-4 italic">{menu.description}</p>
+          <p className="text-lg text-gray-600 mb-4 italic">{menu.description}</p>
 
           {/* Info row: Servings, Time, Difficulty */}
-          <div className="flex gap-6 text-sm text-gray-700 mb-6 pb-4 border-b border-gray-200">
+          <div className="flex gap-8 text-base text-gray-700 mb-6 pb-4 border-b border-gray-200">
             <div>
               <span className="font-semibold">Servings:</span> {menu.servings}
             </div>
@@ -66,7 +66,8 @@ export function ResultsSection({ menuData, className }: ResultsSectionProps) {
                 {menu.ingredients.map((ingredient, idx) => (
                   <li key={idx} className="flex items-start">
                     <span className="text-blue-600 mr-2">•</span>
-                    <span className="text-gray-700">{ingredient}</span>
+                    {/* Capitalize first letter of ingredient */}
+                    <span className="text-gray-700">{ingredient.charAt(0).toUpperCase() + ingredient.slice(1)}</span>
                   </li>
                 ))}
               </ul>
