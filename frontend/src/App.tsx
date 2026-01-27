@@ -92,6 +92,10 @@ function App() {
     return menuRequest.validate();
   }, [menuRequest]);
 
+
+
+  let menuText = ''; // To display generated menu text
+
   const handleGenerate = async () => {
     if (!validation.valid) {
       toast.error(validation.errors.join(', '));
@@ -107,17 +111,25 @@ function App() {
         },
         body: JSON.stringify(menuRequest)
       });
-
-
+      // handle non-OK responses
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        const errorData = await response.json();
+        toast.error(`Error: ${errorData.error || 'Failed to generate menu'}`);
+        return;
       }
       const data = await response.json();
-      // handle response data (e.g., display generated menu)
-      console.log('Generated Menu:', data);
-      console.log('Generating menu with request:', menuRequest);
+      console.log('Menu generated successfully:', data.response);
+      // create simple text and add it to return content
+      menuText = 'Generated Menu:\n';
+      data.response.recipes.forEach((recipe: any, index: number) => {
+        menuText += `\nRecipe ${index + 1}:\n`;
+        menuText += `Title: ${recipe.title}\n`;
+        menuText += `Ingredients: ${recipe.ingredients.join(', ')}\n`;
+        menuText += `Instructions: ${recipe.instructions}\n`;
+      });
+      toast.success(menuText, { duration: 10000 }); // Show for 10 seconds
 
-      
+
     } catch (error) {
       // handle error
       console.log('Error generating menu:', error);
@@ -179,6 +191,13 @@ function App() {
         isLoading={isLoading}
         className="max-w-3xl mx-auto min-w-lg"
       />
+
+
+      {/* Display generated menu text */}
+      <p>{menuText}</p>
+
+
+
       <Toaster /> {/* Toast notifications container */}
     </div>
   );
