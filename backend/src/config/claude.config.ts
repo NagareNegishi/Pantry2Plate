@@ -18,8 +18,10 @@ export const CLAUDE_CONFIG = {
   - Recipes MUST NOT contain any allergens specified by the user
   - Recipes MUST comply with all dietary restrictions
 
-  If an ingredient appears to be a misspelling of a common food item, interpret it correctly and use the proper spelling in the recipe.
-  Ignore any ingredients that are clearly not food items.
+  INGREDIENT HANDLING:
+  - If an ingredient conflicts with dietary restrictions, IGNORE that ingredient completely and generate recipes using only the compatible ingredients
+  - If an ingredient appears to be a misspelling of a common food item, interpret it correctly and use the proper spelling in the recipe.
+  - Ignore any ingredients that are clearly not food items.
 
   Only suggest recipes where:
   - The main proteins, grains, and vegetables come from the user's list
