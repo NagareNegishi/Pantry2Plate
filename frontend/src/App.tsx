@@ -277,6 +277,13 @@ function App() {
         className="max-w-3xl mx-auto min-w-lg"
       />
 
+      {/* Loading spinner */}
+      {isLoading && (
+        <div className="max-w-3xl mx-auto mt-6 flex justify-center items-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        </div>
+      )}
+
       {/* Display generated menu results */}
       <ResultsSection
         menuData={menuData}
