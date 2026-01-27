@@ -21,6 +21,7 @@ interface ResultsSectionProps {
     }>;
   } | null;  // null when no results yet
   className?: string;
+  ref?: React.RefObject<HTMLDivElement | null>;
 }
 
 /**
@@ -28,11 +29,11 @@ interface ResultsSectionProps {
  * @param ResultsSectionProps but as destructured props
  * @returns A section displaying the generated menu results
  */
-export function ResultsSection({ menuData, className }: ResultsSectionProps) {
+export function ResultsSection({ menuData, className, ref }: ResultsSectionProps) {
   if (!menuData) return null;  // Hidden until data exists
 
   return (
-    <div className={cn("space-y-8", className)}>
+    <div ref={ref} className={cn("space-y-8", className)}>
       {menuData.menus.map((menu, index) => (
         <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
           {/* Recipe Header with separator */}
