@@ -110,5 +110,3 @@ cd frontend && npm test
 - Mobile app (React Native reusing backend API)
 - AI agent evolution (multi-step reasoning, recipe/nutrition tool use)
 - User accounts & saved menus
-- Grocery list generation
-```
