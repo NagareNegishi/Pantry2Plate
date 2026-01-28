@@ -31,13 +31,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Setup Node.js environment, matching the version used in Dockerfile
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build shared package
+        run: |
+          cd shared
+          npm ci
+          npm run build
+
+      - name: Build frontend (demo mode)
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+        # Set VITE_DEMO_MODE to true to prevent calls to backend services
+        env:
+          VITE_DEMO_MODE: true
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # Upload the built static files
+          path: './frontend/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
