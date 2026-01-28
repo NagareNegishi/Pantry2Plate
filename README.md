@@ -2,27 +2,28 @@
 
 AI-powered menu suggestion app that generates personalized recipes based on your ingredients, dietary needs, and cooking preferences using Claude API.
 
-## Features
-- **Smart ingredient input** with autocomplete (180+ common ingredients)
-- **Dietary customization**: allergies, restrictions, meal types, cuisines, cooking methods
-- **Flexible preferences**: servings, cooking time, difficulty level, flavor profiles
-- **AI-generated menus**: detailed recipes with ingredients lists and step-by-step instructions
-
-## Tech Stack
-- **Frontend**: React + Vite + TypeScript, shadcn/ui, Tailwind CSS v4
-- **Backend**: Node.js/Express + TypeScript
-- **Shared**: TypeScript types package with validation
-- **AI**: Anthropic Claude API (Sonnet 4.5)
-- **Deploy**: Docker Compose
-- **Testing**: Jest (backend/shared), Vitest (frontend)
-
 ## Quick Start
 
-### Prerequisites
+### Try the Demo (No API Key Required)
+Want to see it in action without setup? The live demo uses preset responses to showcase the UI:
+- **Live Demo**: [nagarenegishi.com/Pantry2Plate](http://nagarenegishi.com/Pantry2Plate)
+
+Or run locally in demo mode:
+```bash
+git clone <repo-url>
+cd pantry2plate
+# Set VITE_DEMO_MODE=true in frontend/.env
+docker compose up --build
+```
+Access at http://localhost:5173 - The app will display preset menu results instead of calling the Claude API.
+
+
+### Full Setup (with Claude API)
+
+**Prerequisites:**
 - Docker & Docker Compose
 - Anthropic API key (for full functionality)
 
-### Setup
 
 1. **Clone and navigate:**
    ```bash
@@ -65,8 +66,20 @@ AI-powered menu suggestion app that generates personalized recipes based on your
    - Frontend: http://localhost:5173
    - Backend: http://localhost:3001
 
-### Demo Mode
-Set `VITE_DEMO_MODE=true` in `frontend/.env` to run without an API key. The app will display preset menu results instead of calling the Claude API. Perfect for testing UI or portfolio demos.
+
+## Features
+- **Smart ingredient input** with autocomplete (180+ common ingredients)
+- **Dietary customization**: allergies, restrictions, meal types, cuisines, cooking methods
+- **Flexible preferences**: servings, cooking time, difficulty level, flavor profiles
+- **AI-generated menus**: detailed recipes with ingredients lists and step-by-step instructions
+
+## Tech Stack
+- **Frontend**: React + Vite + TypeScript, shadcn/ui, Tailwind CSS v4
+- **Backend**: Node.js/Express + TypeScript
+- **Shared**: TypeScript types package with validation
+- **AI**: Anthropic Claude API (Sonnet 4.5)
+- **Deploy**: Docker Compose
+- **Testing**: Jest (backend/shared), Vitest (frontend)
 
 ## Development
 
