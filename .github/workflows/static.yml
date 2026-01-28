@@ -44,11 +44,12 @@ jobs:
           npm ci
           npm run build
 
+      # Build the frontend in demo mode, change base for GitHub Pages
       - name: Build frontend (demo mode)
         run: |
           cd frontend
           npm ci
-          npm run build
+          npm run build -- --base=/Pantry2Plate/
         # Set VITE_DEMO_MODE to true to prevent calls to backend services
         env:
           VITE_DEMO_MODE: true
