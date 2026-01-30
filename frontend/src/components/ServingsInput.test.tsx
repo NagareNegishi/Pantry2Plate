@@ -40,6 +40,61 @@ describe('ServingsInput', () => {
 		expect(input.value).toBe('7');
 	});
 
+  // 3. Blur validation
+  it('auto-corrects to MIN_SERVINGS when empty', async () => {
+    const user = userEvent.setup();
+    const { getByLabelText } = render(
+      <ServingsInput value={4} onChange={() => {}} />
+    );
+    const input = getByLabelText("Servings") as HTMLInputElement;
+    
+    await user.clear(input);
+    await user.tab(); // Triggers blur
+    
+    expect(input.value).toBe('1');
+  });
+
+  it('auto-corrects to MIN_SERVINGS when value too low', async () => {
+    const user = userEvent.setup();
+    const { getByLabelText } = render(
+      <ServingsInput value={4} onChange={() => {}} />
+    );
+    const input = getByLabelText("Servings") as HTMLInputElement;
+    
+    await user.clear(input);
+    await user.type(input, '0');
+    await user.tab();
+    
+    expect(input.value).toBe('1');
+  });
+
+  it('auto-corrects to MAX_SERVINGS when value too high', async () => {
+    const user = userEvent.setup();
+    const { getByLabelText } = render(
+      <ServingsInput value={4} onChange={() => {}} />
+    );
+    const input = getByLabelText("Servings") as HTMLInputElement;
+    
+    await user.clear(input);
+    await user.type(input, '99');
+    await user.tab();
+    
+    expect(input.value).toBe('12');
+  });
+
+  it('keeps valid value unchanged on blur', async () => {
+    const user = userEvent.setup();
+    const { getByLabelText } = render(
+      <ServingsInput value={4} onChange={() => {}} />
+    );
+    const input = getByLabelText("Servings") as HTMLInputElement;
+    
+    await user.clear(input);
+    await user.type(input, '7');
+    await user.tab();
+    
+    expect(input.value).toBe('7');
+  });
 
 
 
