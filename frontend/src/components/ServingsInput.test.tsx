@@ -1,6 +1,8 @@
-import { fireEvent, render } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import { ServingsInput } from './ServingsInput';
+// https://testing-library.com/docs/user-event/intro/
+import userEvent from '@testing-library/user-event';
 
 describe('ServingsInput', () => {
   // 1. Rendering
@@ -16,30 +18,30 @@ describe('ServingsInput', () => {
 		expect(input.value).toBe('4');
 	});
 
-  // // 2. Valid input
-	it('calls onChange when typing a valid number', () => {
-    // Create a mock function to track calls
-    const mockOnChange = vi.fn();
+  // 2. Valid input
+	// Note: use userEvent for more realistic typing simulation
+	// Pattern:
+	// 1. Always async function
+	// 2. Setup userEvent
+	// (3. Create mock function for onChange)
+	// 4. Render component
+	// 5. Get input element
+	// 6. Simulate user typing with user.type (awaited)
+	// 7. Assert mock function called with expected value(s)
+	it('updates display value when user types', async () => {
+		const user = userEvent.setup();
+		const { getByLabelText } = render(
+			<ServingsInput value={4} onChange={() => {}} />
+		);
+		const input = getByLabelText("Servings") as HTMLInputElement;
 		
-    const { getByLabelText } = render(
-      <ServingsInput value={4} onChange={mockOnChange} />
-    );
-    const input = getByLabelText("Servings") as HTMLInputElement;
-    
-    // fireEvent to simulate DOM events
-    fireEvent.change(input, { target: { value: '7' } });
-    expect(mockOnChange).toHaveBeenCalledWith(7);
-    expect(mockOnChange).toHaveBeenCalledTimes(1);
-  });
+		await user.clear(input);
+		await user.type(input, '7');
+		expect(input.value).toBe('7');
+	});
 
-  // - [ ] Calls onChange when typing valid number (5)
-  // - [ ] Updates display value immediately
 
-  // // 3. Blur validation (most important)
-  // - [ ] Auto-corrects to MIN_SERVINGS (1) when empty
-  // - [ ] Auto-corrects to MIN_SERVINGS when value < 1
-  // - [ ] Auto-corrects to MAX_SERVINGS (12) when value > 12
-  // - [ ] Keeps valid value (7) unchanged on blur
+
 
   // // 4. Edge cases
   // - [ ] Allows temporary invalid input while typing
