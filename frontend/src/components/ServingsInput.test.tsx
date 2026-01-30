@@ -77,8 +77,8 @@ describe('ServingsInput', () => {
     
     await user.clear(input);
     await user.type(input, '99');
+		expect(input.value).toBe('99');
     await user.tab();
-    
     expect(input.value).toBe('12');
   });
 
@@ -95,10 +95,4 @@ describe('ServingsInput', () => {
     
     expect(input.value).toBe('7');
   });
-
-
-
-  // // 4. Edge cases
-  // - [ ] Allows temporary invalid input while typing
-  // - [ ] Handles non-numeric input
 });
