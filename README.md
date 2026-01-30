@@ -112,14 +112,20 @@ cd frontend && npm test
 3. **Frontend** - React form with ingredient autocomplete, advanced options (allergies, dietary restrictions, cuisine preferences), results display
 4. **Integration** - Full data flow: form validation → API → Claude → parsed menu response
 5. **Testing** - Jest (backend + shared types), Vitest (frontend), integration tests with real API
+6. **Deployment** - GitHub Actions + GitHub Pages for demo
 
-### 🚧 Phase 2: Polish & Deploy
-- [ ] Frontend test coverage
-- [ ] UI/UX refinement
-- [ ] Production deployment
-- [ ] Portfolio integration
+### 🚧 Phase 2: Mobile App (Current Focus)
+- [ ] React Native setup
+- [ ] UI components (ingredients input, preferences, results display)
+- [ ] API integration (reuse existing backend)
+- [ ] Navigation flow
+- [ ] Mobile-specific UX (camera for ingredient scanning?)
+- [ ] Testing (React Native Testing Library)
+- [ ] Build & deployment (Expo or native)
 
 ### 💭 Phase 3: Future Enhancements
-- Mobile app (React Native reusing backend API)
-- AI agent evolution (multi-step reasoning, recipe/nutrition tool use)
-- User accounts & saved menus
+- [ ] Frontend test coverage improvements (web)
+- [ ] AI agent evolution (multi-step reasoning, recipe/nutrition tool use)
+- [ ] User accounts & saved menus
+- [ ] Offline mode & caching
+- [ ] Share menus feature
