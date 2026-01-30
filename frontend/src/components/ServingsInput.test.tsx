@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { ServingsInput } from './ServingsInput';
 
 describe('ServingsInput', () => {
@@ -13,11 +13,24 @@ describe('ServingsInput', () => {
 		// get input by label, it will search all Labels elements and find the one with text "Servings"
 		// then it will use the htmlFor attribute to find the associated input element
 		const input = getByLabelText("Servings") as HTMLInputElement; // TypeScript needs this cast to access .value property
-		
 		expect(input.value).toBe('4');
 	});
 
   // // 2. Valid input
+	it('calls onChange when typing a valid number', () => {
+    // Create a mock function to track calls
+    const mockOnChange = vi.fn();
+		
+    const { getByLabelText } = render(
+      <ServingsInput value={4} onChange={mockOnChange} />
+    );
+    const input = getByLabelText("Servings") as HTMLInputElement;
+    
+    // fireEvent to simulate DOM events
+    fireEvent.change(input, { target: { value: '7' } });
+    expect(mockOnChange).toHaveBeenCalledWith(7);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
+  });
 
   // - [ ] Calls onChange when typing valid number (5)
   // - [ ] Updates display value immediately
