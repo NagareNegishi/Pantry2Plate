@@ -1,9 +1,21 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { IngredientsList } from './IngredientsList';
 
-afterEach(cleanup);
+let mockToastError: any;
+
+// Mock the toast module from sonner
+beforeEach(async () => {
+  const { toast } = await import('sonner');
+  mockToastError = vi.spyOn(toast, 'error');
+});
+
+// Clear mocks and cleanup DOM
+afterEach(() => {
+  cleanup();
+  vi.clearAllMocks();
+});
 
 describe('IngredientsList', () => {
   // 1. Rendering
@@ -57,7 +69,26 @@ describe('IngredientsList', () => {
     expect(getByText('Rice')).toBeTruthy();
   });
 
-  
+  it('shows error toast for invalid format', async () => {
+    const { toast } = await import('sonner');
+    vi.spyOn(toast, 'error');
+    
+    const { getByLabelText } = render(
+      <IngredientsList value={[]} onChange={() => {}} />
+    );
+    
+    const input = getByLabelText("Ingredients") as HTMLInputElement;
+    
+    fireEvent.change(input, { target: { value: 'chicken123' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    
+    expect(toast.error).toHaveBeenCalledWith(
+      "Invalid ingredient",
+      expect.objectContaining({
+        description: "Use only letters, spaces, and hyphens (1-20 characters)"
+      })
+    );
+  });
 
   // // 3. Blur validation
   // it('auto-corrects to MIN_SERVINGS when empty', async () => {
