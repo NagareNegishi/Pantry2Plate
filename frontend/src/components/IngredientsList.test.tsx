@@ -49,6 +49,13 @@ describe('IngredientsList', () => {
     expect(getByText('Chicken')).toBeTruthy();
   });
 
+  it('displays badges for provided ingredients', () => {
+    const { getByText } = render(
+      <IngredientsList value={['chicken', 'rice']} onChange={() => {}} />
+    );
+    expect(getByText('Chicken')).toBeTruthy();
+    expect(getByText('Rice')).toBeTruthy();
+  });
 
   
 
