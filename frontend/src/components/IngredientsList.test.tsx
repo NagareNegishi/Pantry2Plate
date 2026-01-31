@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { IngredientsList } from './IngredientsList';
-// import userEvent from '@testing-library/user-event';
 
 describe('IngredientsList', () => {
   // 1. Rendering
@@ -17,27 +17,20 @@ describe('IngredientsList', () => {
 		expect(input.value).toBe('');
 	});
 
-  // // 2. Valid input
-	// // Note: use userEvent for more realistic typing simulation
-	// // Pattern:
-	// // 1. Always async function
-	// // 2. Setup userEvent
-	// // (3. Create mock function for onChange)
-	// // []. Render component
-	// // 5. Get input element
-	// // 6. Simulate user typing with user.type (awaited)
-	// // 7. Assert mock function called with expected value(s)
-	// it('updates display value when user types', async () => {
-	// 	const user = userEvent.setup();
-	// 	const { getByLabelText } = render(
-	// 		<IngredientsList value={[]} onChange={() => {}} />
-	// 	);
-	// 	const input = getByLabelText("Ingredients") as HTMLInputElement;
+  // 2. Valid input
+	it('updates display value when user types', async () => {
+		const user = userEvent.setup();
+		const { getByLabelText } = render(
+			<IngredientsList value={[]} onChange={() => {}} />
+		);
+		const input = getByLabelText("Ingredients") as HTMLInputElement;
 		
-	// 	await user.clear(input);
-	// 	await user.type(input, '7');
-	// 	expect(input.value).toBe('7');
-	// });
+		await user.clear(input);
+		await user.type(input, 'chicken');
+		expect(input.value).toBe('chicken');
+	});
+
+
 
   // // 3. Blur validation
   // it('auto-corrects to MIN_SERVINGS when empty', async () => {
