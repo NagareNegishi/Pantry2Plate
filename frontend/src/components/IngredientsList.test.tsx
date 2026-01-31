@@ -1,6 +1,6 @@
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { IngredientsList } from './IngredientsList';
 
 afterEach(cleanup);
@@ -32,7 +32,25 @@ describe('IngredientsList', () => {
 		expect(input.value).toBe('chicken');
 	});
 
+  it('displays badge after adding ingredient', async () => {
+    const mockOnChange = vi.fn();
+    const { getByLabelText, rerender, getByText } = render(
+      <IngredientsList value={[]} onChange={mockOnChange} />
+    );
+    const input = getByLabelText("Ingredients") as HTMLInputElement;
+    
+    fireEvent.change(input, { target: { value: 'chicken' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(mockOnChange).toHaveBeenCalledWith(['chicken']);
+    expect(input.value).toBe(''); // Verifies input cleared
 
+    // Manually re-render with updated value (simulating what parent would do)
+    rerender(<IngredientsList value={['chicken']} onChange={mockOnChange} />);
+    expect(getByText('Chicken')).toBeTruthy();
+  });
+
+
+  
 
   // // 3. Blur validation
   // it('auto-corrects to MIN_SERVINGS when empty', async () => {
