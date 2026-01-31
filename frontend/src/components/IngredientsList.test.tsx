@@ -69,20 +69,16 @@ describe('IngredientsList', () => {
     expect(getByText('Rice')).toBeTruthy();
   });
 
-  it('shows error toast for invalid format', async () => {
-    const { toast } = await import('sonner');
-    vi.spyOn(toast, 'error');
-    
+it('shows error toast for invalid format', () => {
     const { getByLabelText } = render(
       <IngredientsList value={[]} onChange={() => {}} />
     );
-    
     const input = getByLabelText("Ingredients") as HTMLInputElement;
     
     fireEvent.change(input, { target: { value: 'chicken123' } });
     fireEvent.keyDown(input, { key: 'Enter' });
     
-    expect(toast.error).toHaveBeenCalledWith(
+    expect(mockToastError).toHaveBeenCalledWith(
       "Invalid ingredient",
       expect.objectContaining({
         description: "Use only letters, spaces, and hyphens (1-20 characters)"
