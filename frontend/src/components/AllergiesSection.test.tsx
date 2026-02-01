@@ -237,4 +237,25 @@ describe('AllergiesSection', () => {
     );
   });
 
+  // 9. delete allergy test
+  it('removes allergy when delete button is clicked', () => {
+    const mockOnChange = vi.fn();
+    const { getAllByRole } = render(
+      <AllergiesSection
+        value={['peanuts', 'tree-nuts']}
+        onChange={mockOnChange}
+        customValue={[]}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    // Find and click the delete button
+    const deleteButtons = getAllByRole('button');
+    const deleteBadge = deleteButtons.find(btn =>
+      btn.className.includes('absolute')
+    );
+    fireEvent.click(deleteBadge!);
+    expect(mockOnChange).toHaveBeenCalledWith(['tree-nuts']); // peanuts removed
+  });
+
 });
