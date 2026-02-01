@@ -103,6 +103,24 @@ describe('IngredientsList', () => {
         })
       );
     });
+    
+  it('shows error toast when maximum ingredients reached', () => {
+      const maxIngredients = Array.from({ length: 10 }, (_, i) => `ingredient${i}`);
+      const { getByLabelText } = render(
+        <IngredientsList value={maxIngredients} onChange={() => {}} />
+      );
+      const input = getByLabelText("Ingredients") as HTMLInputElement;
+      
+      fireEvent.change(input, { target: { value: 'newingredient' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      
+      expect(mockToastError).toHaveBeenCalledWith(
+        "Maximum reached",
+        expect.objectContaining({
+          description: `You can only add up to 10 ingredients`
+        })
+      );
+    });
 
 
 });
