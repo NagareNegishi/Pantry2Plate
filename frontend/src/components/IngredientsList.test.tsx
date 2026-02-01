@@ -122,5 +122,20 @@ describe('IngredientsList', () => {
       );
     });
 
-
+  // Test delete
+  it('removes ingredient when delete button clicked', () => {
+    const mockOnChange = vi.fn();
+    const { getAllByRole } = render(
+      <IngredientsList value={['chicken', 'rice']} onChange={mockOnChange} />
+    );
+    
+    // Get all buttons with icon role (delete buttons)
+    const deleteButtons = getAllByRole('button', { name: '' });
+    const firstDeleteButton = deleteButtons.find(btn =>
+      btn.className.includes('absolute') // The delete button has 'absolute' class
+    );
+    
+    fireEvent.click(firstDeleteButton!);
+    expect(mockOnChange).toHaveBeenCalledWith(['rice']);
+  });
 });
