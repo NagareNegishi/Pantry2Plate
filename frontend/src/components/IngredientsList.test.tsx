@@ -69,76 +69,40 @@ describe('IngredientsList', () => {
     expect(getByText('Rice')).toBeTruthy();
   });
 
-it('shows error toast for invalid format', () => {
-    const { getByLabelText } = render(
-      <IngredientsList value={[]} onChange={() => {}} />
-    );
-    const input = getByLabelText("Ingredients") as HTMLInputElement;
-    
-    fireEvent.change(input, { target: { value: 'chicken123' } });
-    fireEvent.keyDown(input, { key: 'Enter' });
-    
-    expect(mockToastError).toHaveBeenCalledWith(
-      "Invalid ingredient",
-      expect.objectContaining({
-        description: "Use only letters, spaces, and hyphens (1-20 characters)"
-      })
-    );
-  });
+  // 3. Error handling
+  it('shows error toast for invalid format', () => {
+      const { getByLabelText } = render(
+        <IngredientsList value={[]} onChange={() => {}} />
+      );
+      const input = getByLabelText("Ingredients") as HTMLInputElement;
+      
+      fireEvent.change(input, { target: { value: 'chicken123' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      
+      expect(mockToastError).toHaveBeenCalledWith(
+        "Invalid ingredient",
+        expect.objectContaining({
+          description: "Use only letters, spaces, and hyphens (1-20 characters)"
+        })
+      );
+    });
 
-  // // 3. Blur validation
-  // it('auto-corrects to MIN_SERVINGS when empty', async () => {
-  //   const user = userEvent.setup();
-  //   const { getByLabelText } = render(
-  //     <IngredientsList value={[]} onChange={() => {}} />
-  //   );
-  //   const input = getByLabelText("Ingredients") as HTMLInputElement;
-    
-  //   await user.clear(input);
-  //   await user.tab(); // Triggers blur
-    
-  //   expect(input.value).toBe('1');
-  // });
+  it('shows error toast for duplicate ingredient', () => {
+      const { getByLabelText } = render(
+        <IngredientsList value={['chicken']} onChange={() => {}} />
+      );
+      const input = getByLabelText("Ingredients") as HTMLInputElement;
+      
+      fireEvent.change(input, { target: { value: 'chicken' } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      
+      expect(mockToastError).toHaveBeenCalledWith(
+        "Duplicate ingredient",
+        expect.objectContaining({
+          description: `"chicken" is already in the list`
+        })
+      );
+    });
 
-  // it('auto-corrects to MIN_SERVINGS when value too low', async () => {
-  //   const user = userEvent.setup();
-  //   const { getByLabelText } = render(
-  //     <IngredientsList value={[]} onChange={() => {}} />
-  //   );
-  //   const input = getByLabelText("Ingredients") as HTMLInputElement;
-    
-  //   await user.clear(input);
-  //   await user.type(input, '0');
-  //   await user.tab();
-    
-  //   expect(input.value).toBe('1');
-  // });
 
-  // it('auto-corrects to MAX_SERVINGS when value too high', async () => {
-  //   const user = userEvent.setup();
-  //   const { getByLabelText } = render(
-  //     <IngredientsList value={[]} onChange={() => {}} />
-  //   );
-  //   const input = getByLabelText("Ingredients") as HTMLInputElement;
-    
-  //   await user.clear(input);
-  //   await user.type(input, '99');
-	// 	expect(input.value).toBe('99');
-  //   await user.tab();
-  //   expect(input.value).toBe('12');
-  // });
-
-  // it('keeps valid value unchanged on blur', async () => {
-  //   const user = userEvent.setup();
-  //   const { getByLabelText } = render(
-  //     <IngredientsList value={[]} onChange={() => {}} />
-  //   );
-  //   const input = getByLabelText("Ingredients") as HTMLInputElement;
-    
-  //   await user.clear(input);
-  //   await user.type(input, '7');
-  //   await user.tab();
-    
-  //   expect(input.value).toBe('7');
-  // });
 });
