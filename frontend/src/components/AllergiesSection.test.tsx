@@ -133,4 +133,30 @@ describe('AllergiesSection', () => {
       })
     );
   });
+
+  // 5. duplicate custom allergy test
+  it('shows error for duplicate custom allergy', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <AllergiesSection
+        value={['other']}
+        onChange={() => {}}
+        customValue={['garlic']}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    const customInput = getByPlaceholderText('Enter allergies');
+    fireEvent.change(customInput, { target: { value: 'garlic' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    
+    expect(mockToastError).toHaveBeenCalledWith(
+      "Duplicate allergy",
+      expect.objectContaining({
+        description: '"garlic" is already in the list'
+      })
+    );
+  });
+
+
 });
