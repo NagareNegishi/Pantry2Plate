@@ -4,10 +4,12 @@ import { AllergiesSection } from './AllergiesSection';
 
 
 let mockToastError: any;
+let mockToastSuccess: any;
 
 beforeEach(async () => {
   const { toast } = await import('sonner');
   mockToastError = vi.spyOn(toast, 'error');
+  mockToastSuccess = vi.spyOn(toast, 'success');
   HTMLElement.prototype.scrollIntoView = vi.fn();
 });
 
@@ -154,6 +156,33 @@ describe('AllergiesSection', () => {
       "Duplicate allergy",
       expect.objectContaining({
         description: '"garlic" is already in the list'
+      })
+    );
+  });
+
+  // 6. conflict with predefined allergy test
+  it('auto-selects predefined allergy when typed in custom input', () => {
+    const mockOnChange = vi.fn();
+    const { getByText, getByPlaceholderText } = render(
+      <AllergiesSection
+        value={['other']}
+        onChange={mockOnChange}
+        customValue={[]}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    const customInput = getByPlaceholderText('Enter allergies');
+    fireEvent.change(customInput, { target: { value: 'peanuts' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    
+    // Should call onChange to select predefined allergy, not add custom
+    expect(mockOnChange).toHaveBeenCalledWith(['other', 'peanuts']);
+    expect(mockToastSuccess).toHaveBeenCalledWith(
+      "Selected predefined allergy",
+      expect.objectContaining({
+        description: '"peanuts" has been selected from predefined options'
       })
     );
   });
