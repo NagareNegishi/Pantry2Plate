@@ -94,5 +94,6 @@ describe('App', () => {
     expect((await findAllByText(/Instructions/)).length).toBeGreaterThan(0);
   });
 
-
+  // TODO: 4. Error handling tests
+  // error does not happen in demo mode
 });
