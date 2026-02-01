@@ -213,5 +213,28 @@ describe('AllergiesSection', () => {
     );
   });
 
+  // 8. max custom allergies test
+  it('shows error when maximum custom allergies is reached', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <AllergiesSection
+        value={['other']}
+        onChange={() => {}}
+        customValue={['allergy1', 'allergy2', 'allergy3', 'allergy4', 'allergy5']}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    const customInput = getByPlaceholderText('Enter allergies');
+    fireEvent.change(customInput, { target: { value: 'newallergy' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    
+    expect(mockToastError).toHaveBeenCalledWith(
+      "Maximum reached",
+      expect.objectContaining({
+        description: "You can only add up to 5 custom allergies"
+      })
+    );
+  });
 
 });
