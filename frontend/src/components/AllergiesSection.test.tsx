@@ -5,11 +5,13 @@ import { AllergiesSection } from './AllergiesSection';
 
 let mockToastError: any;
 let mockToastSuccess: any;
+let mockToastInfo: any;
 
 beforeEach(async () => {
   const { toast } = await import('sonner');
   mockToastError = vi.spyOn(toast, 'error');
   mockToastSuccess = vi.spyOn(toast, 'success');
+  mockToastInfo = vi.spyOn(toast, 'info');
   HTMLElement.prototype.scrollIntoView = vi.fn();
 });
 
@@ -183,6 +185,30 @@ describe('AllergiesSection', () => {
       "Selected predefined allergy",
       expect.objectContaining({
         description: '"peanuts" has been selected from predefined options'
+      })
+    );
+  });
+
+  // 7. already selected predefined allergy test
+  it('shows info toast when predefined allergy is already selected', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <AllergiesSection
+        value={['other', 'peanuts']} // peanuts already selected
+        onChange={() => {}}
+        customValue={[]}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    const customInput = getByPlaceholderText('Enter allergies');
+    fireEvent.change(customInput, { target: { value: 'peanuts' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    
+    expect(mockToastInfo).toHaveBeenCalledWith(
+      "Already selected",
+      expect.objectContaining({
+        description: '"peanuts" is already checked'
       })
     );
   });
