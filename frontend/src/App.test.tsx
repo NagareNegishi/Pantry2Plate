@@ -11,6 +11,9 @@ beforeEach(async () => {
   const { toast } = await import('sonner');
   mockToastError = vi.spyOn(toast, 'error');
   mockToastSuccess = vi.spyOn(toast, 'success');
+
+  // Mock scrollIntoView (not available in jsdom)
+  HTMLElement.prototype.scrollIntoView = vi.fn();
 });
 
 // Clear mocks and cleanup DOM
@@ -46,7 +49,7 @@ describe('App', () => {
   // 2. button state
   it('button is disabled when ingredients are empty', () => {
     const { getByText } = render(<App />);
-    
+
     const generateButton = getByText('Generate Menu') as HTMLButtonElement;
     expect(generateButton.disabled).toBe(true);
   });
@@ -65,6 +68,31 @@ describe('App', () => {
     expect(getByText('Generating...')).toBeTruthy();
   });
 
+  // 3. Successful API call
+  it('shows success toast on successful menu generation', async () => {
+    const { getByText, getByLabelText, findByText, findAllByText } = render(<App />);
+    
+    const input = getByLabelText("Ingredients") as HTMLInputElement;
+    // Simulate adding an ingredient
+    fireEvent.change(input, { target: { value: 'chicken' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+
+    const generateButton = getByText('Generate Menu') as HTMLButtonElement;
+    fireEvent.click(generateButton);
+
+    // Wait for success toast
+    const successToast = await findByText('Menu generated successfully!');
+    expect(successToast).toBeTruthy();
+    expect(mockToastSuccess).toHaveBeenCalledWith('Menu generated successfully!');
+    
+    // Verify all required sections appear
+    expect((await findAllByText(/Recipe/)).length).toBeGreaterThan(0);
+    expect((await findAllByText(/Servings:/)).length).toBeGreaterThan(0);
+    expect((await findAllByText(/Cooking Time:/)).length).toBeGreaterThan(0);
+    expect((await findAllByText(/Difficulty:/)).length).toBeGreaterThan(0);
+    expect((await findAllByText(/Ingredients/)).length).toBeGreaterThan(0);
+    expect((await findAllByText(/Instructions/)).length).toBeGreaterThan(0);
+  });
 
 
 });
