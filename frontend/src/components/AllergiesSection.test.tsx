@@ -2,8 +2,12 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AllergiesSection } from './AllergiesSection';
 
-beforeEach(() => {
-  // Mock scrollIntoView
+
+let mockToastError: any;
+
+beforeEach(async () => {
+  const { toast } = await import('sonner');
+  mockToastError = vi.spyOn(toast, 'error');
   HTMLElement.prototype.scrollIntoView = vi.fn();
 });
 
@@ -106,4 +110,27 @@ describe('AllergiesSection', () => {
     expect(mockOnCustomChange).toHaveBeenCalledWith(['garlic']);
   });
   
+  // 4. invalid custom allergy format test
+  it('shows error for invalid custom allergy format', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <AllergiesSection
+        value={['other']}
+        onChange={() => {}}
+        customValue={[]}
+        onCustomChange={() => {}}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    const customInput = getByPlaceholderText('Enter allergies');
+    fireEvent.change(customInput, { target: { value: 'garlic123' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    
+    expect(mockToastError).toHaveBeenCalledWith(
+      "Invalid allergies",
+      expect.objectContaining({
+        description: "Use only letters, spaces, and hyphens (1-20 characters)"
+      })
+    );
+  });
 });
