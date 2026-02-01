@@ -124,7 +124,8 @@ cd frontend && npm test
 - [ ] Build & deployment (Expo or native)
 
 ### 💭 Phase 3: Future Enhancements
-- [ ] Frontend test coverage improvements (web)
+- [x] Frontend core flow testing (App submission, AllergiesSection)
+- [ ] Additional component tests (optional: other input sections)
 - [ ] AI agent evolution (multi-step reasoning, recipe/nutrition tool use)
 - [ ] User accounts & saved menus
 - [ ] Offline mode & caching
