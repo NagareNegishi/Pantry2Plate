@@ -69,5 +69,41 @@ describe('AllergiesSection', () => {
     );
     expect(deleteBadge).toBeTruthy();
   });
+
+  // 3. custom allergy addition test
+  it('shows custom input when "other" is selected and adds custom allergy', () => {
+    const mockOnChange = vi.fn();
+    const mockOnCustomChange = vi.fn();
+    const { getByText, getByLabelText, getByPlaceholderText, rerender } = render(
+      <AllergiesSection
+        value={[]}
+        onChange={mockOnChange}
+        customValue={[]}
+        onCustomChange={mockOnCustomChange}
+      />
+    );
+    
+    fireEvent.click(getByText('Allergies'));
+    fireEvent.click(getByLabelText('Other'));
+    expect(mockOnChange).toHaveBeenCalledWith(['other']);
+    
+    // Rerender with "other" selected
+    rerender(
+      <AllergiesSection
+        value={['other']}
+        onChange={mockOnChange}
+        customValue={[]}
+        onCustomChange={mockOnCustomChange}
+      />
+    );
+    
+    // Custom input should appear
+    const customInput = getByPlaceholderText('Enter allergies') as HTMLInputElement;
+    
+    // Type custom allergy and press Enter
+    fireEvent.change(customInput, { target: { value: 'garlic' } });
+    fireEvent.keyDown(customInput, { key: 'Enter' });
+    expect(mockOnCustomChange).toHaveBeenCalledWith(['garlic']);
+  });
   
 });
