@@ -16,8 +16,7 @@ import { Text, TextInput } from 'react-native-paper';
 // style={[styles.container, style]}  // Array to merge styles
 import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
 import { useState } from "react";
-import { ViewStyle } from 'react-native';
-import { View } from 'react-native-reanimated/lib/typescript/Animated';
+import { View, ViewStyle } from 'react-native';
 
 /**
  * Props for the ServingsInput component.
