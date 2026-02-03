@@ -3,18 +3,12 @@
  * A reusable input component for selecting the difficulty level of a recipe.
  * Allows users to choose from predefined difficulty levels: 'any', 'easy', 'medium', 'hard'.
  */
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import type { Difficulty } from '@pantry2plate/shared';
+import { View, ViewStyle } from 'react-native';
+import { Text } from 'react-native-paper';
+// React Native has NO native select/dropdown component, so we use a popular community package
+// https://docs.expo.dev/versions/latest/sdk/picker/
+import { Picker } from '@react-native-picker/picker';
 
 
 /**
@@ -25,9 +19,8 @@ interface DifficultySelectProps {
   value: Difficulty;
   // Function parent component provides to handle value changes
   onChange: (value: Difficulty) => void;
-
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style? : ViewStyle;
 }
 
 /**
@@ -35,33 +28,38 @@ interface DifficultySelectProps {
  * @param DifficultySelectProps but as destructured props
  * @returns A dropdown for selecting recipe difficulty
  */
-export function DifficultySelect({ value, onChange, className }: DifficultySelectProps ) {
+export function DifficultySelect({ value, onChange, style }: DifficultySelectProps ) {
   
   return (
-    <div className={cn("flex flex-col w-full max-w-48 items-center gap-1.5", className)}>
-      <Label
-        htmlFor="difficulty"
-        className="text-xl"
-      >
+    // <div style={cn("flex flex-col w-full max-w-48 items-center gap-1.5", style)}>
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 180,
+      alignItems: 'flex-start', // or 'center'
+      gap: 6,
+    }, style]}>
+      <Text style={{ fontSize: 20, color: '#000' }}>
         Difficulty
-      </Label>
-      <Select
-        value={value}
+      </Text>
+
+
+
+{/* placeholder="Select a Difficulty"? style="w-full max-w-48"  */}
+      <Picker
+        selectedValue={value}
         onValueChange={(value) => onChange(value as Difficulty)}
+        style={{ width: '100%', maxWidth: 180, backgroundColor: '#f333' }}
       >
-        <SelectTrigger className="w-full max-w-48">
-          <SelectValue placeholder="Select a Difficulty" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Difficulty</SelectLabel>
-            <SelectItem value="any">Any</SelectItem>
-            <SelectItem value="easy">Easy</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="hard">Hard</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+        <Picker.Item label="Any" value="any" />
+        <Picker.Item label="Easy" value="easy" />
+        <Picker.Item label="Medium" value="medium" />
+        <Picker.Item label="Hard" value="hard" />
+      </Picker>
+
+
+
+    
+    </View>
   );
 }

@@ -9,8 +9,9 @@ import { Link } from 'expo-router';
 
 // import from frontend
 import { CookingTimeInput } from '@/components/CookingTimeInput';
+import { DifficultySelect } from '@/components/DifficultySelect';
 import { ServingsInput } from '@/components/ServingsInput';
-// import { DifficultySelect } from './DifficultySelect';
+import type { Difficulty } from '@pantry2plate/shared';
 // import { IngredientsList } from './IngredientsList';
 
 
@@ -37,6 +38,10 @@ export default function HomeScreen() {
       {/* Cooking Time Input Component */}
       <ThemedView style={styles.stepContainer}>
         <CookingTimeInput value={60} onChange={(val: any) => console.log(val)} />
+      </ThemedView>
+      {/* Difficulty Select Component */}
+      <ThemedView style={styles.stepContainer}>
+        <DifficultySelect value="any" onChange={(val: Difficulty) => console.log(val)} />
       </ThemedView>
 
 
