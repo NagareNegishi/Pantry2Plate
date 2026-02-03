@@ -3,11 +3,10 @@
  * A reusable input component for selecting the cooking time in minutes.
  * Allows users to input a number between 10 and 720.
  */
-import { Input } from "@/components/ui/input"; // @/ is an alias to src/
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
 import { MAX_COOKING_TIME, MIN_COOKING_TIME } from '@pantry2plate/shared';
 import { useState } from "react";
+import { View, ViewStyle } from 'react-native';
+import { Text, TextInput } from 'react-native-paper';
 
 
 /**
@@ -18,9 +17,8 @@ interface CookingTimeInputProps {
   value: number;
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
-
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style? : ViewStyle;
 }
 
 /**
@@ -28,14 +26,13 @@ interface CookingTimeInputProps {
  * @param CookingTimeInputProps but as destructured props
  * @returns A number input field for selecting cooking time between 10 and 720 minutes
  */
-export function CookingTimeInput({ value, onChange, className }: CookingTimeInputProps) {
+export function CookingTimeInput({ value, onChange, style }: CookingTimeInputProps) {
 
   // Local state for the input display (allows any string while typing)
   const [displayValue, setDisplayValue] = useState(value.toString());
 
   // Handler for input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value;
+  const handleChange = (inputValue: string) => {
     setDisplayValue(inputValue);  // Update display immediately (no validation)
 
     // Try to parse -> update
@@ -64,14 +61,27 @@ export function CookingTimeInput({ value, onChange, className }: CookingTimeInpu
   };
 
   return (
-    <div className={cn("flex flex-col w-full max-w-32 items-center gap-1.5", className)}>
-      <Label
-        htmlFor="cookingTime"
-        className="text-xl whitespace-nowrap"
-      >
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 96,
+      alignItems: 'center',
+      gap: 6,
+    }, style]}>
+      <Text style={{ fontSize: 20, color: '#000' }}> {/* whitespace-nowrap?? */}
         Cooking Time
-      </Label>
-      <div className="flex items-center gap-1">
+      </Text>
+      <TextInput
+        mode="outlined"
+        keyboardType="numeric"
+        value={displayValue}
+        onChangeText={handleChange}
+        onBlur={handleBlur}
+        // Paper TextInput has unfixed bug, without explicit width it height expands 100%
+        style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
+      />
+{/* 
+      <div style="flex items-center gap-1">
         <Input
           id="cookingTime"
           type="number"
@@ -82,8 +92,8 @@ export function CookingTimeInput({ value, onChange, className }: CookingTimeInpu
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <span className="text-sm text-muted-foreground">minutes</span>
-      </div>
-    </div>
+        <span style="text-sm text-muted-foreground">minutes</span>
+      </div> */}
+    </View>
   );
 }

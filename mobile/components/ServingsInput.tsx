@@ -42,7 +42,7 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
 
   // Handler for input changes
   // In React Native TextInput, onChangeText gives the new text directly (not an event)
-  const handleChange = ( inputValue: string) => {
+  const handleChange = (inputValue: string) => {
     setDisplayValue(inputValue);  // Update display immediately (no validation)
 
     // Try to parse -> update

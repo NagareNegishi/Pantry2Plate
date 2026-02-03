@@ -8,7 +8,10 @@ import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
 // import from frontend
+import { CookingTimeInput } from '@/components/CookingTimeInput';
 import { ServingsInput } from '@/components/ServingsInput';
+// import { DifficultySelect } from './DifficultySelect';
+// import { IngredientsList } from './IngredientsList';
 
 
 export default function HomeScreen() {
@@ -29,7 +32,11 @@ export default function HomeScreen() {
 
       {/* Servings Input Component */}
       <ThemedView style={styles.stepContainer}>
-        <ServingsInput value={4} onChange={(val: any) => console.log(val)} />
+        <ServingsInput value={1} onChange={(val: any) => console.log(val)} />
+      </ThemedView>
+      {/* Cooking Time Input Component */}
+      <ThemedView style={styles.stepContainer}>
+        <CookingTimeInput value={60} onChange={(val: any) => console.log(val)} />
       </ThemedView>
 
 
