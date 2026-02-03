@@ -3,9 +3,17 @@
  * A reusable input component for selecting the number of servings.
  * Allows users to input a number between 1 and 12.
  */
-import { Input } from "@/components/ui/input"; // @/ is an alias to src/
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+// NOTE: TextInput replaced with Input and Text replaced with Label component from frontend
+// import { TextInput, Text } from 'react-native-paper';
+// NOTE: React Native has NO className prop, instead uses "style" prop with StyleSheet or inline styles
+// so where "className" and "cn" are used as:
+//
+// className?: string;
+// className={cn("flex flex-col", className)}
+//
+// it will be replaced with:
+// style?: ViewStyle;  // TypeScript type from 'react-native'
+// style={[styles.container, style]}  // Array to merge styles
 import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
 import { useState } from "react";
 
