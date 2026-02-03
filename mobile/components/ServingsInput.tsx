@@ -16,6 +16,8 @@
 // style={[styles.container, style]}  // Array to merge styles
 import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
 import { useState } from "react";
+import { ViewStyle } from 'react-native';
+import { View } from 'react-native-reanimated/lib/typescript/Animated';
 
 /**
  * Props for the ServingsInput component.
@@ -26,8 +28,8 @@ interface ServingsInputProps {
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
 
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style? : ViewStyle;
 }
 
 /**
@@ -35,7 +37,7 @@ interface ServingsInputProps {
  * @param ServingsInputProps but as destructured props
  * @returns A number input field for selecting servings between 1 and 12
  */
-export function ServingsInput({ value, onChange, className }: ServingsInputProps) {
+export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
 
   // Local state for the input display (allows any string while typing)
   const [displayValue, setDisplayValue] = useState(value.toString());
@@ -71,8 +73,13 @@ export function ServingsInput({ value, onChange, className }: ServingsInputProps
   };
 
   return (
-    // <div className="grid w-full max-w-24 items-center gap-1.5"> // left aligned
-    <div className={cn("flex flex-col w-full max-w-24 items-center gap-1.5", className)}>
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 96,
+      alignItems: 'center',
+      gap: 6,
+    }, style]}>
       <Label
         htmlFor="servings"
         className="text-xl"
@@ -88,7 +95,7 @@ export function ServingsInput({ value, onChange, className }: ServingsInputProps
         onChange={handleChange}
         onBlur={handleBlur}
       />
-    </div>
+    </View>
   );
 }
 
