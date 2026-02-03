@@ -79,7 +79,7 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
       gap: 6,
     }, style]}>
       {/* Note: unlike HTML which is click-to-focus, Mobile is touch-to-focus, so no need for htmlFor/id linking between Label and Input */}
-      <Text style={{ fontSize: 20 }}>
+      <Text style={{ fontSize: 20, color: '#000' }}>
         Servings
       </Text>
       <TextInput
@@ -88,6 +88,8 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
         value={displayValue}
         onChangeText={handleChange}
         onBlur={handleBlur}
+        // Paper TextInput has unfixed bug, without explicit width it height expands 100%
+        style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
       />
     </View>
   );
