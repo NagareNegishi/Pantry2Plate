@@ -7,6 +7,10 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
+// import from frontend
+import { ServingsInput } from '@/components/ServingsInput';
+
+
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
@@ -21,6 +25,17 @@ export default function HomeScreen() {
         <ThemedText type="title">Hello World!</ThemedText>
         <HelloWave />
       </ThemedView>
+
+
+      {/* Servings Input Component */}
+      <ThemedView style={styles.stepContainer}>
+        <ServingsInput value={4} onChange={(val: any) => console.log(val)} />
+      </ThemedView>
+
+
+
+
+
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
