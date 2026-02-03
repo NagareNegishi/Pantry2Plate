@@ -75,7 +75,7 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
       flexDirection: 'column',
       width: '100%',
       maxWidth: 96,
-      alignItems: 'center',
+      alignItems: 'flex-start',
       gap: 6,
     }, style]}>
       {/* Note: unlike HTML which is click-to-focus, Mobile is touch-to-focus, so no need for htmlFor/id linking between Label and Input */}

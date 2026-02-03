@@ -64,36 +64,34 @@ export function CookingTimeInput({ value, onChange, style }: CookingTimeInputPro
     <View style={[{
       flexDirection: 'column',
       width: '100%',
-      maxWidth: 96,
-      alignItems: 'center',
+      maxWidth: 180,
+      alignItems: 'flex-start', // or 'center'
       gap: 6,
     }, style]}>
-      <Text style={{ fontSize: 20, color: '#000' }}> {/* whitespace-nowrap?? */}
+      <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
         Cooking Time
       </Text>
-      <TextInput
-        mode="outlined"
-        keyboardType="numeric"
-        value={displayValue}
-        onChangeText={handleChange}
-        onBlur={handleBlur}
-        // Paper TextInput has unfixed bug, without explicit width it height expands 100%
-        style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
-      />
-{/* 
-      <div style="flex items-center gap-1">
-        <Input
-          id="cookingTime"
-          type="number"
-          min={MIN_COOKING_TIME}
-          max={MAX_COOKING_TIME}
-          step={5}
+      {/* Input + "minutes" text in row */}
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+        <TextInput
+          mode="outlined"
+          keyboardType="numeric"
           value={displayValue}
-          onChange={handleChange}
+          onChangeText={handleChange}
           onBlur={handleBlur}
+          // Paper TextInput has unfixed bug, without explicit width it height expands 100%
+          style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
         />
-        <span style="text-sm text-muted-foreground">minutes</span>
-      </div> */}
+        <Text style={{ fontSize: 16, color: '#666' }}>
+          minutes
+        </Text>
+      </View>
     </View>
   );
 }
+
+// NOTE: alignment options:
+// flex-start - Top
+// center - Middle (current)
+// baseline - Based on text baseline (between center and bottom, more natural for text)
+// flex-end - Bottom
