@@ -6,10 +6,8 @@
 import type { Difficulty } from '@pantry2plate/shared';
 import { View, ViewStyle } from 'react-native';
 import { Text } from 'react-native-paper';
-// React Native has NO native select/dropdown component, so we use a popular community package
-// https://docs.expo.dev/versions/latest/sdk/picker/
-import { Picker } from '@react-native-picker/picker';
 
+import { Picker } from '@react-native-picker/picker';
 
 /**
  * Props for the DifficultySelect component
@@ -49,7 +47,7 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
       <Picker
         selectedValue={value}
         onValueChange={(value) => onChange(value as Difficulty)}
-        style={{ width: '100%', maxWidth: 180, backgroundColor: '#f333' }}
+        style={{ width: '100%', maxWidth: 180 }} // without explicit width, it's not visible
       >
         <Picker.Item label="Any" value="any" />
         <Picker.Item label="Easy" value="easy" />
@@ -63,3 +61,21 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
     </View>
   );
 }
+
+
+
+// React Native Paper has NO select/dropdown component, so we attempt to use react-native-picker
+// https://docs.expo.dev/versions/latest/sdk/picker/
+// However, picker is platform-native, which means it looks different on iOS vs Android
+//
+// import { Picker } from '@react-native-picker/picker';
+// <Picker
+//   selectedValue={value}
+//   onValueChange={(value) => onChange(value as Difficulty)}
+//   style={{ width: '100%', maxWidth: 180 }} // without explicit width, it's not visible
+// >
+//   <Picker.Item label="Any" value="any" />
+//   <Picker.Item label="Easy" value="easy" />
+//   <Picker.Item label="Medium" value="medium" />
+//   <Picker.Item label="Hard" value="hard" />
+// </Picker>
