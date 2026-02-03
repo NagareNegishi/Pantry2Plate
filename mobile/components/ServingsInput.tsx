@@ -4,7 +4,7 @@
  * Allows users to input a number between 1 and 12.
  */
 // NOTE: TextInput replaced with Input and Text replaced with Label component from frontend
-// import { TextInput, Text } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 // NOTE: React Native has NO className prop, instead uses "style" prop with StyleSheet or inline styles
 // so where "className" and "cn" are used as:
 //
@@ -27,7 +27,6 @@ interface ServingsInputProps {
   value: number;
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
-
   // Optional styling
   style? : ViewStyle;
 }
@@ -42,9 +41,9 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
   // Local state for the input display (allows any string while typing)
   const [displayValue, setDisplayValue] = useState(value.toString());
 
-  // Handler for input changes, React.ChangeEvent is a TypeScript generic type from React for event handling
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value; // e.target.value is always a string
+  // Handler for input changes
+  // In React Native TextInput, onChangeText gives the new text directly (not an event)
+  const handleChange = ( inputValue: string) => {
     setDisplayValue(inputValue);  // Update display immediately (no validation)
 
     // Try to parse -> update
@@ -80,41 +79,17 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
       alignItems: 'center',
       gap: 6,
     }, style]}>
-      <Label
-        htmlFor="servings"
-        className="text-xl"
-      >
+      {/* Note: unlike HTML which is click-to-focus, Mobile is touch-to-focus, so no need for htmlFor/id linking between Label and Input */}
+      <Text style={{ fontSize: 20 }}>
         Servings
-      </Label>
-      <Input
-        id="servings"
-        type="number"
-        min={1}
-        max={12}
+      </Text>
+      <TextInput
+        mode="outlined"
+        keyboardType="numeric"
         value={displayValue}
-        onChange={handleChange}
+        onChangeText={handleChange}
         onBlur={handleBlur}
       />
     </View>
   );
 }
-
-
-// NOTE: Example structure of the event object in the handleChange function
-
-// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   // Event object structure:
-  
-//   e.target              // The <input> element that triggered the event
-//   e.target.value        // Current value (always a STRING)
-//   e.target.min          // Min attribute value
-//   e.target.max          // Max attribute value
-//   e.target.type         // "number"
-//   e.target.id           // "servings"
-  
-//   e.currentTarget       // Same as target (the element with the event listener)
-//   e.preventDefault()    // Prevent default behavior
-//   e.stopPropagation()   // Stop event bubbling
-  
-//   // And many more properties...
-// }
