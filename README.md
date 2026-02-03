@@ -115,13 +115,14 @@ cd frontend && npm test
 6. **Deployment** - GitHub Actions + GitHub Pages for demo
 
 ### 🚧 Phase 2: Mobile App (Current Focus)
-- [ ] React Native setup
-- [ ] UI components (ingredients input, preferences, results display)
-- [ ] API integration (reuse existing backend)
+- [x] React Native setup (Expo + TypeScript)
+- [x] Shared types integration
+- [x] UI library (React Native Paper)
+- [ ] API service (connect to existing backend)
+- [ ] Home screen (ingredients input)
+- [ ] Results screen (display menu)
 - [ ] Navigation flow
-- [ ] Mobile-specific UX (camera for ingredient scanning?)
-- [ ] Testing (React Native Testing Library)
-- [ ] Build & deployment (Expo or native)
+- [ ] Testing (navigation + API integration)
 
 ### 💭 Phase 3: Future Enhancements
 - [x] Frontend core flow testing (App submission, AllergiesSection)
