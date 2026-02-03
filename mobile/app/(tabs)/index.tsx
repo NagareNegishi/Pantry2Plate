@@ -8,6 +8,8 @@ import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
 // import from frontend
+import { useState } from 'react';
+
 import { CookingTimeInput } from '@/components/CookingTimeInput';
 import { DifficultySelect } from '@/components/DifficultySelect';
 import { ServingsInput } from '@/components/ServingsInput';
@@ -16,6 +18,15 @@ import type { Difficulty } from '@pantry2plate/shared';
 
 
 export default function HomeScreen() {
+
+
+  // State for the inputs
+  const [servings, setServings] = useState<number>(1);
+  const [cookingTime, setCookingTime] = useState<number>(60);
+  const [difficulty, setDifficulty] = useState<Difficulty>('any');
+
+
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -33,15 +44,15 @@ export default function HomeScreen() {
 
       {/* Servings Input Component */}
       <ThemedView style={styles.stepContainer}>
-        <ServingsInput value={1} onChange={(val: any) => console.log(val)} />
+        <ServingsInput value={servings} onChange={setServings} />
       </ThemedView>
       {/* Cooking Time Input Component */}
       <ThemedView style={styles.stepContainer}>
-        <CookingTimeInput value={60} onChange={(val: any) => console.log(val)} />
+        <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
       </ThemedView>
       {/* Difficulty Select Component */}
       <ThemedView style={styles.stepContainer}>
-        <DifficultySelect value="any" onChange={(val: Difficulty) => console.log(val)} />
+        <DifficultySelect value={difficulty} onChange={setDifficulty} />
       </ThemedView>
 
 
