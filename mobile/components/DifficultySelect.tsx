@@ -9,12 +9,12 @@ import { useState } from 'react';
 import {
   Modal, // Creates the overlay popup for iOS picker
   Platform, // Detects OS (ios/android/web) to render different UI
-  Text as RNText, // React Native's Text - aliased because we also import Paper's Text
+  Text,
   TouchableOpacity, // Tappable element (the input field + Done button)
   View,
   ViewStyle
 } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text as PaperText } from 'react-native-paper';
 
 
 /**
@@ -42,22 +42,18 @@ interface DifficultySelectProps {
 export function DifficultySelect({ value, onChange, style }: DifficultySelectProps) {
   const [isPickerVisible, setIsPickerVisible] = useState(false);
   
-  const getDisplayText = () => {
-    if (!value) return 'Select difficulty';
-    return value.charAt(0).toUpperCase() + value.slice(1);
-  };
-
   // iOS: Custom touchable with modal picker
   if (Platform.OS === 'ios') {
     return (
       <View style={[{
         flexDirection: 'column',
         width: '100%',
-        maxWidth: 180,
+        maxWidth: 100,
         gap: 6,
       }, style]}>
-        <Text style={{ fontSize: 20, color: '#000' }}>Difficulty</Text>
+        <PaperText style={{ fontSize: 20, color: '#000' }}>Difficulty</PaperText>
         
+        {/* Input field to open picker modal */}
         <TouchableOpacity
           onPress={() => setIsPickerVisible(true)}
           style={{
@@ -71,45 +67,53 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
             justifyContent: 'center',
           }}
         >
-          <RNText style={{ fontSize: 16, color: value ? '#000' : '#999' }}>
-            {getDisplayText()}
-          </RNText>
+          <Text style={{ fontSize: 16, color: '#000'}}>
+            {value.charAt(0).toUpperCase() + value.slice(1)}
+          </Text>
         </TouchableOpacity>
 
+        {/* Popup: https://reactnative.dev/docs/modal */}
         <Modal
           visible={isPickerVisible}
           transparent={true}
-          animationType="slide"
+          animationType="fade"
           onRequestClose={() => setIsPickerVisible(false)}
         >
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <View style={{
+            flex: 1, // Fullscreen
+            justifyContent: 'flex-end' // Align picker to bottom
+          }}>
             {/* Backdrop */}
             <TouchableOpacity
               style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
-              activeOpacity={1}
+              activeOpacity={1} // Prevents opacity change on press
               onPress={() => setIsPickerVisible(false)}
             />
             
             {/* Picker container */}
             <View style={{ backgroundColor: '#fff' }}>
-              <View style={{ 
-                flexDirection: 'row', 
-                justifyContent: 'flex-end', 
+
+              {/* Done button to close picker */}
+              <View style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-end', // Push children to right side (Done button on right)
                 padding: 16,
                 borderBottomWidth: 1,
                 borderBottomColor: '#ccc'
               }}>
                 <TouchableOpacity onPress={() => setIsPickerVisible(false)}>
-                  <RNText style={{ fontSize: 18, color: '#007AFF', fontWeight: '600' }}>Done</RNText>
+                  <Text style={{ fontSize: 18, color: '#007AFF', fontWeight: '600' }}>Done</Text>
                 </TouchableOpacity>
               </View>
+
+              {/* Actual Picker */}
               <Picker
                 selectedValue={value}
-                onValueChange={(itemValue) => {
-                  onChange(itemValue as Difficulty);
+                onValueChange={(value) => {
+                  onChange(value as Difficulty);
                   setIsPickerVisible(false);  // Auto-close on selection
                 }}
-                style={{ 
+                style={{
                   backgroundColor: '#fff',
                   height: 200,
                 }}
@@ -130,9 +134,6 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
     );
   }
 
-
-
-
   // Web, Android, Windows, macOS: Use native picker directly
   return (
     <View style={[{
@@ -142,7 +143,7 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
       alignItems: 'flex-start', // or 'center'
       gap: 6,
     }, style]}>
-      <Text style={{ fontSize: 20, color: '#000' }}>Difficulty</Text>
+      <PaperText style={{ fontSize: 20, color: '#000' }}>Difficulty</PaperText>
       <Picker
         selectedValue={value}
         onValueChange={onChange}
