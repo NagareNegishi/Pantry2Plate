@@ -47,17 +47,13 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
       <Picker
         selectedValue={value}
         onValueChange={(value) => onChange(value as Difficulty)}
-        style={{ width: '100%', maxWidth: 180 }} // without explicit width, it's not visible
+        style={{ width: '100%', maxWidth: 100, height: 40, textAlign: "left", borderRadius: 5 }} // without explicit width, it's not visible
       >
         <Picker.Item label="Any" value="any" />
         <Picker.Item label="Easy" value="easy" />
         <Picker.Item label="Medium" value="medium" />
         <Picker.Item label="Hard" value="hard" />
       </Picker>
-
-
-
-    
     </View>
   );
 }
