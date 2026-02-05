@@ -3,8 +3,8 @@
  * Collection of basic input components for recipe parameters.
  * Receives state and setters from parent component (App.tsx).
  */
-import { cn } from "@/lib/utils";
 import type { Difficulty } from '@pantry2plate/shared';
+import { View, ViewStyle } from 'react-native';
 import { CookingTimeInput } from './CookingTimeInput';
 import { DifficultySelect } from './DifficultySelect';
 import { IngredientsList } from './IngredientsList';
@@ -27,9 +27,9 @@ interface BasicInputsProps {
   // Ingredients
   ingredients: string[];
   setIngredients: (value: string[]) => void;
-
-  // Optional className for styling
-  className?: string;
+  ingredientError?: (message: string) => void;
+  // Optional styling
+  style?: ViewStyle;
 }
 
 
@@ -47,16 +47,20 @@ export function BasicInputs({
   setDifficulty,
   ingredients,
   setIngredients,
-  className
+  ingredientError,
+  style
 }: BasicInputsProps) {
   return (
-    <div className={cn("space-y-6 flex flex-col items-center", className)}>
-      <IngredientsList value={ingredients} onChange={setIngredients}/>
-      <div className="flex gap-16">
+    // <div className={cn("space-y-6 flex flex-col items-center", className)}>
+    <View style={[{ gap: 24, alignItems: 'center' }, style]}>
+
+      <IngredientsList value={ingredients} onChange={setIngredients} onError={ingredientError}/>
+      {/* <div className="flex gap-16"> */}
+      <View style={{ flexDirection: 'row', gap: 16 }}>
         <ServingsInput value={servings} onChange={setServings}/>
         <CookingTimeInput value={cookingTime} onChange={setCookingTime}/>
         <DifficultySelect value={difficulty} onChange={setDifficulty}/>
-      </div>
-    </div>
+      </View>
+    </View>
   );
 }

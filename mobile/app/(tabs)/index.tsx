@@ -10,10 +10,7 @@ import { Link } from 'expo-router';
 // import from frontend
 import { useState } from 'react';
 
-import { CookingTimeInput } from '@/components/CookingTimeInput';
-import { DifficultySelect } from '@/components/DifficultySelect';
-import { IngredientsList } from '@/components/IngredientsList';
-import { ServingsInput } from '@/components/ServingsInput';
+import { BasicInputs } from '@/components/BasicInputs';
 import type { Difficulty } from '@pantry2plate/shared';
 
 // toaster replacement
@@ -49,22 +46,20 @@ const showSnackbar = (message: string) => {
         <HelloWave />
       </ThemedView>
 
-
-      {/* Servings Input Component */}
+      {/* Combined Basic Inputs Component */}
       <ThemedView style={styles.stepContainer}>
-        <ServingsInput value={servings} onChange={setServings} />
-      </ThemedView>
-      {/* Cooking Time Input Component */}
-      <ThemedView style={styles.stepContainer}>
-        <CookingTimeInput value={cookingTime} onChange={setCookingTime} />
-      </ThemedView>
-      {/* Difficulty Select Component */}
-      <ThemedView style={styles.stepContainer}>
-        <DifficultySelect value={difficulty} onChange={setDifficulty} />
-      </ThemedView>
-      {/* Ingredients List Component */}
-      <ThemedView style={styles.stepContainer}>
-        <IngredientsList value={ingredients} onChange={setIngredients} onError={showSnackbar} />
+        <BasicInputs
+          servings={servings}
+          setServings={setServings}
+          cookingTime={cookingTime}
+          setCookingTime={setCookingTime}
+          difficulty={difficulty}
+          setDifficulty={setDifficulty}
+          ingredients={ingredients}
+          setIngredients={setIngredients}
+          ingredientError={showSnackbar}
+          style={{ width: '100%' }}
+        />
       </ThemedView>
 
 
