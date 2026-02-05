@@ -4,7 +4,6 @@
  * Allows users to choose from predefined difficulty levels: 'any', 'easy', 'medium', 'hard'.
  */
 import type { Difficulty } from '@pantry2plate/shared';
-import { useState } from 'react';
 import {
   ViewStyle
 } from 'react-native';
@@ -34,8 +33,6 @@ interface DifficultySelectProps {
  * @returns A dropdown for selecting recipe difficulty
  */
 export function DifficultySelect({ value, onChange, style }: DifficultySelectProps) {
-  const [isPickerVisible, setIsPickerVisible] = useState(false);
-
   return (
     <CustomDropdown
       value={value}
@@ -43,8 +40,6 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
       style={style}
       options={['any', 'easy', 'medium', 'hard']}
       label="Difficulty"
-      isVisible={isPickerVisible}
-      onToggleVisibility={setIsPickerVisible}
     />
   );
 }

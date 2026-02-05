@@ -5,6 +5,7 @@
  * For Android and Web, it uses the native Picker component for better performance and platform integration
  */
 import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react';
 import {
   Modal, // Creates the overlay popup for iOS picker
   Platform, // Detects OS (ios/android/web) to render different UI
@@ -30,9 +31,6 @@ interface CustomDropdownProps {
   options: any[];
   // Label for the dropdown
   label: string;
-  // pickable or not state
-  isVisible: boolean;
-  onToggleVisibility: (isVisible: boolean) => void;
 }
 
 
@@ -45,7 +43,8 @@ interface CustomDropdownProps {
  * @param CustomDropdownProps but as destructured props
  * @returns A dropdown for selecting a value from the provided options
  */
-export function CustomDropdown({ value, onChange, style, options, label, isVisible, onToggleVisibility }: CustomDropdownProps) {
+export function CustomDropdown({ value, onChange, style, options, label }: CustomDropdownProps) {
+  const [isVisible, setIsVisible] = useState(false);
 
   // iOS: Custom touchable with modal picker
   if (Platform.OS === 'ios') {
@@ -62,7 +61,7 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
         
         {/* Input field to open picker modal */}
         <TouchableOpacity
-          onPress={() => onToggleVisibility(true)}
+          onPress={() => setIsVisible(true)}
           style={{
             paddingVertical: 12,
             paddingHorizontal: 10,
@@ -84,7 +83,7 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
           visible={isVisible}
           transparent={true}
           animationType="fade"
-          onRequestClose={() => onToggleVisibility(false)}
+          onRequestClose={() => setIsVisible(false)}
         >
           <View style={{
             flex: 1, // Fullscreen
@@ -94,7 +93,7 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
             <TouchableOpacity
               style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' }}
               activeOpacity={1} // Prevents opacity change on press
-              onPress={() => onToggleVisibility(false)}
+              onPress={() => setIsVisible(false)}
             />
             
             {/* Picker container */}
@@ -108,7 +107,7 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
                 borderBottomWidth: 1,
                 borderBottomColor: '#ccc'
               }}>
-                <TouchableOpacity onPress={() => onToggleVisibility(false)}>
+                <TouchableOpacity onPress={() => setIsVisible(false)}>
                   <Text style={{ fontSize: 18, color: '#007AFF', fontWeight: '600' }}>Done</Text>
                 </TouchableOpacity>
               </View>
@@ -118,7 +117,7 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
                 selectedValue={value}
                 onValueChange={(value) => {
                   onChange(value);
-                  onToggleVisibility(false);  // Auto-close on selection
+                  setIsVisible(false);  // Auto-close on selection
                 }}
                 style={{
                   backgroundColor: '#fff',
