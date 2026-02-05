@@ -130,7 +130,11 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
                 }}
               >
                 {options.map((option) => (
-                  <Picker.Item label={option.charAt(0).toUpperCase() + option.slice(1)} value={option} color="#000" />
+                  <Picker.Item
+                    key={option}
+                    label={option.charAt(0).toUpperCase() + option.slice(1)}
+                    value={option} color="#000"
+                  />
                 ))}
               </Picker>
             </View>
@@ -160,7 +164,11 @@ export function CustomDropdown({ value, onChange, style, options, label, isVisib
 
         {/* Dynamically render options */}
         {options.map((option) => (
-          <Picker.Item label={option.charAt(0).toUpperCase() + option.slice(1)} value={option} />
+          <Picker.Item
+            key={option}
+            label={option.charAt(0).toUpperCase() + option.slice(1)}
+            value={option}
+          />
         ))}
       </Picker>
     </View>
