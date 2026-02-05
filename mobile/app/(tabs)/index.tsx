@@ -12,9 +12,9 @@ import { useState } from 'react';
 
 import { CookingTimeInput } from '@/components/CookingTimeInput';
 import { DifficultySelect } from '@/components/DifficultySelect';
+import { IngredientsList } from '@/components/IngredientsList';
 import { ServingsInput } from '@/components/ServingsInput';
 import type { Difficulty } from '@pantry2plate/shared';
-// import { IngredientsList } from './IngredientsList';
 
 
 export default function HomeScreen() {
@@ -24,6 +24,7 @@ export default function HomeScreen() {
   const [servings, setServings] = useState<number>(1);
   const [cookingTime, setCookingTime] = useState<number>(60);
   const [difficulty, setDifficulty] = useState<Difficulty>('any');
+  const [ingredients, setIngredients] = useState<string[]>([]);
 
 
 
@@ -53,6 +54,10 @@ export default function HomeScreen() {
       {/* Difficulty Select Component */}
       <ThemedView style={styles.stepContainer}>
         <DifficultySelect value={difficulty} onChange={setDifficulty} />
+      </ThemedView>
+      {/* Ingredients List Component */}
+      <ThemedView style={styles.stepContainer}>
+        <IngredientsList value={ingredients} onChange={setIngredients} />
       </ThemedView>
 
 

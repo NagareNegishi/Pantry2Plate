@@ -64,14 +64,15 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
         <TouchableOpacity
           onPress={() => setIsVisible(true)}
           style={{
-            paddingVertical: 12,
-            paddingHorizontal: 10,
+            paddingVertical: 8,
+            paddingHorizontal: 14,
             borderWidth: 1,
             borderColor: '#ccc',
             borderRadius: 5,
             backgroundColor: '#fff',
-            minHeight: 44,
+            minHeight: 40,
             justifyContent: 'center',
+            height: 40
           }}
         >
           <Text style={{ fontSize: 16, color: '#000'}}>
