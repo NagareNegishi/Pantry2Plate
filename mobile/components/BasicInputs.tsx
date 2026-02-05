@@ -51,16 +51,15 @@ export function BasicInputs({
   style
 }: BasicInputsProps) {
   return (
-    // <div className={cn("space-y-6 flex flex-col items-center", className)}>
-    <View style={[{ gap: 24, alignItems: 'center' }, style]}>
-
+    <View style={[{ gap: 24}, style]}>
       <IngredientsList value={ingredients} onChange={setIngredients} onError={ingredientError}/>
-      {/* <div className="flex gap-16"> */}
-      <View style={{ flexDirection: 'row', gap: 16 }}>
-        <ServingsInput value={servings} onChange={setServings}/>
-        <CookingTimeInput value={cookingTime} onChange={setCookingTime}/>
-        <DifficultySelect value={difficulty} onChange={setDifficulty}/>
-      </View>
+      <View style={{ gap: 16, alignItems: 'flex-start' }}>
+        <View style={{ flexDirection: 'row', gap: 48, justifyContent: 'space-between' }}>
+          <ServingsInput value={servings} onChange={setServings}/>
+          <CookingTimeInput value={cookingTime} onChange={setCookingTime}/>
+        </View>
+          <DifficultySelect value={difficulty} onChange={setDifficulty}/>
+        </View>
     </View>
   );
 }
