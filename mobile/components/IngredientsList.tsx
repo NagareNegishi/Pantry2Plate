@@ -3,11 +3,12 @@
  * A reusable input component for inputting a list of ingredients.
  * Allows users to input a ingredients(letters, spaces, hyphens only, 1-20 chars)
  * For time being, up to 10 ingredients.
+ * TODO?: Add auto-suggest dropdown based on common ingredients, however, unlike web browser,
+ * most mobile platforms have built-in auto-suggest based on user history, so it may be redundant.
  */
 import { useState } from "react";
 import { View, ViewStyle } from 'react-native';
 import { Chip, Text, TextInput } from 'react-native-paper';
-
 
 const MAX_INGREDIENTS = 10;
 const INGREDIENT_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
@@ -33,7 +34,6 @@ interface IngredientsListProps {
  * @returns An input field to add ingredients with validation and a list to display added ingredients
  */
 export function IngredientsList({ value, onChange, style, onError }: IngredientsListProps) {
-
   // Local state for the input display (allows any string while typing)
   const [currentInput, setCurrentInput] = useState('');
 
@@ -60,7 +60,6 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
     setCurrentInput('');  // Clear input after adding
   };
 
-
   // Allow removal of ingredients
   const handleRemove = (index: number) => {
     onChange(value.filter((_, i) => i !== index)); // Remove ingredient at index
@@ -69,7 +68,6 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
   };
 
   return (
-    // <div style={cn("grid w-full max-w-md items-center gap-1.5", style)}>
     <View style={[{
       flexDirection: 'column',
       width: '100%',
@@ -83,7 +81,6 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
       <Text style={{ fontSize: 14, color: '#666' }}>
         Letters, spaces, and hyphens only (1-20 characters)
       </Text>
-
       <TextInput
         mode="outlined"
         placeholder="e.g., chicken, rice, tomatoes"
@@ -95,14 +92,7 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
         style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
       />
 
-
-      {/* Datalist for common ingredients suggestions */}
-      {/* <datalist id="ingredients-list">
-        {COMMON_INGREDIENTS.map((ingredient) => (
-          <option key={ingredient} value={ingredient} />
-        ))}
-      </datalist> */}
-
+      {/* Tags for added ingredients */}
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {value.map((ingredient, index) => (
           <Chip
@@ -113,9 +103,6 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
           </Chip>
         ))}
       </View>
-
-
-
     </View>
   );
 }
