@@ -5,7 +5,7 @@
  * For time being, up to 10 ingredients.
  */
 import { View, ViewStyle } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { Chip, Text, TextInput } from 'react-native-paper';
 
 // import { Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -102,15 +102,6 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
       />
 
 
-      {/* <Input
-        list="ingredients-list" // For datalist suggestions
-        id="ingredients"
-        type="text"
-        placeholder="e.g., chicken, rice, tomatoes"
-        value={currentInput}
-        onChange={(e) => setCurrentInput(e.target.value)}
-        onKeyDown={handleEnter}
-      /> */}
       {/* Datalist for common ingredients suggestions */}
       {/* <datalist id="ingredients-list">
         {COMMON_INGREDIENTS.map((ingredient) => (
@@ -118,13 +109,25 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
         ))}
       </datalist> */}
 
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+        {value.map((ingredient, index) => (
+          <Chip
+            key={index}
+            onClose={() => handleRemove(index)}
+          >
+            {ingredient.charAt(0).toUpperCase() + ingredient.slice(1).replaceAll('-', ' ')}
+          </Chip>
+        ))}
+      </View>
+
+
 
 
     </View>
   );
 }
 
-
+// probably not needed buttom for mobile
       // {/* Add Button */}
       // <Button
       //   onClick={handleAdd}
@@ -138,25 +141,3 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
       //   Add
       // </Button>
 
-      // {/* List of added ingredients */}
-      // <div style="flex flex-wrap gap-2 mt-2"> {/* flex flex-wrap automatically wraps tags */}
-      //   {value.map((ingredient, index) => (
-      //     <div key={index} style="relative group">
-      //       <Badge
-      //         variant="secondary"
-      //         style="px-6 py-1.5 text-base"
-      //       >
-      //         <span>{ingredient.charAt(0).toUpperCase() + ingredient.slice(1).replaceAll('-', ' ')}</span>
-      //       </Badge>
-      //       <Button
-      //         onClick={() => handleRemove(index)}
-      //         size="icon"
-      //         variant="ghost"
-      //         // Show delete icon only on hover
-      //         style="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
-      //       >
-      //         <Trash2 style="h-3 w-3 text-destructive" />
-      //       </Button>
-      //     </div>
-      //   ))}
-      // </div>
