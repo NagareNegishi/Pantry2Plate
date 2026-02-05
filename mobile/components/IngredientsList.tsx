@@ -4,12 +4,10 @@
  * Allows users to input a ingredients(letters, spaces, hyphens only, 1-20 chars)
  * For time being, up to 10 ingredients.
  */
+import { useState } from "react";
 import { View, ViewStyle } from 'react-native';
 import { Chip, Text, TextInput } from 'react-native-paper';
 
-// import { Trash2 } from "lucide-react";
-import { useState } from "react";
-// import { toast } from "sonner";// Portal + Snackbar (Paper) - toast notifications later
 
 const MAX_INGREDIENTS = 10;
 const INGREDIENT_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
@@ -25,6 +23,8 @@ interface IngredientsListProps {
   onChange: (value: string[]) => void;
   // Optional styling
   style?: ViewStyle;
+  // Optional callback for error messages
+  onError?: (message: string) => void;
 }
 
 /**
@@ -32,7 +32,7 @@ interface IngredientsListProps {
  * @param IngredientsListProps but as destructured props
  * @returns An input field to add ingredients with validation and a list to display added ingredients
  */
-export function IngredientsList({ value, onChange, style }: IngredientsListProps) {
+export function IngredientsList({ value, onChange, style, onError }: IngredientsListProps) {
 
   // Local state for the input display (allows any string while typing)
   const [currentInput, setCurrentInput] = useState('');
@@ -41,27 +41,21 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
   const handleAdd = () => {
     const trimmed = currentInput.trim();
     // Case invalid format
-    // if (!INGREDIENT_REGEX.test(trimmed)) {
-    //   toast.error("Invalid ingredient", {
-    //     description: "Use only letters, spaces, and hyphens (1-20 characters)",
-    //   });
-    //   return;
-    // }
+    if (!INGREDIENT_REGEX.test(trimmed)) {
+      onError?.("Invalid ingredient. Use only letters, spaces, and hyphens (1-20 characters)");
+      return;
+    }
     const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
-    // // Case duplicate
-    // if (value.includes(normalized)) {
-    //   toast.error("Duplicate ingredient", {
-    //     description: `"${normalized}" is already in the list`,
-    //   });
-    //   return;
-    // }
-    // // Case max reached
-    // if (value.length >= MAX_INGREDIENTS) {
-    //   toast.error("Maximum reached", {
-    //     description: `You can only add up to ${MAX_INGREDIENTS} ingredients`,
-    //   });
-    //   return;
-    // }
+    // Case duplicate
+    if (value.includes(normalized)) {
+      onError?.("Duplicate ingredient" + `"${normalized}" is already in the list`);
+      return;
+    }
+    // Case max reached
+    if (value.length >= MAX_INGREDIENTS) {
+      onError?.(`Maximum reached. You can only add up to ${MAX_INGREDIENTS} ingredients`);
+      return;
+    }
     onChange([...value, normalized]);
     setCurrentInput('');  // Clear input after adding
   };
@@ -119,7 +113,6 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
           </Chip>
         ))}
       </View>
-
 
 
 
