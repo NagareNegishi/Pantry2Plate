@@ -16,6 +16,9 @@ import { IngredientsList } from '@/components/IngredientsList';
 import { ServingsInput } from '@/components/ServingsInput';
 import type { Difficulty } from '@pantry2plate/shared';
 
+// toaster replacement
+import { Snackbar, Text } from 'react-native-paper';
+
 
 export default function HomeScreen() {
 
@@ -26,7 +29,11 @@ export default function HomeScreen() {
   const [difficulty, setDifficulty] = useState<Difficulty>('any');
   const [ingredients, setIngredients] = useState<string[]>([]);
 
+const [snackbar, setSnackbar] = useState({ visible: false, message: '' });
 
+const showSnackbar = (message: string) => {
+  setSnackbar({ visible: true, message });
+};
 
   return (
     <ParallaxScrollView
@@ -57,8 +64,9 @@ export default function HomeScreen() {
       </ThemedView>
       {/* Ingredients List Component */}
       <ThemedView style={styles.stepContainer}>
-        <IngredientsList value={ingredients} onChange={setIngredients} />
+        <IngredientsList value={ingredients} onChange={setIngredients} onError={showSnackbar} />
       </ThemedView>
+
 
 
 
@@ -117,7 +125,41 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+
+
+      {/* Snackbar for error messages */}
+      <Snackbar
+        visible={snackbar.visible}
+        onDismiss={() => setSnackbar({ visible: false, message: '' })}
+        duration={3000}
+        style={{
+          backgroundColor: '#000000',
+          marginBottom: 80,
+          borderWidth: 1,
+          borderColor: '#9a7400',
+          borderRadius: 4
+        }}
+        wrapperStyle={{
+          width: '90%',
+          minWidth: 400,
+          maxWidth: 600,
+          alignSelf: 'center'
+        }}
+      >
+        <Text style={{
+          color: '#ce2f2f',
+          textAlign: 'center',
+        }}>
+          {snackbar.message}
+        </Text>
+      </Snackbar>
+
+
+
+
     </ParallaxScrollView>
+
+
   );
 }
 

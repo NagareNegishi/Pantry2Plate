@@ -120,17 +120,4 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
   );
 }
 
-// probably not needed buttom for mobile
-      // {/* Add Button */}
-      // <Button
-      //   onClick={handleAdd}
-      //   disabled={
-      //     !INGREDIENT_REGEX.test(currentInput.trim()) ||
-      //     value.length >= MAX_INGREDIENTS
-      //   }
-      //   variant="outline"
-      //   style="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200"
-      // >
-      //   Add
-      // </Button>
 
