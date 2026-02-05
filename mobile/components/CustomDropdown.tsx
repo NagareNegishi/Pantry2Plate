@@ -1,5 +1,5 @@
 /**
- * CustomDropdownnnn Component
+ * CustomDropdown Component
  * A reusable dropdown component that adapts to different platforms (iOS, Android, Web)
  * For iOS, it uses a custom modal picker to maintain consistent styling with the app
  * For Android and Web, it uses the native Picker component for better performance and platform integration
@@ -18,17 +18,18 @@ import { Text as PaperText } from 'react-native-paper';
 
 
 /**
- * Props for the CustomDropdow component
+ * Props for the CustomDropdown component
+ * Generic type T allows this component to be reused for any string-based dropdown
  */
-interface CustomDropdownProps {
+interface CustomDropdownProps<T extends string> {
   // Current value of the difficulty select
-  value: any;
+  value: T;
   // Function parent component provides to handle value changes
-  onChange: (value: any) => void;
+  onChange: (value: T) => void;
   // Optional styling
   style? : ViewStyle;
-  // Array of value, label is not needed since we can just capitalize the value for display
-  options: any[];
+  // Array of options to display in the dropdown
+  options: T[];
   // Label for the dropdown
   label: string;
 }
@@ -43,7 +44,7 @@ interface CustomDropdownProps {
  * @param CustomDropdownProps but as destructured props
  * @returns A dropdown for selecting a value from the provided options
  */
-export function CustomDropdown({ value, onChange, style, options, label }: CustomDropdownProps) {
+export function CustomDropdown<T extends string>({ value, onChange, style, options, label }: CustomDropdownProps<T>) {
   const [isVisible, setIsVisible] = useState(false);
 
   // iOS: Custom touchable with modal picker
