@@ -8,7 +8,7 @@ import { useState } from 'react';
 import {
   ViewStyle
 } from 'react-native';
-import { CustomDropdow } from './CustomDropdown';
+import { CustomDropdown } from './CustomDropdown';
 
 
 /**
@@ -37,7 +37,7 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
   return (
-    <CustomDropdow
+    <CustomDropdown
       value={value}
       onChange={onChange}
       style={style}

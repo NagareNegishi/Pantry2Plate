@@ -1,5 +1,5 @@
 /**
- * CustomDropdown Component
+ * CustomDropdownnnn Component
  * A reusable dropdown component that adapts to different platforms (iOS, Android, Web)
  * For iOS, it uses a custom modal picker to maintain consistent styling with the app
  * For Android and Web, it uses the native Picker component for better performance and platform integration
@@ -37,15 +37,15 @@ interface CustomDropdownProps {
 
 
 /**
- * CustomDropdow Component
+ * CustomDropdown Component
  * NOTE: React Native Paper has NO select/dropdown component, so we attempt to use react-native-picker
  * https://docs.expo.dev/versions/latest/sdk/picker/
  * However, picker is platform-native, which means it looks different on iOS vs Android
  * To address this, we implement a custom modal picker for iOS, while using native picker for Android & Web
- * @param CustomDropdowProps but as destructured props
+ * @param CustomDropdownProps but as destructured props
  * @returns A dropdown for selecting a value from the provided options
  */
-export function CustomDropdow({ value, onChange, style, options, label, isVisible, onToggleVisibility }: CustomDropdownProps) {
+export function CustomDropdown({ value, onChange, style, options, label, isVisible, onToggleVisibility }: CustomDropdownProps) {
 
   // iOS: Custom touchable with modal picker
   if (Platform.OS === 'ios') {
