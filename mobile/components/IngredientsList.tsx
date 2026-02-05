@@ -66,13 +66,6 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
     setCurrentInput('');  // Clear input after adding
   };
 
-  // Enter key adds ingredient
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form unintended submission
-      handleAdd();
-    }
-  }
 
   // Allow removal of ingredients
   const handleRemove = (index: number) => {
@@ -102,7 +95,8 @@ export function IngredientsList({ value, onChange, style }: IngredientsListProps
         placeholder="e.g., chicken, rice, tomatoes"
         value={currentInput}
         onChangeText={setCurrentInput}
-        // onKeyPress={handleEnter}
+        onSubmitEditing={handleAdd}
+        returnKeyType="done" // Show platform-appropriate "Done" button on keyboard
         // Paper TextInput has unfixed bug, without explicit width it height expands 100%
         style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
       />

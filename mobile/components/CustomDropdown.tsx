@@ -160,7 +160,14 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
       <Picker
         selectedValue={value}
         onValueChange={onChange}
-        style={{ width: '100%', maxWidth: 100, height: 40, textAlign: "left", borderRadius: 5 }} // without explicit width, it's not visible
+        style={{
+          width: '100%', // without explicit width, it's not visible
+          maxWidth: 100,
+          height: 40,
+          textAlign: "left",
+          borderRadius: 5,
+          paddingHorizontal: 12
+        }}
       >
 
         {/* Dynamically render options */}
