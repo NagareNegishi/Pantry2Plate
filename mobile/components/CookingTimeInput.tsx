@@ -46,16 +46,19 @@ export function CookingTimeInput({ value, onChange, style }: CookingTimeInputPro
   // When user leaves input, enforce valid value
   const handleBlur = () => {
     const num = parseInt(displayValue, 10);
-    if (isNaN(num) || displayValue === '') { // Empty or invalid → reset to minimum
+    // Revert to last valid value
+    if (isNaN(num) || displayValue === '') {
+      setDisplayValue(value.toString());
+      return;
+    }
+    // Clamp to valid range
+    if (num < MIN_COOKING_TIME) {
       setDisplayValue(MIN_COOKING_TIME.toString());
       onChange(MIN_COOKING_TIME);
-    } else if (num < MIN_COOKING_TIME) { // Too low → set to minimum
-      setDisplayValue(MIN_COOKING_TIME.toString());
-      onChange(MIN_COOKING_TIME);
-    } else if (num > MAX_COOKING_TIME) { // Too high → set to maximum
+    } else if (num > MAX_COOKING_TIME) {
       setDisplayValue(MAX_COOKING_TIME.toString());
       onChange(MAX_COOKING_TIME);
-    } else { // Valid → just ensure display matches
+    } else {
       setDisplayValue(num.toString());
     }
   };
@@ -79,6 +82,7 @@ export function CookingTimeInput({ value, onChange, style }: CookingTimeInputPro
           value={displayValue}
           onChangeText={handleChange}
           onBlur={handleBlur}
+          selectTextOnFocus={true}
           // Paper TextInput has unfixed bug, without explicit width it height expands 100%
           style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
         />

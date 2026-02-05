@@ -56,19 +56,23 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
   // When user leaves input, enforce valid value
   const handleBlur = () => {
     const num = parseInt(displayValue, 10);
-    if (isNaN(num) || displayValue === '') { // Empty or invalid → reset to minimum
+    // Revert to last valid value
+    if (isNaN(num) || displayValue === '') {
+      setDisplayValue(value.toString());
+      return;
+    }
+    // Clamp to valid range
+    if (num < MIN_SERVINGS) {
       setDisplayValue(MIN_SERVINGS.toString());
       onChange(MIN_SERVINGS);
-    } else if (num < MIN_SERVINGS) { // Too low → set to minimum
-      setDisplayValue(MIN_SERVINGS.toString());
-      onChange(MIN_SERVINGS);
-    } else if (num > MAX_SERVINGS) { // Too high → set to maximum
+    } else if (num > MAX_SERVINGS) {
       setDisplayValue(MAX_SERVINGS.toString());
       onChange(MAX_SERVINGS);
-    } else { // Valid → just ensure display matches
+    } else {
       setDisplayValue(num.toString());
     }
   };
+
 
   return (
     <View style={[{
@@ -88,6 +92,7 @@ export function ServingsInput({ value, onChange, style }: ServingsInputProps) {
         value={displayValue}
         onChangeText={handleChange}
         onBlur={handleBlur}
+        selectTextOnFocus={true}
         // Paper TextInput has unfixed bug, without explicit width it height expands 100%
         style={{ width: '100%', maxWidth: 80, height: 40, textAlign: 'left' }}
       />
