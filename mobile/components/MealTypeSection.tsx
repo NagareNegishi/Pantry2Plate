@@ -5,7 +5,7 @@
  */
 import type { MealType } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 import { CustomDropdown } from './CustomDropdown';
 
@@ -24,7 +24,7 @@ interface MealTypeSectionProps {
   customValue: string;
   onCustomChange: (value: string) => void;
   // Optional styling
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   // Optional callback for error messages
   onError?: (message: string) => void;
 }
@@ -89,8 +89,8 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     <View style={[{
       flexDirection: 'column',
       width: '100%',
-      maxWidth: 160,
-      alignItems: 'center',
+      maxWidth: 120,
+      alignItems: 'flex-start',
       gap: 6,
     }, style]}>
       <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
@@ -100,9 +100,8 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
       <CustomDropdown<MealType>
         value={value}
         onChange={onChange}
-        style={style}
+        style={[style, { maxWidth: 200 }]}
         options={['any', 'breakfast', 'lunch', 'dinner', 'snack', 'brunch', 'dessert', 'other']}
-        label="Meal Type"
       />
 
 

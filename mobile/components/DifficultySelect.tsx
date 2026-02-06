@@ -4,9 +4,8 @@
  * Allows users to choose from predefined difficulty levels: 'any', 'easy', 'medium', 'hard'.
  */
 import type { Difficulty } from '@pantry2plate/shared';
-import {
-  ViewStyle
-} from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { Text } from 'react-native-paper';
 import { CustomDropdown } from './CustomDropdown';
 
 
@@ -19,7 +18,7 @@ interface DifficultySelectProps {
   // Function parent component provides to handle value changes
   onChange: (value: Difficulty) => void;
   // Optional styling
-  style? : ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 
@@ -30,12 +29,22 @@ interface DifficultySelectProps {
  */
 export function DifficultySelect({ value, onChange, style }: DifficultySelectProps) {
   return (
-    <CustomDropdown<Difficulty>
-      value={value}
-      onChange={onChange}
-      style={style}
-      options={['any', 'easy', 'medium', 'hard']}
-      label="Difficulty"
-    />
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 160,
+      alignItems: 'flex-start',
+      gap: 6,
+    }, style]}>
+      <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
+        Difficulty
+      </Text>
+      <CustomDropdown<Difficulty>
+        value={value}
+        onChange={onChange}
+        style={style}
+        options={['any', 'easy', 'medium', 'hard']}
+      />
+    </View>
   );
 }

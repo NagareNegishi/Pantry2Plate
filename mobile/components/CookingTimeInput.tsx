@@ -5,7 +5,7 @@
  */
 import { MAX_COOKING_TIME, MIN_COOKING_TIME } from '@pantry2plate/shared';
 import { useState } from "react";
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 
 
@@ -18,7 +18,7 @@ interface CookingTimeInputProps {
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
   // Optional styling
-  style? : ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**

@@ -7,7 +7,7 @@
  * most mobile platforms have built-in auto-suggest based on user history, so it may be redundant.
  */
 import { useState } from "react";
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { Chip, Text, TextInput } from 'react-native-paper';
 
 const MAX_INGREDIENTS = 10;
@@ -23,7 +23,7 @@ interface IngredientsListProps {
   // Function parent component provides to update the list
   onChange: (value: string[]) => void;
   // Optional styling
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   // Optional callback for error messages
   onError?: (message: string) => void;
 }

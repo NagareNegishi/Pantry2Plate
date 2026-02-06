@@ -4,7 +4,7 @@
  * Receives state and setters from parent component (App.tsx).
  */
 import type { Difficulty } from '@pantry2plate/shared';
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 import { CookingTimeInput } from './CookingTimeInput';
 import { DifficultySelect } from './DifficultySelect';
 import { IngredientsList } from './IngredientsList';
@@ -29,7 +29,7 @@ interface BasicInputsProps {
   setIngredients: (value: string[]) => void;
   ingredientError?: (message: string) => void;
   // Optional styling
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 

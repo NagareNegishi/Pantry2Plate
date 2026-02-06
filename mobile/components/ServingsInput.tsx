@@ -16,7 +16,7 @@ import { Text, TextInput } from 'react-native-paper';
 // style={[styles.container, style]}  // Array to merge styles
 import { MAX_SERVINGS, MIN_SERVINGS } from '@pantry2plate/shared';
 import { useState } from "react";
-import { View, ViewStyle } from 'react-native';
+import { StyleProp, View, ViewStyle } from 'react-native';
 
 /**
  * Props for the ServingsInput component.
@@ -27,7 +27,7 @@ interface ServingsInputProps {
   // Function parent component provides to handle value changes
   onChange: (value: number) => void;
   // Optional styling
-  style? : ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**

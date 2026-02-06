@@ -8,7 +8,8 @@ import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 import {
   Modal, // Creates the overlay popup for iOS picker
-  Platform, // Detects OS (ios/android/web) to render different UI
+  Platform,
+  StyleProp, // Detects OS (ios/android/web) to render different UI
   Text,
   TouchableOpacity, // Tappable element (the input field + Done button)
   View,
@@ -26,7 +27,7 @@ interface CustomDropdownProps<T extends string> {
   // Function parent component provides to handle value changes
   onChange: (value: T) => void;
   // Optional styling
-  style? : ViewStyle;
+  style?: StyleProp<ViewStyle>;
   // Array of options to display in the dropdown
   options: T[];
 }
@@ -50,7 +51,7 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
       <View style={[{
         flexDirection: 'column',
         width: '100%',
-        maxWidth: 100,
+        maxWidth: 180,
         gap: 6,
       }, style]}>
         
@@ -154,7 +155,7 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
         onValueChange={onChange}
         style={{
           width: '100%', // without explicit width, it's not visible
-          maxWidth: 100,
+          maxWidth: 180,
           height: 40,
           textAlign: "left",
           borderRadius: 5,
