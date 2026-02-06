@@ -172,7 +172,7 @@ export function DietaryRestrictionsSection({
             backgroundColor: '#ffffff',
             paddingVertical: 8,
           }}>
-          {/* Checkbox list for allergies */}
+          {/* Checkbox list for Dietary Restrictions */}
           {DIETARY_RESTRICTIONS.map((restriction) => (
             <View
               key={restriction}
@@ -215,10 +215,10 @@ export function DietaryRestrictionsSection({
         </View>
       </List.Accordion>
 
-      {/* Display selected allergies as badges */}
+      {/* Display selected Dietary Restrictions as badges */}
       {(value.length > 0 || customValue.length > 0) && (
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-          {/* Predefined allergies */}
+          {/* Predefined Dietary Restrictions */}
           {value.filter(a => a !== 'other').map((restriction) => (
             <Chip
               key={restriction}
@@ -227,7 +227,7 @@ export function DietaryRestrictionsSection({
               {restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}
             </Chip>
           ))}
-          {/* Custom allergies */}
+          {/* Custom Dietary Restrictions */}
           {customValue.map((restriction) => (
             <Chip
               key={restriction}
