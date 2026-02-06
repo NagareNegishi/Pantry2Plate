@@ -3,24 +3,12 @@
  * A reusable input component for selecting the type of dietary restriction.
  * Allows users to choose from predefined dietary restrictions. See DietaryRestriction in shared module.
  */
-import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
-// NOTE: Checkbox is a wrapper around Radix UI Checkbox primitive
-// https://www.radix-ui.com/primitives/docs/components/checkbox
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import type { DietaryRestriction } from '@pantry2plate/shared';
-import { Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { Checkbox, Chip, List, Text } from 'react-native-paper';
+import { CustomTextInput } from './ui/CustomTextInput';
+
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 const MAX_CUSTOM_DIETARY_RESTRICTIONS = 3; // arbitrary limit to prevent abuse
@@ -42,9 +30,11 @@ interface DietaryRestrictionsSectionProps {
   // If custom dietary restrictions 'other' is selected
   customValue: string[];
   onCustomChange: (value: string[]) => void;
-
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style?: StyleProp<ViewStyle>;
+  // Optional callback for error messages
+  onError?: (message: string) => void;
+  onInfo?: (message: string) => void;
 }
 
 /**
@@ -52,15 +42,26 @@ interface DietaryRestrictionsSectionProps {
  * @param DietaryRestrictionsSectionProps but as destructured props
  * @returns A dropdown for selecting recipe dietary restrictions
  */
-export function DietaryRestrictionsSection({ value, onChange, customValue, onCustomChange, className }: DietaryRestrictionsSectionProps ) {
-  
-  // Local state for the input display (allows any string while typing)
+export function DietaryRestrictionsSection({
+  value,
+  onChange,
+  customValue,
+  onCustomChange,
+  style,
+  onError,
+  onInfo
+  }: DietaryRestrictionsSectionProps ) {
+
   const [displayCustom, setDisplayCustom] = useState('');
   const [isValid, setIsValid] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const isSubmitting = useRef(false);
+
+  // Handler for accordion toggle
+  const handlePress = () => setExpanded(!expanded);
 
   // Handler for custom input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
+  const handleChange = (input: string) => {
     setDisplayCustom(input);
     setIsValid(CUSTOM_REGEX.test(input.trim()));
   };
@@ -70,9 +71,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
     const trimmed = displayCustom.trim();
     // Case invalid format
     if (!CUSTOM_REGEX.test(trimmed)) {
-      toast.error("Invalid dietary restriction", {
-        description: "Use only letters, spaces, and hyphens (1-20 characters)",
-      });
+      onError?.("Invalid dietary restriction. Use only letters, spaces, and hyphens (1-20 characters)");
       setDisplayCustom('');
       setIsValid(false);
       return;
@@ -80,9 +79,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
     const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     // Case duplicate
     if (customValue.includes(normalized)) {
-      toast.error("Duplicate dietary restriction", {
-        description: `"${normalized}" is already in the list`,
-      });
+      onError?.("Duplicate dietary restriction" + `"${normalized}" is already in the list`);
       setDisplayCustom('');
       setIsValid(false);
       return;
@@ -92,13 +89,9 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
       // auto-select instead of error
       if (!value.includes(normalized as DietaryRestriction)) {
         onChange([...value, normalized as DietaryRestriction]);
-        toast.success("Selected predefined dietary restriction", {
-          description: `"${trimmed}" has been selected from predefined options`,
-        });
+        onInfo?.(`${trimmed}" is selected from predefined dietary restrictions`);
       } else {
-        toast.info("Already selected", {
-          description: `"${trimmed}" is already checked`,
-        });
+        onInfo?.(`"${trimmed}" is already checked`);
       }
       setDisplayCustom('');
       setIsValid(false);
@@ -106,9 +99,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
     }
     // Case max reached
     if (customValue.length >= MAX_CUSTOM_DIETARY_RESTRICTIONS) {
-      toast.error("Maximum reached", {
-        description: `You can only add up to ${MAX_CUSTOM_DIETARY_RESTRICTIONS} custom dietary restrictions`,
-      });
+      onError?.(`Maximum reached. You can only add up to ${MAX_CUSTOM_DIETARY_RESTRICTIONS} custom dietary restrictions`);
       setDisplayCustom('');
       setIsValid(false);
       return;
@@ -118,12 +109,17 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
     setIsValid(true);
   };
 
-  // When user presses Enter in custom input
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission if inside a form
-      handleCustomAdd();
-    }
+  // Handler for submitting custom restriction (on blur or submit)
+  const handleSubmit = () => {
+    isSubmitting.current = true;
+    handleCustomAdd();
+    setTimeout(() => { isSubmitting.current = false; }, 100);
+  };
+
+  // Handler for blur event on custom input
+  const handleBlur = () => {
+    if (isSubmitting.current) return;
+    handleCustomAdd();
   };
 
   // Reset custom input when switching away from 'other'
@@ -140,7 +136,7 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
     // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
-
+  // Handler for toggling predefined dietary restrictions
   const handleToggle = (restriction: DietaryRestriction) => {
     if (value.includes(restriction)) {
       onChange(value.filter(a => a !== restriction));
@@ -150,104 +146,101 @@ export function DietaryRestrictionsSection({ value, onChange, customValue, onCus
   }
 
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 360,
+      alignItems: 'flex-start',
+      gap: 6,
+    }, style]}>
 
-      <Accordion type="single" collapsible>
-        <AccordionItem value="dietary restrictions">
-          
-          <AccordionTrigger className="text-xl whitespace-nowrap">
-            <span className="flex-grow text-center">Dietary Restrictions</span>
-          </AccordionTrigger>
+      <List.Accordion
+        title="Dietary Restrictions"
+        titleStyle={{ fontSize: 18, color: '#000' }}
+        expanded={expanded}
+        onPress={handlePress}
+        style={{
+          width: '100%',
+          maxWidth: 360,
+          minWidth: 180,
+          backgroundColor: '#ffffff',
+        }}
+      >
 
-          <AccordionContent className="px-1">
-            {/* Checkbox list for dietary restrictions */}
-            {DIETARY_RESTRICTIONS.map((restriction) => (
-            <div key={restriction} className="flex space-x-2">
-              <Checkbox
-                id={restriction}
-                checked={value.includes(restriction)}
-                onCheckedChange={() => handleToggle(restriction)}
-              />
-              <Label
-                htmlFor={restriction}
-                className="text-base"
-                >
-                  {restriction.charAt(0).toUpperCase() + restriction.slice(1).replace('-', ' ')}
-              </Label>
-            </div>
-            ))}
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            paddingVertical: 8,
+          }}>
+          {/* Checkbox list for allergies */}
+          {DIETARY_RESTRICTIONS.map((restriction) => (
+            <View
+              key={restriction}
+              style={{
+                flexDirection: 'row',
+                width: '100%',
+                maxWidth: 480,
+                alignItems: 'center',
+                gap: 8,
+                backgroundColor: '#ffffff'
+                }}>
+                <Checkbox.Android // enforce Android style for better UX
+                  status={value.includes(restriction) ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    handleToggle(restriction);
+                  }}
+                  color="#007AFF"
+                  uncheckedColor="#666"
+                />
+              <Text style={{ fontSize: 16, color: '#000' }}>
+                {restriction.charAt(0).toUpperCase() + restriction.slice(1).replace('-', ' ')}
+              </Text>
+            </View>
+          ))}
 
-            {/* custom input only shows if 'other' is selected */}
-            {value.includes('other') && (
-              <Input
-                type="text"
-                value={displayCustom}
-                onChange={handleChange}
-                onBlur={handleCustomAdd}
-                onKeyDown={handleEnter}
-                placeholder="Enter dietary restrictions"
-                maxLength={20}
-                className={
-                  isValid === true
-                    ? 'border-green-500 focus-visible:ring-green-500'
-                    : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
-                }
-              />
-            )}
-          </AccordionContent>
-
-          {/* Display selected dietary restrictions as badges */}
-          {(value.length > 0 || customValue.length > 0) && (
-            <div className="flex flex-wrap gap-2 mt-2 px-1">
-              {/* Predefined dietary restrictions */}
-              {value.filter(a => a !== 'other').map((restriction) => (
-                <div key={restriction} className="relative group">
-                  <Badge
-                    variant="secondary"
-                    className="px-6 py-1.5 text-base"
-                  >
-                    <span>{restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}</span>
-                  </Badge>
-                  <Button
-                    onClick={() => handleToggle(restriction)}
-                    size="icon"
-                    variant="ghost"
-                    // Show delete icon only on hover
-                    className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
-                  >
-                    <Trash2 className="h-3 w-3 text-destructive" />
-                  </Button>
-                </div>
-              ))}
-              
-              {/* Custom dietary restrictions */}
-              {customValue.map((restriction) => (
-                <div key={restriction} className="relative group">
-                  <Badge
-                    variant="secondary"
-                    className="px-6 py-1.5 text-base"
-                  >
-                    <span>{restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}</span>
-                  </Badge>
-                  <Button
-                    onClick={() => {
-                      const newCustom = customValue.filter((_, i) => i !== customValue.indexOf(restriction));
-                      onCustomChange(newCustom);
-                    }}
-                    size="icon"
-                    variant="ghost"
-                    // Show delete icon only on hover
-                    className="absolute right-0 h-full w-6 opacity-0 group-hover:opacity-100 transition-opacity rounded-full bg-destructive/10 hover:bg-destructive/20"
-                  >
-                    <Trash2 className="h-3 w-3 text-destructive" />
-                  </Button>
-                </div>
-              ))}
-            </div>
+          {/* custom input only shows if 'other' is selected */}
+          {value.includes('other') && (
+            <CustomTextInput
+              value={displayCustom}
+              onChangeText={handleChange}
+              onBlur={handleBlur}
+              onSubmitEditing={handleSubmit}
+              placeholder="Enter dietary restrictions"
+              placeholderTextColor="#5a5f67"
+              maxLength={20}
+              returnKeyType='done'
+              validationState={isValid ? 'valid' : 'invalid'} // never undefined
+            />
           )}
-        </AccordionItem>
-      </Accordion>
+        </View>
+      </List.Accordion>
 
-    </div>
+      {/* Display selected allergies as badges */}
+      {(value.length > 0 || customValue.length > 0) && (
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+          {/* Predefined allergies */}
+          {value.filter(a => a !== 'other').map((restriction) => (
+            <Chip
+              key={restriction}
+              onClose={() => handleToggle(restriction)}
+            >
+              {restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}
+            </Chip>
+          ))}
+          {/* Custom allergies */}
+          {customValue.map((restriction) => (
+            <Chip
+              key={restriction}
+              onClose={() => {
+                const newCustom = customValue.filter((_, i) => i !== customValue.indexOf(restriction));
+                onCustomChange(newCustom);
+              }}
+            >
+              {restriction.charAt(0).toUpperCase() + restriction.slice(1).replaceAll('-', ' ')}
+            </Chip>
+          ))}
+        </View>
+      )}
+    </View>
   );
 }

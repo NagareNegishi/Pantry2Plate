@@ -165,7 +165,7 @@ export function AllergiesSection({
           minWidth: 180,
           backgroundColor: '#ffffff',
         }}
-        >
+      >
 
         <View
           style={{
@@ -174,28 +174,28 @@ export function AllergiesSection({
           }}>
           {/* Checkbox list for allergies */}
           {ALLERGIES.map((allergy) => (
-          <View
-            key={allergy}
-            style={{
-              flexDirection: 'row',
-              width: '100%',
-              maxWidth: 480,
-              alignItems: 'center',
-              gap: 8,
-              backgroundColor: '#ffffff'
-              }}>
-              <Checkbox.Android // enforce Android style for better UX
-                status={value.includes(allergy) ? 'checked' : 'unchecked'}
-                onPress={() => {
-                  handleToggle(allergy);
-                }}
-                color="#007AFF"
-                uncheckedColor="#666"
-              />
-            <Text style={{ fontSize: 16, color: '#000' }}>
-              {allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}
-            </Text>
-          </View>
+            <View
+              key={allergy}
+              style={{
+                flexDirection: 'row',
+                width: '100%',
+                maxWidth: 480,
+                alignItems: 'center',
+                gap: 8,
+                backgroundColor: '#ffffff'
+                }}>
+                <Checkbox.Android // enforce Android style for better UX
+                  status={value.includes(allergy) ? 'checked' : 'unchecked'}
+                  onPress={() => {
+                    handleToggle(allergy);
+                  }}
+                  color="#007AFF"
+                  uncheckedColor="#666"
+                />
+              <Text style={{ fontSize: 16, color: '#000' }}>
+                {allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}
+              </Text>
+            </View>
           ))}
 
           {/* custom input only shows if 'other' is selected */}
