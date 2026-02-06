@@ -90,7 +90,7 @@ export function AdvancedSection({
   customFlavorProfiles,
   setCustomFlavorProfiles,
   className
-}: AdvancedSectionProps) {
+  }: AdvancedSectionProps) {
   return (
     <div className={cn("space-y-6 flex flex-col items-center", className)}>
       <Accordion type="single" collapsible className="w-full">

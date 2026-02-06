@@ -34,12 +34,18 @@ interface MealTypeSectionProps {
  * @param MealTypeSectionProps but as destructured props
  * @returns A dropdown for selecting recipe meal type
  */
-export function MealTypeSection({ value, onChange, customValue, onCustomChange, style, onError }: MealTypeSectionProps ) {
+export function MealTypeSection({
+  value,
+  onChange,
+  customValue,
+  onCustomChange,
+  style,
+  onError
+  }: MealTypeSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
   const [isValid, setIsValid] = useState(false);
-
 
   // Handler for adding custom meal type
   const handleAdd = () => {
@@ -55,7 +61,6 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     setIsValid(true);
   };
 
-
   // Reset custom input when switching away from 'other'
   // NOTE: First argument is the code to run, second argument determines when to run it
   useEffect(
@@ -70,9 +75,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
-
   return (
-    // <div style={cn("flex flex-col w-full max-w-40 items-center gap-1.5", style)}>
     <View style={[{
       flexDirection: 'column',
       width: '100%',
@@ -93,8 +96,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
       />
 
       {/* custom input only shows if 'other' is selected */}
-
-{value === 'other' && (
+      {value === 'other' && (
         <CustomTextInput
           value={displayCustom}
           onChangeText={setDisplayCustom}
