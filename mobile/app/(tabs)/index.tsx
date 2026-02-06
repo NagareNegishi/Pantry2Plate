@@ -18,10 +18,10 @@ import type { Allergy, CookingMethod, CuisineType, Difficulty, MealType } from '
 import { Snackbar, Text } from 'react-native-paper';
 
 // advanced inputs
+import { AllergiesSection } from '@/components/AllergiesSection';
 import { CookingMethodSection } from '@/components/CookingMethodSection';
 import { CuisineSection } from '@/components/CuisineSection';
 import { MealTypeSection } from '@/components/MealTypeSection';
-import { AllergiesSection } from '@/components/AllergiesSection';
 
 
 export default function HomeScreen() {
@@ -45,10 +45,14 @@ export default function HomeScreen() {
 
 
   // Snackbar state
-  const [snackbar, setSnackbar] = useState({ visible: false, message: '' });
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: '',
+    type: 'error' as 'error' | 'success' | 'info'
+  });
 
-const showSnackbar = (message: string) => {
-  setSnackbar({ visible: true, message });
+const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
+  setSnackbar({ visible: true, message, type });
 };
 
   return (
@@ -122,6 +126,7 @@ const showSnackbar = (message: string) => {
           customValue={customAllergy}
           onCustomChange={setCustomAllergy}
           onError={showSnackbar}
+          onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
           style={{ width: '100%' }}
         />
       </ThemedView>
@@ -189,13 +194,13 @@ const showSnackbar = (message: string) => {
       {/* Snackbar for error messages */}
       <Snackbar
         visible={snackbar.visible}
-        onDismiss={() => setSnackbar({ visible: false, message: '' })}
+        onDismiss={() => setSnackbar({ visible: false, message: '', type: 'error' })}
         duration={3000}
         style={{
           backgroundColor: '#000000',
           marginBottom: 80,
           borderWidth: 1,
-          borderColor: '#9a7400',
+          borderColor: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
           borderRadius: 4
         }}
         wrapperStyle={{
@@ -206,7 +211,7 @@ const showSnackbar = (message: string) => {
         }}
       >
         <Text style={{
-          color: '#ce2f2f',
+          color: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
           textAlign: 'center',
         }}>
           {snackbar.message}
