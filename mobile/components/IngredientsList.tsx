@@ -6,7 +6,7 @@
  * TODO?: Add auto-suggest dropdown based on common ingredients, however, unlike web browser,
  * most mobile platforms have built-in auto-suggest based on user history, so it may be redundant.
  */
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Chip, Text } from 'react-native-paper';
 import { CustomTextInput } from './ui/CustomTextInput';
@@ -37,28 +37,65 @@ interface IngredientsListProps {
 export function IngredientsList({ value, onChange, style, onError }: IngredientsListProps) {
   // Local state for the input display (allows any string while typing)
   const [currentInput, setCurrentInput] = useState('');
+  const [isValid, setIsValid] = useState(false);
+  const isSubmitting = useRef(false);
+
+  // Handler for custom input changes
+  const handleChange = (input: string) => {
+    setCurrentInput(input);
+    setIsValid(INGREDIENT_REGEX.test(input.trim()));
+  };
+
+  // Clear input
+  const clearInput = () => {
+    setCurrentInput('');
+    setIsValid(false);
+  };
 
   // Handler for input changes
   const handleAdd = () => {
     const trimmed = currentInput.trim();
+
+    // Empty is not an error
+    if (trimmed === '') {
+      clearInput();
+      return;
+    }
+
     // Case invalid format
     if (!INGREDIENT_REGEX.test(trimmed)) {
       onError?.("Invalid ingredient. Use only letters, spaces, and hyphens (1-20 characters)");
+      clearInput();
       return;
     }
     const normalized = trimmed.toLowerCase().replace(/\s+/g, '-');
     // Case duplicate
     if (value.includes(normalized)) {
-      onError?.("Duplicate ingredient" + `"${normalized}" is already in the list`);
+      onError?.(`Duplicate ingredient: "${normalized}" is already in the list`);
+      clearInput();
       return;
     }
     // Case max reached
     if (value.length >= MAX_INGREDIENTS) {
       onError?.(`Maximum reached. You can only add up to ${MAX_INGREDIENTS} ingredients`);
+      clearInput();
       return;
     }
     onChange([...value, normalized]);
-    setCurrentInput('');  // Clear input after adding
+    clearInput();
+  };
+
+  // Handler for submitting custom allergy (on blur or submit)
+  const handleSubmit = () => {
+    isSubmitting.current = true;
+    handleAdd();
+    setTimeout(() => { isSubmitting.current = false; }, 100);
+  };
+
+  // Handler for blur event on custom input
+  const handleBlur = () => {
+    if (isSubmitting.current) return;
+    handleAdd();
   };
 
   // Allow removal of ingredients
@@ -85,14 +122,14 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
 
       <CustomTextInput
         value={currentInput}
-        onChangeText={setCurrentInput}
-        onBlur={handleAdd}
-        onSubmitEditing={handleAdd}
+        onChangeText={handleChange}
+        onBlur={handleBlur}
+        onSubmitEditing={handleSubmit}
         placeholder="e.g., chicken, rice, tomatoes"
         placeholderTextColor="#5a5f67"
         returnKeyType="done"
         // undefined when empty, valid/invalid otherwise
-        validationState={currentInput === '' ? undefined : INGREDIENT_REGEX.test(currentInput) ? 'valid' : 'invalid'}
+        validationState={currentInput === '' ? undefined : isValid ? 'valid' : 'invalid'}
         style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
       />
 
@@ -110,5 +147,3 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
     </View>
   );
 }
-
-
