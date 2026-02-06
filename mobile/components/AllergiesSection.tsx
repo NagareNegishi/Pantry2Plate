@@ -89,7 +89,7 @@ export function AllergiesSection({
       // auto-select instead of error
       if (!value.includes(normalized as Allergy)) {
         onChange([...value, normalized as Allergy]);
-        onError?.(`Selected predefined allergy "${trimmed}" has been selected from predefined options`);
+        onInfo?.(`${trimmed}" is selected from predefined allergies`);
       } else {
         onInfo?.(`"${trimmed}" is already checked`);
       }
