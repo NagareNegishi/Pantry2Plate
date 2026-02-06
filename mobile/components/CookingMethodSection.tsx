@@ -3,21 +3,12 @@
  * A reusable input component for selecting the type of cooking method.
  * Allows users to choose from predefined cooking method types. See CookingMethod in shared module.
  */
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import type { CookingMethod } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { Text } from 'react-native-paper';
+import { CustomDropdown } from './CustomDropdown';
+import { CustomTextInput } from './ui/CustomTextInput';
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 
@@ -32,9 +23,10 @@ interface CookingMethodSectionProps {
   // If custom cooking method type 'other' is selected
   customValue: string;
   onCustomChange: (value: string) => void;
-
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style?: StyleProp<ViewStyle>;
+  // Optional callback for error messages
+  onError?: (message: string) => void;
 }
 
 /**
@@ -42,41 +34,31 @@ interface CookingMethodSectionProps {
  * @param CookingMethodSectionProps but as destructured props
  * @returns A dropdown for selecting recipe cooking method type
  */
-export function CookingMethodSection({ value, onChange, customValue, onCustomChange, className }: CookingMethodSectionProps ) {
-  
+export function CookingMethodSection({
+  value,
+  onChange,
+  customValue,
+  onCustomChange,
+  style,
+  onError
+  }: CookingMethodSectionProps ) {
+
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
   const [isValid, setIsValid] = useState(false);
-
-  // Handler for custom input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setDisplayCustom(input);
-    setIsValid(CUSTOM_REGEX.test(input.trim()));
-  };
 
   // Handler for adding custom cooking method type
   const handleAdd = () => {
     const trimmed = displayCustom.trim();
     // Case invalid format
     if (!CUSTOM_REGEX.test(trimmed)) {
-      toast.error("Invalid cooking method", {
-        description: "Use only letters, spaces, and hyphens (1-20 characters)",
-      });
+      onError?.("Invalid cooking method. Use only letters, spaces, and hyphens (1-20 characters)");
       setDisplayCustom('');
       setIsValid(false);
       return;
     }
     onCustomChange(trimmed);
     setIsValid(true);
-  };
-
-  // When user presses Enter in custom input
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission if inside a form
-      handleAdd();
-    }
   };
 
   // Reset custom input when switching away from 'other'
@@ -93,61 +75,56 @@ export function CookingMethodSection({ value, onChange, customValue, onCustomCha
     // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
-
   return (
-    <div className={cn("flex flex-col w-full max-w-48 items-center gap-1.5", className)}>
-
-      <Label
-        htmlFor="cooking-method"
-        className="text-xl whitespace-nowrap"
-      >
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 240,
+      alignItems: 'flex-start',
+      gap: 6,
+    }, style]}>
+      <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
         Cooking Method
-      </Label>
-      <Select
+      </Text>
+
+      {/* Dropdown for cooking method selection */}
+      <CustomDropdown<CookingMethod>
         value={value}
-        onValueChange={(value) => onChange(value as CookingMethod)}
-      >
-        <SelectTrigger className="w-full max-w-48">
-          <SelectValue placeholder="Select a cooking method" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Cooking Method</SelectLabel>
-            <SelectItem value="any">Any</SelectItem>
-            <SelectItem value="bake">Bake</SelectItem>
-            <SelectItem value="deep-fry">Deep-Fry</SelectItem>
-            <SelectItem value="grill">Grill</SelectItem>
-            <SelectItem value="steam">Steam</SelectItem>
-            <SelectItem value="boil">Boil</SelectItem>
-            <SelectItem value="roast">Roast</SelectItem>
-            <SelectItem value="slow-cook">Slow-Cook</SelectItem>
-            <SelectItem value="stir-fry">Stir-Fry</SelectItem>
-            <SelectItem value="sauté">Sauté</SelectItem>
-            <SelectItem value="broil">Broil</SelectItem>
-            <SelectItem value="raw">Raw</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+        onChange={onChange}
+        style={{ maxWidth: 140 }}
+        options={[
+          'any',
+          'bake',
+          'deep-fry',
+          'grill',
+          'steam',
+          'boil',
+          'roast',
+          'slow-cook',
+          'stir-fry',
+          'sauté',
+          'broil',
+          'raw',
+          'other'
+        ]}
+      />
 
       {/* custom input only shows if 'other' is selected */}
       {value === 'other' && (
-        <Input
-          type="text"
+        <CustomTextInput
           value={displayCustom}
-          onChange={handleChange}
+          onChangeText={setDisplayCustom}
           onBlur={handleAdd}
-          onKeyDown={handleEnter}
-          placeholder="Enter cooking method"
+          onSubmitEditing={handleAdd}
+          placeholder='Enter cooking method'
+          placeholderTextColor="#5a5f67"
           maxLength={20}
-          className={
-            isValid === true
-              ? 'border-green-500 focus-visible:ring-green-500'
-              : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
-          }
+          returnKeyType='done'
+          validationState={isValid ? 'valid' : 'invalid'} // never undefined
+          style={{ width: '100%', maxWidth: 320 }}
         />
       )}
 
-    </div>
+    </View>
   );
 }
