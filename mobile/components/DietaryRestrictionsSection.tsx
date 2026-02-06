@@ -149,7 +149,7 @@ export function DietaryRestrictionsSection({
     <View style={[{
       flexDirection: 'column',
       width: '100%',
-      maxWidth: 360,
+      maxWidth: 480,
       alignItems: 'flex-start',
       gap: 6,
     }, style]}>
@@ -161,8 +161,8 @@ export function DietaryRestrictionsSection({
         onPress={handlePress}
         style={{
           width: '100%',
-          maxWidth: 360,
-          minWidth: 180,
+          maxWidth: 480,
+          minWidth: 260,
           backgroundColor: '#ffffff',
         }}
       >

@@ -11,7 +11,7 @@ import { Link } from 'expo-router';
 import { useState } from 'react';
 
 import { BasicInputs } from '@/components/BasicInputs';
-import type { Allergy, CookingMethod, CuisineType, Difficulty, MealType } from '@pantry2plate/shared';
+import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, MealType } from '@pantry2plate/shared';
 // import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 
 // toaster replacement
@@ -21,6 +21,7 @@ import { Snackbar, Text } from 'react-native-paper';
 import { AllergiesSection } from '@/components/AllergiesSection';
 import { CookingMethodSection } from '@/components/CookingMethodSection';
 import { CuisineSection } from '@/components/CuisineSection';
+import { DietaryRestrictionsSection } from '@/components/DietaryRestrictionsSection';
 import { MealTypeSection } from '@/components/MealTypeSection';
 
 
@@ -41,6 +42,8 @@ export default function HomeScreen() {
   const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
   const [allergies, setAllergies] = useState<Allergy[]>([]);
   const [customAllergy, setCustomAllergy] = useState<string[]>([]);
+  const [dietaryRestrictions, setDietaryRestrictions] = useState<DietaryRestriction[]>([]);
+  const [customDietaryRestriction, setCustomDietaryRestriction] = useState<string[]>([]);
 
 
 
@@ -126,6 +129,18 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
             onChange={setAllergies}
             customValue={customAllergy}
             onCustomChange={setCustomAllergy}
+            onError={showSnackbar}
+            onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
+            style={{ width: '100%' }}
+          />
+        </ThemedView>
+
+        <ThemedView style={styles.stepContainer}>
+          <DietaryRestrictionsSection
+            value={dietaryRestrictions}
+            onChange={setDietaryRestrictions}
+            customValue={customDietaryRestriction}
+            onCustomChange={setCustomDietaryRestriction}
             onError={showSnackbar}
             onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
             style={{ width: '100%' }}
