@@ -58,7 +58,7 @@ export function BasicInputs({
           <ServingsInput value={servings} onChange={setServings}/>
           <CookingTimeInput value={cookingTime} onChange={setCookingTime}/>
         </View>
-          <DifficultySelect value={difficulty} onChange={setDifficulty}/>
+          <DifficultySelect value={difficulty} onChange={setDifficulty} style={{ maxWidth: 120 }} />
         </View>
     </View>
   );

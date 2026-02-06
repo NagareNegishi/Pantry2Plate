@@ -61,13 +61,6 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     setIsValid(true);
   };
 
-  // When user presses Enter in custom input
-  const handleEnter = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission if inside a form
-      handleAdd();
-    }
-  };
 
   // Reset custom input when switching away from 'other'
   // NOTE: First argument is the code to run, second argument determines when to run it
@@ -89,7 +82,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     <View style={[{
       flexDirection: 'column',
       width: '100%',
-      maxWidth: 120,
+      maxWidth: 240,
       alignItems: 'flex-start',
       gap: 6,
     }, style]}>
@@ -100,7 +93,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
       <CustomDropdown<MealType>
         value={value}
         onChange={onChange}
-        style={[style, { maxWidth: 200 }]}
+        style={[style, { maxWidth: 140 }]}
         options={['any', 'breakfast', 'lunch', 'dinner', 'snack', 'brunch', 'dessert', 'other']}
       />
 
