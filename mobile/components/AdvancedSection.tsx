@@ -3,14 +3,10 @@
  * Collection of advanced input components for recipe parameters.
  * Receives state and setters from parent component (App.tsx).
  */
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { cn } from "@/lib/utils";
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
+import { useState } from "react";
+import { StyleProp, View, ViewStyle } from 'react-native';
+import { List } from 'react-native-paper';
 import { AllergiesSection } from './AllergiesSection';
 import { CookingMethodSection } from './CookingMethodSection';
 import { CuisineSection } from './CuisineSection';
@@ -28,34 +24,42 @@ interface AdvancedSectionProps {
   setMealType: (value: MealType) => void;
   customMealType: string;
   setCustomMealType: (value: string) => void;
+  mealTypeError?: (message: string) => void;
   // Cuisine type
   cuisineType: CuisineType;
   setCuisineType: (value: CuisineType) => void;
   customCuisineType: string;
   setCustomCuisineType: (value: string) => void;
+  cuisineTypeError?: (message: string) => void;
   // Cooking method
   cookingMethod: CookingMethod;
   setCookingMethod: (value: CookingMethod) => void;
   customCookingMethod: string;
   setCustomCookingMethod: (value: string) => void;
+  cookingMethodError?: (message: string) => void;
   // Allergies
   allergies: Allergy[];
   setAllergies: (value: Allergy[]) => void;
   customAllergies: string[];
   setCustomAllergies: (value: string[]) => void;
+  allergiesError?: (message: string) => void;
+  allergiesInfo?: (message: string) => void;
   // Dietary restrictions
   dietaryRestrictions: DietaryRestriction[];
   setDietaryRestrictions: (value: DietaryRestriction[]) => void;
   customDietaryRestrictions: string[];
   setCustomDietaryRestrictions: (value: string[]) => void;
+  dietaryRestrictionsError?: (message: string) => void;
+  dietaryRestrictionsInfo?: (message: string) => void;
   // Flavor profiles
   flavorProfiles: FlavorProfile[];
   setFlavorProfiles: (value: FlavorProfile[]) => void;
   customFlavorProfiles: string[];
   setCustomFlavorProfiles: (value: string[]) => void;
-
-  // Optional className for styling
-  className?: string;
+  flavorProfilesError?: (message: string) => void;
+  flavorProfilesInfo?: (message: string) => void;
+  // Optional styling
+  style?: StyleProp<ViewStyle>;
 }
 
 
@@ -69,86 +73,124 @@ export function AdvancedSection({
   setMealType,
   customMealType,
   setCustomMealType,
+  mealTypeError,
   cuisineType,
   setCuisineType,
   customCuisineType,
   setCustomCuisineType,
+  cuisineTypeError,
   cookingMethod,
   setCookingMethod,
   customCookingMethod,
   setCustomCookingMethod,
+  cookingMethodError,
   allergies,
   setAllergies,
   customAllergies,
   setCustomAllergies,
+  allergiesError,
+  allergiesInfo,
   dietaryRestrictions,
   setDietaryRestrictions,
   customDietaryRestrictions,
   setCustomDietaryRestrictions,
+  dietaryRestrictionsError,
+  dietaryRestrictionsInfo,
   flavorProfiles,
   setFlavorProfiles,
   customFlavorProfiles,
   setCustomFlavorProfiles,
-  className
+  flavorProfilesError,
+  flavorProfilesInfo,
+  style
   }: AdvancedSectionProps) {
+
+  // Handler for accordion toggle
+  const [expanded, setExpanded] = useState(false);
+  const handlePress = () => setExpanded(!expanded);
+
   return (
-    <div className={cn("space-y-6 flex flex-col items-center", className)}>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="advanced" className="w-full">
+    <View style={[{ gap: 24}, style]}>
+      <List.Accordion
+        title="Advanced Options"
+        titleStyle={{ fontSize: 18, color: '#000' }}
+        expanded={expanded}
+        onPress={handlePress}
+        style={{
+          width: '100%',
+          maxWidth: 360,
+          minWidth: 180,
+          backgroundColor: '#ffffff',
+        }}
+      >
 
-          <AccordionTrigger className="text-2xl">
-            <span className="flex-grow text-center">Advanced Options</span>
-          </AccordionTrigger>
+        <View
+          style={{
+            backgroundColor: '#ffffff',
+            paddingVertical: 8,
+          }}>
 
-          <AccordionContent className="px-2 pb-2 w-full">
-            <div className="space-y-12  w-full">
-              {/* critical requirements at the top */}
-              <div className="grid grid-cols-2 gap-8 w-full">
-                <AllergiesSection
-                  value={allergies}
-                  onChange={setAllergies}
-                  customValue={customAllergies}
-                  onCustomChange={setCustomAllergies}
-                />
-                <DietaryRestrictionsSection
-                  value={dietaryRestrictions}
-                  onChange={setDietaryRestrictions}
-                  customValue={customDietaryRestrictions}
-                  onCustomChange={setCustomDietaryRestrictions}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-8 w-full justify-items-center">
-                <MealTypeSection
-                  value={mealType}
-                  onChange={setMealType}
-                  customValue={customMealType}
-                  onCustomChange={setCustomMealType}
-                />
-                <CuisineSection
-                  value={cuisineType}
-                  onChange={setCuisineType}
-                  customValue={customCuisineType}
-                  onCustomChange={setCustomCuisineType}
-                />
-                <CookingMethodSection
-                  value={cookingMethod}
-                  onChange={setCookingMethod}
-                  customValue={customCookingMethod}
-                  onCustomChange={setCustomCookingMethod}
-                  className="pt-4" // align with other sections
-                />
-                <FlavorProfilesSection
-                  value={flavorProfiles}
-                  onChange={setFlavorProfiles}
-                  customValue={customFlavorProfiles}
-                  onCustomChange={setCustomFlavorProfiles}
-                />
-              </div>
-            </div>
-          </AccordionContent>
+          <MealTypeSection
+            value={mealType}
+            onChange={setMealType}
+            customValue={customMealType}
+            onCustomChange={setCustomMealType}
+            onError={mealTypeError}
+            style={{ width: '100%' }}
+          />
+          
+          <CuisineSection
+            value={cuisineType}
+            onChange={setCuisineType}
+            customValue={customCuisineType}
+            onCustomChange={setCustomCuisineType}
+            onError={cuisineTypeError}
+            style={{ width: '100%' }}
+          />
 
-        </AccordionItem>
-      </Accordion>
-    </div>
+          <CookingMethodSection
+            value={cookingMethod}
+            onChange={setCookingMethod}
+            customValue={customCookingMethod}
+            onCustomChange={setCustomCookingMethod}
+            onError={cookingMethodError}
+            style={{ width: '100%' }}
+          />
+          
+          <AllergiesSection
+            value={allergies}
+            onChange={setAllergies}
+            customValue={customAllergies}
+            onCustomChange={setCustomAllergies}
+            onError={allergiesError}
+            onInfo={allergiesInfo}
+            style={{ width: '100%' }}
+          />
+
+          <DietaryRestrictionsSection
+            value={dietaryRestrictions}
+            onChange={setDietaryRestrictions}
+            customValue={customDietaryRestrictions}
+            onCustomChange={setCustomDietaryRestrictions}
+            onError={dietaryRestrictionsError}
+            onInfo={dietaryRestrictionsInfo}
+            style={{ width: '100%' }}
+          />
+          
+          <FlavorProfilesSection
+            value={flavorProfiles}
+            onChange={setFlavorProfiles}
+            customValue={customFlavorProfiles}
+            onCustomChange={setCustomFlavorProfiles}
+            onError={flavorProfilesError}
+            onInfo={flavorProfilesInfo}
+            style={{ width: '100%' }}
+          />
+          
+          
+        </View>
+      </List.Accordion>
+
+    </View>
   );
 }
