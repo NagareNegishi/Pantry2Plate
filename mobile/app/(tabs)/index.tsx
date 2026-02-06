@@ -11,7 +11,7 @@ import { Link } from 'expo-router';
 import { useState } from 'react';
 
 import { BasicInputs } from '@/components/BasicInputs';
-import type { CookingMethod, CuisineType, Difficulty, MealType } from '@pantry2plate/shared';
+import type { Allergy, CookingMethod, CuisineType, Difficulty, MealType } from '@pantry2plate/shared';
 // import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 
 // toaster replacement
@@ -21,6 +21,7 @@ import { Snackbar, Text } from 'react-native-paper';
 import { CookingMethodSection } from '@/components/CookingMethodSection';
 import { CuisineSection } from '@/components/CuisineSection';
 import { MealTypeSection } from '@/components/MealTypeSection';
+import { AllergiesSection } from '@/components/AllergiesSection';
 
 
 export default function HomeScreen() {
@@ -38,6 +39,8 @@ export default function HomeScreen() {
   const [customCuisineType, setCustomCuisineType] = useState<string>('');
   const [cookingMethod, setCookingMethod] = useState<CookingMethod>('any');
   const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
+  const [allergies, setAllergies] = useState<Allergy[]>([]);
+  const [customAllergy, setCustomAllergy] = useState<string[]>([]);
 
 
 
@@ -107,6 +110,17 @@ const showSnackbar = (message: string) => {
           onChange={setCookingMethod}
           customValue={customCookingMethod}
           onCustomChange={setCustomCookingMethod}
+          onError={showSnackbar}
+          style={{ width: '100%' }}
+        />
+      </ThemedView>
+
+      <ThemedView style={styles.stepContainer}>
+        <AllergiesSection
+          value={allergies}
+          onChange={setAllergies}
+          customValue={customAllergy}
+          onCustomChange={setCustomAllergy}
           onError={showSnackbar}
           style={{ width: '100%' }}
         />
