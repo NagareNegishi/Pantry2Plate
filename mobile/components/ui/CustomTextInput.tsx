@@ -15,6 +15,7 @@ interface CustomTextInputProps {
   onBlur?: () => void;
   onSubmitEditing?: () => void;
   placeholder?: string;
+  placeholderTextColor?: string;
   maxLength?: number;
   returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
   validationState?: 'valid' | 'invalid';
@@ -34,6 +35,7 @@ export function CustomTextInput({
   onBlur,
   onSubmitEditing,
   placeholder = "Enter text",
+  placeholderTextColor = "#5a5f67",
   maxLength = 20,
   returnKeyType = 'done',
   validationState,
@@ -50,7 +52,7 @@ export function CustomTextInput({
   return (
     <TextInput
       placeholder={placeholder}
-      placeholderTextColor="#9ca3af"
+      placeholderTextColor={placeholderTextColor}
       value={value}
       onChangeText={onChangeText}
       onBlur={onBlur}

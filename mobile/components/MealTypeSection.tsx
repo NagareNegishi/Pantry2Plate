@@ -101,6 +101,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
           onBlur={handleAdd}
           onSubmitEditing={handleAdd}
           placeholder='Enter meal type'
+          placeholderTextColor="#5a5f67"
           maxLength={20}
           returnKeyType='done'
           validationState={isValid ? 'valid' : 'invalid'} // never undefined

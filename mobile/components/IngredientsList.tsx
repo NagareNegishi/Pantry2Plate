@@ -8,7 +8,8 @@
  */
 import { useState } from "react";
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { Chip, Text, TextInput } from 'react-native-paper';
+import { Chip, Text } from 'react-native-paper';
+import { CustomTextInput } from './ui/CustomTextInput';
 
 const MAX_INGREDIENTS = 10;
 const INGREDIENT_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
@@ -81,14 +82,17 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
       <Text style={{ fontSize: 14, color: '#666' }}>
         Letters, spaces, and hyphens only (1-20 characters)
       </Text>
-      <TextInput
-        mode="outlined"
-        placeholder="e.g., chicken, rice, tomatoes"
+
+      <CustomTextInput
         value={currentInput}
         onChangeText={setCurrentInput}
+        onBlur={handleAdd}
         onSubmitEditing={handleAdd}
-        returnKeyType="done" // Show platform-appropriate "Done" button on keyboard
-        // Paper TextInput has unfixed bug, without explicit width it height expands 100%
+        placeholder="e.g., chicken, rice, tomatoes"
+        placeholderTextColor="#5a5f67"
+        returnKeyType="done"
+        // undefined when empty, valid/invalid otherwise
+        validationState={currentInput === '' ? undefined : INGREDIENT_REGEX.test(currentInput) ? 'valid' : 'invalid'}
         style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
       />
 
