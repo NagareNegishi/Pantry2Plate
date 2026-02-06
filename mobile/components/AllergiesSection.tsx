@@ -4,7 +4,7 @@
  * Allows users to choose from predefined allergiess. See Allergy in shared module.
  */
 import type { Allergy } from '@pantry2plate/shared';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleProp, View, ViewStyle } from 'react-native';
 import { Checkbox, Chip, List, Text } from 'react-native-paper';
 import { CustomTextInput } from './ui/CustomTextInput';
@@ -50,13 +50,19 @@ export function AllergiesSection({
   onError
   }: AllergiesSectionProps ) {
 
-  // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState('');
   const [isValid, setIsValid] = useState(false);
-
   const [expanded, setExpanded] = useState(false);
+  const isSubmitting = useRef(false);
+
+  // Handler for accordion toggle
   const handlePress = () => setExpanded(!expanded);
 
+  // Handler for custom input changes
+  const handleChange = (input: string) => {
+    setDisplayCustom(input);
+    setIsValid(CUSTOM_REGEX.test(input.trim()));
+  };
 
   // Handler for adding custom allergies
   const handleCustomAdd = () => {
@@ -104,6 +110,19 @@ export function AllergiesSection({
     setIsValid(true);
   };
 
+  // Handler for submitting custom allergy (on blur or submit)
+  const handleSubmit = () => {
+    isSubmitting.current = true;
+    handleCustomAdd();
+    setTimeout(() => { isSubmitting.current = false; }, 100);
+  };
+
+  // Handler for blur event on custom input
+  const handleBlur = () => {
+    if (isSubmitting.current) return;
+    handleCustomAdd();
+  };
+
   // Reset custom input when switching away from 'other'
   // NOTE: First argument is the code to run, second argument determines when to run it
   useEffect(
@@ -118,6 +137,7 @@ export function AllergiesSection({
     // SECOND ARGUMENT: Dependency array
     [value, onCustomChange]);
 
+  // Handler for toggling predefined allergies
   const handleToggle = (allergy: Allergy) => {
     if (value.includes(allergy)) {
       onChange(value.filter(a => a !== allergy));
@@ -183,9 +203,9 @@ export function AllergiesSection({
           {value.includes('other') && (
             <CustomTextInput
               value={displayCustom}
-              onChangeText={setDisplayCustom}
-              onBlur={handleCustomAdd} //handleCustomAdd?
-              onSubmitEditing={handleCustomAdd}
+              onChangeText={handleChange}
+              onBlur={handleBlur}
+              onSubmitEditing={handleSubmit}
               placeholder="Enter allergies"
               placeholderTextColor="#5a5f67"
               maxLength={20}
