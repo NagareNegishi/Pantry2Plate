@@ -3,21 +3,12 @@
  * A reusable input component for selecting the type of meal.
  * Allows users to choose from predefined meal types. See MealType in shared module.
  */
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import type { MealType } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { View, ViewStyle } from 'react-native';
+import { Text, TextInput } from 'react-native-paper';
+import { CustomDropdown } from './CustomDropdown';
+
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 
@@ -32,9 +23,10 @@ interface MealTypeSectionProps {
   // If custom meal type 'other' is selected
   customValue: string;
   onCustomChange: (value: string) => void;
-
-  // Optional className for styling
-  className?: string;
+  // Optional styling
+  style?: ViewStyle;
+  // Optional callback for error messages
+  onError?: (message: string) => void;
 }
 
 /**
@@ -42,7 +34,7 @@ interface MealTypeSectionProps {
  * @param MealTypeSectionProps but as destructured props
  * @returns A dropdown for selecting recipe meal type
  */
-export function MealTypeSection({ value, onChange, customValue, onCustomChange, className }: MealTypeSectionProps ) {
+export function MealTypeSection({ value, onChange, customValue, onCustomChange, style, onError }: MealTypeSectionProps ) {
   
   // Local state for the input display (allows any string while typing)
   const [displayCustom, setDisplayCustom] = useState(customValue);
@@ -60,9 +52,7 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
     const trimmed = displayCustom.trim();
     // Case invalid format
     if (!CUSTOM_REGEX.test(trimmed)) {
-      toast.error("Invalid meal type", {
-        description: "Use only letters, spaces, and hyphens (1-20 characters)",
-      });
+      onError?.("Invalid meal type. Use only letters, spaces, and hyphens (1-20 characters)");
       setDisplayCustom('');
       setIsValid(false);
       return;
@@ -95,38 +85,57 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
 
 
   return (
-    <div className={cn("flex flex-col w-full max-w-40 items-center gap-1.5", className)}>
-
-      <Label
-        htmlFor="meal-type"
-        className="text-xl whitespace-nowrap"
-      >
+    // <div style={cn("flex flex-col w-full max-w-40 items-center gap-1.5", style)}>
+    <View style={[{
+      flexDirection: 'column',
+      width: '100%',
+      maxWidth: 160,
+      alignItems: 'center',
+      gap: 6,
+    }, style]}>
+      <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
         Meal Type
-      </Label>
-      <Select
+      </Text>
+
+      <CustomDropdown<MealType>
         value={value}
-        onValueChange={(value) => onChange(value as MealType)}
-      >
-        <SelectTrigger className="w-full max-w-40">
-          <SelectValue placeholder="Select a Meal Type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Meal Type</SelectLabel>
-            <SelectItem value="any">Any</SelectItem>
-            <SelectItem value="breakfast">Breakfast</SelectItem>
-            <SelectItem value="lunch">Lunch</SelectItem>
-            <SelectItem value="dinner">Dinner</SelectItem>
-            <SelectItem value="snack">Snack</SelectItem>
-            <SelectItem value="brunch">Brunch</SelectItem>
-            <SelectItem value="dessert">Dessert</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+        onChange={onChange}
+        style={style}
+        options={['any', 'breakfast', 'lunch', 'dinner', 'snack', 'brunch', 'dessert', 'other']}
+        label="Meal Type"
+      />
+
 
       {/* custom input only shows if 'other' is selected */}
-      {value === 'other' && (
+      <TextInput
+        mode="outlined"
+        placeholder="Enter meal type"
+        value={displayCustom}
+        onChangeText={setDisplayCustom}
+        onBlur={handleAdd}
+        onSubmitEditing={handleAdd}
+        maxLength={20}
+        returnKeyType="done"
+
+        // style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
+        style={[
+          {
+            width: '100%',
+            maxWidth: 320,
+            height: 40,
+            textAlign: 'left',
+            display: value === 'other' ? 'flex' : 'none', // Show only if 'other' is selected
+          },
+          isValid === true
+            ? { borderColor: '#4ade80', backgroundColor: '#d1fae5' } // green border and light green background for valid input
+            : { borderColor: '#f87171', backgroundColor: '#fee2e2' }, // red border and light red background for invalid input
+        ]}
+      />
+
+
+
+
+      {/* {value === 'other' && (
         <Input
           type="text"
           value={displayCustom}
@@ -135,14 +144,14 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
           onKeyDown={handleEnter}
           placeholder="Enter meal type"
           maxLength={20}
-          className={
+          style={
             isValid === true
               ? 'border-green-500 focus-visible:ring-green-500'
               : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
           }
         />
-      )}
+      )} */}
 
-    </div>
+    </View>
   );
 }

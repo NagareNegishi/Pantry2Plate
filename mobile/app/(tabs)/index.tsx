@@ -11,10 +11,14 @@ import { Link } from 'expo-router';
 import { useState } from 'react';
 
 import { BasicInputs } from '@/components/BasicInputs';
-import type { Difficulty } from '@pantry2plate/shared';
+import type { Difficulty, MealType } from '@pantry2plate/shared';
+// import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 
 // toaster replacement
 import { Snackbar, Text } from 'react-native-paper';
+
+// advanced inputs
+import { MealTypeSection } from '@/components/MealTypeSection';
 
 
 export default function HomeScreen() {
@@ -25,8 +29,13 @@ export default function HomeScreen() {
   const [cookingTime, setCookingTime] = useState<number>(60);
   const [difficulty, setDifficulty] = useState<Difficulty>('any');
   const [ingredients, setIngredients] = useState<string[]>([]);
+  // state for advanced inputs
+  const [mealType, setMealType] = useState<MealType>('any');
+  const [customMealType, setCustomMealType] = useState<string>('');
 
-const [snackbar, setSnackbar] = useState({ visible: false, message: '' });
+
+  // Snackbar state
+  const [snackbar, setSnackbar] = useState({ visible: false, message: '' });
 
 const showSnackbar = (message: string) => {
   setSnackbar({ visible: true, message });
@@ -58,6 +67,18 @@ const showSnackbar = (message: string) => {
           ingredients={ingredients}
           setIngredients={setIngredients}
           ingredientError={showSnackbar}
+          style={{ width: '100%' }}
+        />
+      </ThemedView>
+
+      {/* Advanced Meal Type Section */}
+      <ThemedView style={styles.stepContainer}>
+        <MealTypeSection
+          value={mealType}
+          onChange={setMealType}
+          customValue={customMealType}
+          onCustomChange={setCustomMealType}
+          onError={showSnackbar}
           style={{ width: '100%' }}
         />
       </ThemedView>
