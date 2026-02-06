@@ -88,7 +88,7 @@ export function CuisineSection({
       <CustomDropdown<CuisineType>
         value={value}
         onChange={onChange}
-        style={{ maxWidth: 140 }}
+        style={{ maxWidth: 180 }}
         options={[
           'any',
           'Italian',
