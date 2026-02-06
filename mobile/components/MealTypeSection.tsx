@@ -6,9 +6,9 @@
 import type { MealType } from '@pantry2plate/shared';
 import { useEffect, useState } from "react";
 import { StyleProp, View, ViewStyle } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { CustomDropdown } from './CustomDropdown';
-
+import { CustomTextInput } from './ui/CustomTextInput';
 
 const CUSTOM_REGEX = /^[a-zA-Z -]{1,20}$/; // letters, spaces, hyphens only, 1-20 chars
 
@@ -40,12 +40,6 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
   const [displayCustom, setDisplayCustom] = useState(customValue);
   const [isValid, setIsValid] = useState(false);
 
-  // Handler for custom input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    setDisplayCustom(input);
-    setIsValid(CUSTOM_REGEX.test(input.trim()));
-  };
 
   // Handler for adding custom meal type
   const handleAdd = () => {
@@ -90,60 +84,31 @@ export function MealTypeSection({ value, onChange, customValue, onCustomChange, 
         Meal Type
       </Text>
 
+      {/* Dropdown for meal type selection */}
       <CustomDropdown<MealType>
         value={value}
         onChange={onChange}
-        style={[style, { maxWidth: 140 }]}
+        style={{ maxWidth: 140 }}
         options={['any', 'breakfast', 'lunch', 'dinner', 'snack', 'brunch', 'dessert', 'other']}
       />
 
-
       {/* custom input only shows if 'other' is selected */}
-      <TextInput
-        mode="outlined"
-        placeholder="Enter meal type"
-        value={displayCustom}
-        onChangeText={setDisplayCustom}
-        onBlur={handleAdd}
-        onSubmitEditing={handleAdd}
-        maxLength={20}
-        returnKeyType="done"
 
-        // style={{ width: '100%', maxWidth: 320, height: 40, textAlign: 'left' }}
-        style={[
-          {
-            width: '100%',
-            maxWidth: 320,
-            height: 40,
-            textAlign: 'left',
-            display: value === 'other' ? 'flex' : 'none', // Show only if 'other' is selected
-          },
-          isValid === true
-            ? { borderColor: '#4ade80', backgroundColor: '#d1fae5' } // green border and light green background for valid input
-            : { borderColor: '#f87171', backgroundColor: '#fee2e2' }, // red border and light red background for invalid input
-        ]}
-      />
-
-
-
-
-      {/* {value === 'other' && (
-        <Input
-          type="text"
+{value === 'other' && (
+        <CustomTextInput
           value={displayCustom}
-          onChange={handleChange}
+          onChangeText={setDisplayCustom}
           onBlur={handleAdd}
-          onKeyDown={handleEnter}
-          placeholder="Enter meal type"
+          onSubmitEditing={handleAdd}
+          placeholder='Enter meal type'
           maxLength={20}
-          style={
-            isValid === true
-              ? 'border-green-500 focus-visible:ring-green-500'
-              : 'border-red-400 placeholder:text-red-300 focus-visible:ring-red-400'
-          }
+          returnKeyType='done'
+          validationState={isValid ? 'valid' : 'invalid'} // never undefined
+          style={{ width: '100%', maxWidth: 320 }}
         />
-      )} */}
+      )}
 
     </View>
   );
 }
+

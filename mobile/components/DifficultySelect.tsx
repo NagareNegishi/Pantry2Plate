@@ -42,7 +42,6 @@ export function DifficultySelect({ value, onChange, style }: DifficultySelectPro
       <CustomDropdown<Difficulty>
         value={value}
         onChange={onChange}
-        style={style}
         options={['any', 'easy', 'medium', 'hard']}
       />
     </View>
