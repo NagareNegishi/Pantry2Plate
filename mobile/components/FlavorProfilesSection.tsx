@@ -168,7 +168,7 @@ export function FlavorProfilesSection({
         style={{
           width: '100%',
           maxWidth: 360,
-          minWidth: 180,
+          minWidth: 240,
           backgroundColor: '#ffffff',
         }}
       >
