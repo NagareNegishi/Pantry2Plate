@@ -14,7 +14,6 @@ import {
   View,
   ViewStyle
 } from 'react-native';
-import { Text as PaperText } from 'react-native-paper';
 
 
 /**
@@ -30,8 +29,6 @@ interface CustomDropdownProps<T extends string> {
   style? : ViewStyle;
   // Array of options to display in the dropdown
   options: T[];
-  // Label for the dropdown
-  label: string;
 }
 
 
@@ -44,7 +41,7 @@ interface CustomDropdownProps<T extends string> {
  * @param CustomDropdownProps but as destructured props
  * @returns A dropdown for selecting a value from the provided options
  */
-export function CustomDropdown<T extends string>({ value, onChange, style, options, label }: CustomDropdownProps<T>) {
+export function CustomDropdown<T extends string>({ value, onChange, style, options }: CustomDropdownProps<T>) {
   const [isVisible, setIsVisible] = useState(false);
 
   // iOS: Custom touchable with modal picker
@@ -56,9 +53,6 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
         maxWidth: 100,
         gap: 6,
       }, style]}>
-        <PaperText style={{ fontSize: 20, color: '#000' }}>
-          {label}
-        </PaperText>
         
         {/* Input field to open picker modal */}
         <TouchableOpacity
@@ -154,9 +148,7 @@ export function CustomDropdown<T extends string>({ value, onChange, style, optio
       alignItems: 'flex-start', // or 'center'
       gap: 6,
     }, style]}>
-      <PaperText style={{ fontSize: 20, color: '#000' }}>
-        {label}
-      </PaperText>
+
       <Picker
         selectedValue={value}
         onValueChange={onChange}
