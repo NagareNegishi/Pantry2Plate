@@ -10,20 +10,12 @@ import { Link } from 'expo-router';
 // import from frontend
 import { useState } from 'react';
 
+import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
 
 // toaster replacement
 import { Snackbar, Text } from 'react-native-paper';
-
-// advanced inputs
-import { AllergiesSection } from '@/components/AllergiesSection';
-import { CookingMethodSection } from '@/components/CookingMethodSection';
-import { CuisineSection } from '@/components/CuisineSection';
-import { DietaryRestrictionsSection } from '@/components/DietaryRestrictionsSection';
-import { FlavorProfilesSection } from '@/components/FlavorProfilesSection';
-import { MealTypeSection } from '@/components/MealTypeSection';
-
 
 export default function HomeScreen() {
 
@@ -93,78 +85,43 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
 
         {/* Advanced Sections */}
         <ThemedView style={styles.stepContainer}>
-          <MealTypeSection
-            value={mealType}
-            onChange={setMealType}
-            customValue={customMealType}
-            onCustomChange={setCustomMealType}
-            onError={showSnackbar}
+          <AdvancedSection
+            mealType={mealType}
+            setMealType={setMealType}
+            customMealType={customMealType}
+            setCustomMealType={setCustomMealType}
+            mealTypeError={showSnackbar}
+            cuisineType={cuisineType}
+            setCuisineType={setCuisineType}
+            customCuisineType={customCuisineType}
+            setCustomCuisineType={setCustomCuisineType}
+            cuisineTypeError={showSnackbar}
+            cookingMethod={cookingMethod}
+            setCookingMethod={setCookingMethod}
+            customCookingMethod={customCookingMethod}
+            setCustomCookingMethod={setCustomCookingMethod}
+            cookingMethodError={showSnackbar}
+            allergies={allergies}
+            setAllergies={setAllergies}
+            customAllergies={customAllergy}
+            setCustomAllergies={setCustomAllergy}
+            allergiesError={showSnackbar}
+            allergiesInfo={(msg) => showSnackbar(msg, 'info')}
+            dietaryRestrictions={dietaryRestrictions}
+            setDietaryRestrictions={setDietaryRestrictions}
+            customDietaryRestrictions={customDietaryRestriction}
+            setCustomDietaryRestrictions={setCustomDietaryRestriction}
+            dietaryRestrictionsError={showSnackbar}
+            dietaryRestrictionsInfo={(msg) => showSnackbar(msg, 'info')}
+            flavorProfiles={flavorProfiles}
+            setFlavorProfiles={setFlavorProfiles}
+            customFlavorProfiles={customFlavorProfile}
+            setCustomFlavorProfiles={setCustomFlavorProfile}
+            flavorProfilesError={showSnackbar}
+            flavorProfilesInfo={(msg) => showSnackbar(msg, 'info')}
             style={{ width: '100%' }}
           />
         </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <CuisineSection
-            value={cuisineType}
-            onChange={setCuisineType}
-            customValue={customCuisineType}
-            onCustomChange={setCustomCuisineType}
-            onError={showSnackbar}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <CookingMethodSection
-            value={cookingMethod}
-            onChange={setCookingMethod}
-            customValue={customCookingMethod}
-            onCustomChange={setCustomCookingMethod}
-            onError={showSnackbar}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <AllergiesSection
-            value={allergies}
-            onChange={setAllergies}
-            customValue={customAllergy}
-            onCustomChange={setCustomAllergy}
-            onError={showSnackbar}
-            onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <DietaryRestrictionsSection
-            value={dietaryRestrictions}
-            onChange={setDietaryRestrictions}
-            customValue={customDietaryRestriction}
-            onCustomChange={setCustomDietaryRestriction}
-            onError={showSnackbar}
-            onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <FlavorProfilesSection
-            value={flavorProfiles}
-            onChange={setFlavorProfiles}
-            customValue={customFlavorProfile}
-            onCustomChange={setCustomFlavorProfile}
-            onError={showSnackbar}
-            onInfo={(message) => setSnackbar({ visible: true, message, type: 'info' })}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-
-
-
-
 
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="subtitle">Step 1: Try it</ThemedText>
