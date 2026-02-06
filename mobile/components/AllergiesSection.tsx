@@ -34,6 +34,7 @@ interface AllergiesSectionProps {
   style?: StyleProp<ViewStyle>;
   // Optional callback for error messages
   onError?: (message: string) => void;
+  onInfo?: (message: string) => void;
 }
 
 /**
@@ -47,7 +48,8 @@ export function AllergiesSection({
   customValue,
   onCustomChange,
   style,
-  onError
+  onError,
+  onInfo
   }: AllergiesSectionProps ) {
 
   const [displayCustom, setDisplayCustom] = useState('');
@@ -89,10 +91,7 @@ export function AllergiesSection({
         onChange([...value, normalized as Allergy]);
         onError?.(`Selected predefined allergy "${trimmed}" has been selected from predefined options`);
       } else {
-        onError?.("Already selected" + `"${trimmed}" is already checked`);  //TODO: this should be info, not error
-        // toast.info("Already selected", {
-        //   description: `"${trimmed}" is already checked`,
-        // });
+        onInfo?.(`"${trimmed}" is already checked`);
       }
       setDisplayCustom('');
       setIsValid(false);
