@@ -83,7 +83,7 @@ export function MealTypeSection({
       alignItems: 'flex-start',
       gap: 6,
     }, style]}>
-      <Text style={{ fontSize: 20, color: '#000', flexWrap: 'nowrap' }}>
+      <Text style={{ fontSize: 18, color: '#000', flexWrap: 'nowrap' }}>
         Meal Type
       </Text>
 

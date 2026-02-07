@@ -114,7 +114,7 @@ export function AdvancedSection({
       <List.Accordion
         title="Advanced Options"
         titleStyle={{
-          fontSize: 18,
+          fontSize: 20,
           fontWeight: '500', // 'bold' could work too
           color: '#000'
         }}
@@ -122,47 +122,19 @@ export function AdvancedSection({
         onPress={handlePress}
         style={{
           width: '100%',
-          // maxWidth: 360,
-          // minWidth: 180,
+          maxWidth: 360,
+          minWidth: 180,
           backgroundColor: '#ffffff',
         }}
       >
-
         <View
           style={{
             backgroundColor: '#ffffff',
-            paddingHorizontal: 16,
+            paddingHorizontal: 36,
             paddingVertical: 12,
             gap: 16,
+            alignItems: 'flex-start'
           }}>
-
-          <MealTypeSection
-            value={mealType}
-            onChange={setMealType}
-            customValue={customMealType}
-            onCustomChange={setCustomMealType}
-            onError={mealTypeError}
-            style={{ width: '100%' }}
-          />
-          
-          <CuisineSection
-            value={cuisineType}
-            onChange={setCuisineType}
-            customValue={customCuisineType}
-            onCustomChange={setCustomCuisineType}
-            onError={cuisineTypeError}
-            style={{ width: '100%' }}
-          />
-
-          <CookingMethodSection
-            value={cookingMethod}
-            onChange={setCookingMethod}
-            customValue={customCookingMethod}
-            onCustomChange={setCustomCookingMethod}
-            onError={cookingMethodError}
-            style={{ width: '100%' }}
-          />
-          
           <AllergiesSection
             value={allergies}
             onChange={setAllergies}
@@ -172,7 +144,6 @@ export function AdvancedSection({
             onInfo={allergiesInfo}
             style={{ width: '100%' }}
           />
-
           <DietaryRestrictionsSection
             value={dietaryRestrictions}
             onChange={setDietaryRestrictions}
@@ -182,7 +153,30 @@ export function AdvancedSection({
             onInfo={dietaryRestrictionsInfo}
             style={{ width: '100%' }}
           />
-          
+          <MealTypeSection
+            value={mealType}
+            onChange={setMealType}
+            customValue={customMealType}
+            onCustomChange={setCustomMealType}
+            onError={mealTypeError}
+            style={{ width: '100%', paddingHorizontal: 16 }}
+          />
+          <CuisineSection
+            value={cuisineType}
+            onChange={setCuisineType}
+            customValue={customCuisineType}
+            onCustomChange={setCustomCuisineType}
+            onError={cuisineTypeError}
+            style={{ width: '100%', paddingHorizontal: 16 }}
+          />
+          <CookingMethodSection
+            value={cookingMethod}
+            onChange={setCookingMethod}
+            customValue={customCookingMethod}
+            onCustomChange={setCustomCookingMethod}
+            onError={cookingMethodError}
+            style={{ width: '100%', paddingHorizontal: 16 }}
+          />
           <FlavorProfilesSection
             value={flavorProfiles}
             onChange={setFlavorProfiles}
@@ -192,11 +186,8 @@ export function AdvancedSection({
             onInfo={flavorProfilesInfo}
             style={{ width: '100%' }}
           />
-          
-          
         </View>
       </List.Accordion>
-
     </View>
   );
 }
