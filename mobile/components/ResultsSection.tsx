@@ -3,7 +3,7 @@
  * A reusable input component for displaying generated menu results.
  * Renders menu data with proper formatting.
  */
-import { StyleProp, Text, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 
 /**
  *  Props for the ResultsSection component
@@ -95,7 +95,149 @@ export function ResultsSection({ menuData, style }: ResultsSectionProps) {
 }
 
 
+const styles = StyleSheet.create({
+  // Main container
+  container: {
+    // No styles needed for now
+  },
+  
+  // Each menu card
+  menuCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    
+    // Shadow for elevation
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3, // Android shadow
+  },
 
+  // Header section
+  headerSection: {
+    borderBottomWidth: 3,
+    borderBottomColor: '#b8bcc3',
+    paddingBottom: 12,
+    marginBottom: 16,
+  },
+
+  // Recipe title
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#1f2937',
+  },
+
+  // Description
+  description: {
+    fontSize: 18,
+    color: '#4b5563',
+    marginBottom: 16,
+    fontStyle: 'italic',
+  },
+
+  // Info row
+  infoRow: {
+    flexDirection: 'row',
+    gap: 32,
+    marginBottom: 24,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#b8bcc3',
+  },
+
+  // Each info item container
+  infoItem: {
+    flexDirection: 'row',
+  },
+
+  // Info labels
+  infoLabel: {
+    fontWeight: '600',
+    color: '#374151',
+    fontSize: 16,
+  },
+
+  // Info values
+  infoValue: {
+    color: '#374151',
+    fontSize: 16,
+  },
+
+  // Generic section container
+  section: {
+    marginBottom: 24,
+  },
+
+  // Section titles
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 12,
+    color: '#1f2937',
+  },
+
+  // Ingredients box
+  ingredientsBox: {
+    backgroundColor: '#eff6ff',
+    borderRadius: 8,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#bfdbfe',
+  },
+
+  // Each ingredient item
+  ingredientItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 8,
+  },
+
+  // Bullet point
+  bullet: {
+    color: '#2563eb',
+    marginRight: 8,
+    fontSize: 16,
+  },
+
+  // Ingredient text
+  ingredientText: {
+    color: '#374151',
+    fontSize: 16,
+    flex: 1,
+  },
+
+  // Instruction box
+  instructionBox: {
+    backgroundColor: '#f9fafb',
+    borderRadius: 8,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    marginBottom: 12,
+    flexDirection: 'row',
+    gap: 2,
+  },
+
+  // Step number
+  stepNumber: {
+    fontWeight: '600',
+    color: '#4b5563',
+    fontSize: 14,
+  },
+
+  // Step text
+  stepText: {
+    color: '#374151',
+    fontSize: 14,
+    flex: 1,
+  },
+});
 
 
 
