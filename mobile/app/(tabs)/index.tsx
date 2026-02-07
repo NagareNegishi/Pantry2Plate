@@ -43,6 +43,12 @@ export default function HomeScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const handleGenerate = () => {
     console.log('Generating menu!!');
+    setIsLoading(true);
+    // Simulate generation process
+    setTimeout(() => {
+      setIsLoading(false);
+      showSnackbar('Menu generated successfully!', 'success');
+    }, 2000);
   };
 
   // Snackbar state
@@ -242,6 +248,7 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
+    backgroundColor: '#7f9253',
   },
   reactLogo: {
     height: 178,
