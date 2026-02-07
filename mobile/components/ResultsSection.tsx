@@ -39,9 +39,8 @@ export function ResultsSection({ menuData, style }: ResultsSectionProps) {
           
           {/* Recipe Header with separator */}
           <View style={styles.headerSection}>
-            <Text style={styles.headerText}>
-              Recipe {index + 1}: {menu.name}
-            </Text>
+            <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
+            <Text style={styles.recipeText}>{menu.name}</Text>
           </View>
 
           {/* Description */}
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   menuCard: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 12,
+    padding: 8,
     marginBottom: 32,
     borderWidth: 1,
     borderColor: '#e5e7eb',
@@ -124,10 +123,19 @@ const styles = StyleSheet.create({
     borderBottomColor: '#b8bcc3',
     paddingBottom: 12,
     marginBottom: 16,
+    padding: 8,
+  },
+
+  // Recipe number
+  recipeNumber: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#6b7280',
+    marginBottom: 4,
   },
 
   // Recipe title
-  headerText: {
+  recipeText: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#1f2937',
@@ -135,10 +143,11 @@ const styles = StyleSheet.create({
 
   // Description
   description: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#4b5563',
-    marginBottom: 16,
+    marginBottom: 8,
     fontStyle: 'italic',
+    padding: 8,
   },
 
   // Info section (servings, time, difficulty)
@@ -147,6 +156,7 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#b8bcc3',
+    padding: 8,
   },
 
   // Each info item container
@@ -215,7 +225,7 @@ const styles = StyleSheet.create({
   instructionBox: {
     backgroundColor: '#f9fafb',
     borderRadius: 8,
-    padding: 8,
+    padding: 6,
     borderWidth: 1,
     borderColor: '#e5e7eb',
     marginBottom: 12,
