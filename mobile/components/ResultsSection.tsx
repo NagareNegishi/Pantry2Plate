@@ -48,7 +48,7 @@ export function ResultsSection({ menuData, style }: ResultsSectionProps) {
           <Text style={styles.description}>{menu.description}</Text>
 
           {/* Info row: Servings, Time, Difficulty */}
-          <View style={styles.infoRow}>
+          <View style={styles.infoSection}>
             <View style={styles.infoItem}>
               <Text style={styles.infoLabel}>Servings: </Text>
               <Text style={styles.infoValue}>{menu.servings}</Text>
@@ -141,12 +141,10 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
 
-  // Info row
-  infoRow: {
-    flexDirection: 'row',
-    gap: 32,
+  // Info section (servings, time, difficulty)
+  infoSection: {
     marginBottom: 24,
-    paddingBottom: 16,
+    paddingBottom: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#b8bcc3',
   },
@@ -154,6 +152,7 @@ const styles = StyleSheet.create({
   // Each info item container
   infoItem: {
     flexDirection: 'row',
+    marginBottom: 8,
   },
 
   // Info labels
