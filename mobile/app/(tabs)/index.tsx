@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
+import { GenerateButton } from '@/components/GenerateButton';
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
 
 // toaster replacement
@@ -38,8 +39,11 @@ export default function HomeScreen() {
   const [customDietaryRestriction, setCustomDietaryRestriction] = useState<string[]>([]);
   const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
   const [customFlavorProfile, setCustomFlavorProfile] = useState<string[]>([]);
-
-
+  // Loading state for generation process
+  const [isLoading, setIsLoading] = useState(false);
+  const handleGenerate = () => {
+    console.log('Generating menu!!');
+  };
 
   // Snackbar state
   const [snackbar, setSnackbar] = useState({
@@ -122,6 +126,19 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
             style={{ width: '100%' }}
           />
         </ThemedView>
+
+        <ThemedView style={styles.stepContainer}>
+          <GenerateButton
+            onPress={handleGenerate}
+            disabled={ingredients.length === 0 || isLoading}
+            isLoading={isLoading}
+            style={{ width: '100%' }}
+          />
+        </ThemedView>
+
+                      
+
+
 
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="subtitle">Step 1: Try it</ThemedText>

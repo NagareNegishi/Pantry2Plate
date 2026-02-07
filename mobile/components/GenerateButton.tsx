@@ -33,6 +33,9 @@ export function GenerateButton({ onPress, disabled, isLoading, style }: Generate
         {
           marginVertical: 24,
           borderRadius: 12,
+          width: '100%',
+          maxWidth: 360,
+          minWidth: 240,
         },
         style
       ]}
