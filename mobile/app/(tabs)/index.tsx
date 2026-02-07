@@ -15,6 +15,11 @@ import { BasicInputs } from '@/components/BasicInputs';
 import { GenerateButton } from '@/components/GenerateButton';
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
 
+// mock result data
+import { ResultsSection } from '@/components/ResultsSection';
+import { MOCK_MENU_RESPONSE } from '@/mock/menuData';
+
+
 // toaster replacement
 import { Snackbar, Text } from 'react-native-paper';
 
@@ -39,8 +44,24 @@ export default function HomeScreen() {
   const [customDietaryRestriction, setCustomDietaryRestriction] = useState<string[]>([]);
   const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
   const [customFlavorProfile, setCustomFlavorProfile] = useState<string[]>([]);
+
+
   // Loading state for generation process
   const [isLoading, setIsLoading] = useState(false);
+
+  // State for generated menu results
+  const [menuData, setMenuData] = useState<{
+    menus: Array<{
+      name: string;
+      description: string;
+      servings: number;
+      cookingTime: number;
+      difficulty: string;
+      ingredients: string[];
+      instructions: string[];
+    }>;
+  } | null>(null);
+
   const handleGenerate = () => {
     console.log('Generating menu!!');
     setIsLoading(true);
@@ -49,6 +70,7 @@ export default function HomeScreen() {
       setIsLoading(false);
       showSnackbar('Menu generated successfully!', 'success');
     }, 2000);
+    setMenuData(MOCK_MENU_RESPONSE.response);
   };
 
   // Snackbar state
@@ -60,6 +82,9 @@ export default function HomeScreen() {
 
 const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
   setSnackbar({ visible: true, message, type });
+
+
+
 };
 
   return (
@@ -142,7 +167,13 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
           />
         </ThemedView>
 
-                      
+        {/* Display generated menu results */}
+        <ThemedView style={styles.stepContainer}>
+          <ResultsSection
+            menuData={menuData}
+            style={{ width: '100%' }}
+          />
+        </ThemedView>
 
 
 
