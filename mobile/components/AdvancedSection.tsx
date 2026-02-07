@@ -113,13 +113,17 @@ export function AdvancedSection({
     <View style={[{ gap: 24}, style]}>
       <List.Accordion
         title="Advanced Options"
-        titleStyle={{ fontSize: 18, color: '#000' }}
+        titleStyle={{
+          fontSize: 18,
+          fontWeight: '500', // 'bold' could work too
+          color: '#000'
+        }}
         expanded={expanded}
         onPress={handlePress}
         style={{
           width: '100%',
-          maxWidth: 360,
-          minWidth: 180,
+          // maxWidth: 360,
+          // minWidth: 180,
           backgroundColor: '#ffffff',
         }}
       >
@@ -127,7 +131,9 @@ export function AdvancedSection({
         <View
           style={{
             backgroundColor: '#ffffff',
-            paddingVertical: 8,
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            gap: 16,
           }}>
 
           <MealTypeSection
