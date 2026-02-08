@@ -5,7 +5,7 @@
  */
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { useState } from "react";
-import { StyleProp, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import { List } from 'react-native-paper';
 import { AllergiesSection } from './AllergiesSection';
 import { CookingMethodSection } from './CookingMethodSection';
@@ -112,13 +112,23 @@ export function AdvancedSection({
   return (
     <View style={[{ gap: 24 }, style]}>
       <List.Accordion
-        title="Advanced Options"
-        titleStyle={{
-          fontSize: 20,
-          fontWeight: '500', // 'bold' could work too
-          color: '#000',
-          textAlign: 'center',
-        }}
+        title={
+          <View style={{
+            paddingBottom: 6,
+            borderBottomWidth: 2,
+            borderBottomColor: '#000',
+            alignItems: 'center',
+            width: '100%'
+          }}>
+            <Text style={{
+              fontSize: 20,
+              fontWeight: '500',
+              color: '#000',
+            }}>
+              Advanced Options
+            </Text>
+          </View>
+        }
         expanded={expanded}
         onPress={handlePress}
         style={{
