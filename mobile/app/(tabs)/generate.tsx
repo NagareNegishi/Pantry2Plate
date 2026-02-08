@@ -68,8 +68,8 @@ export default function TabGenerate() {
     setTimeout(() => {
       setIsLoading(false);
       showSnackbar('Menu generated successfully!', 'success');
+      setMenuData(MOCK_MENU_RESPONSE.response);
     }, 2000);
-    setMenuData(MOCK_MENU_RESPONSE.response);
   };
 
   // Function to show snackbar messages
