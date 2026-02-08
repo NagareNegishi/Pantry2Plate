@@ -29,18 +29,25 @@ export function GenerateButton({ onPress, disabled, isLoading, style }: Generate
       style={({ pressed }) => [
         {
           marginVertical: 24,
-          borderRadius: 12,
+          paddingVertical: 16,
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
           maxWidth: 360,
           minWidth: 240,
-          height: 96,
+          height: 80,
           backgroundColor: disabled
             ? '#86efac'
             : pressed
               ? '#16a34a'
               : '#22c55e',
+          borderRadius: 50,
+          borderWidth: 3,
+          borderColor: disabled
+            ? '#4ade80'
+            : pressed
+              ? '#15803d'
+              : '#16a34a',
         },
         style
       ]}

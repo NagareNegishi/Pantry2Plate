@@ -82,94 +82,90 @@ export default function TabGenerate() {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.contentContainer}
+        >
+          <ThemedView style={styles.titleContainer}>
+            <ThemedText type="title">Find new recipes</ThemedText>
+          </ThemedView>
 
+          {/* Combined Basic Inputs Component */}
+          <ThemedView style={styles.stepContainer}>
+            <BasicInputs
+              servings={servings}
+              setServings={setServings}
+              cookingTime={cookingTime}
+              setCookingTime={setCookingTime}
+              difficulty={difficulty}
+              setDifficulty={setDifficulty}
+              ingredients={ingredients}
+              setIngredients={setIngredients}
+              ingredientError={showSnackbar}
+              style={{ width: '100%' }}
+            />
+          </ThemedView>
 
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">Find new recipes</ThemedText>
-        </ThemedView>
+          {/* Advanced Sections */}
+          <ThemedView style={styles.stepContainer}>
+            <AdvancedSection
+              mealType={mealType}
+              setMealType={setMealType}
+              customMealType={customMealType}
+              setCustomMealType={setCustomMealType}
+              mealTypeError={showSnackbar}
+              cuisineType={cuisineType}
+              setCuisineType={setCuisineType}
+              customCuisineType={customCuisineType}
+              setCustomCuisineType={setCustomCuisineType}
+              cuisineTypeError={showSnackbar}
+              cookingMethod={cookingMethod}
+              setCookingMethod={setCookingMethod}
+              customCookingMethod={customCookingMethod}
+              setCustomCookingMethod={setCustomCookingMethod}
+              cookingMethodError={showSnackbar}
+              allergies={allergies}
+              setAllergies={setAllergies}
+              customAllergies={customAllergy}
+              setCustomAllergies={setCustomAllergy}
+              allergiesError={showSnackbar}
+              allergiesInfo={(msg) => showSnackbar(msg, 'info')}
+              dietaryRestrictions={dietaryRestrictions}
+              setDietaryRestrictions={setDietaryRestrictions}
+              customDietaryRestrictions={customDietaryRestriction}
+              setCustomDietaryRestrictions={setCustomDietaryRestriction}
+              dietaryRestrictionsError={showSnackbar}
+              dietaryRestrictionsInfo={(msg) => showSnackbar(msg, 'info')}
+              flavorProfiles={flavorProfiles}
+              setFlavorProfiles={setFlavorProfiles}
+              customFlavorProfiles={customFlavorProfile}
+              setCustomFlavorProfiles={setCustomFlavorProfile}
+              flavorProfilesError={showSnackbar}
+              flavorProfilesInfo={(msg) => showSnackbar(msg, 'info')}
+              style={{ width: '100%' }}
+            />
+          </ThemedView>
 
-        {/* Combined Basic Inputs Component */}
-        <ThemedView style={styles.stepContainer}>
-          <BasicInputs
-            servings={servings}
-            setServings={setServings}
-            cookingTime={cookingTime}
-            setCookingTime={setCookingTime}
-            difficulty={difficulty}
-            setDifficulty={setDifficulty}
-            ingredients={ingredients}
-            setIngredients={setIngredients}
-            ingredientError={showSnackbar}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
+          <ThemedView style={styles.stepContainer}>
+            <GenerateButton
+              onPress={handleGenerate}
+              disabled={ingredients.length === 0 || isLoading}
+              isLoading={isLoading}
+              style={{ width: '75%', alignSelf: 'center' }}
+            />
+          </ThemedView>
 
-        {/* Advanced Sections */}
-        <ThemedView style={styles.stepContainer}>
-          <AdvancedSection
-            mealType={mealType}
-            setMealType={setMealType}
-            customMealType={customMealType}
-            setCustomMealType={setCustomMealType}
-            mealTypeError={showSnackbar}
-            cuisineType={cuisineType}
-            setCuisineType={setCuisineType}
-            customCuisineType={customCuisineType}
-            setCustomCuisineType={setCustomCuisineType}
-            cuisineTypeError={showSnackbar}
-            cookingMethod={cookingMethod}
-            setCookingMethod={setCookingMethod}
-            customCookingMethod={customCookingMethod}
-            setCustomCookingMethod={setCustomCookingMethod}
-            cookingMethodError={showSnackbar}
-            allergies={allergies}
-            setAllergies={setAllergies}
-            customAllergies={customAllergy}
-            setCustomAllergies={setCustomAllergy}
-            allergiesError={showSnackbar}
-            allergiesInfo={(msg) => showSnackbar(msg, 'info')}
-            dietaryRestrictions={dietaryRestrictions}
-            setDietaryRestrictions={setDietaryRestrictions}
-            customDietaryRestrictions={customDietaryRestriction}
-            setCustomDietaryRestrictions={setCustomDietaryRestriction}
-            dietaryRestrictionsError={showSnackbar}
-            dietaryRestrictionsInfo={(msg) => showSnackbar(msg, 'info')}
-            flavorProfiles={flavorProfiles}
-            setFlavorProfiles={setFlavorProfiles}
-            customFlavorProfiles={customFlavorProfile}
-            setCustomFlavorProfiles={setCustomFlavorProfile}
-            flavorProfilesError={showSnackbar}
-            flavorProfilesInfo={(msg) => showSnackbar(msg, 'info')}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
+          {/* Display generated menu results */}
+          <ThemedView style={styles.stepContainer}>
+            <ResultsSection
+              menuData={menuData}
+              style={{ width: '100%' }}
+            />
+          </ThemedView>
 
-        <ThemedView style={styles.stepContainer}>
-          <GenerateButton
-            onPress={handleGenerate}
-            disabled={ingredients.length === 0 || isLoading}
-            isLoading={isLoading}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
+        </ScrollView>
+      </SafeAreaView>
 
-        {/* Display generated menu results */}
-        <ThemedView style={styles.stepContainer}>
-          <ResultsSection
-            menuData={menuData}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-
-
-
-      </ScrollView>
-</SafeAreaView>
       {/* Snackbar for error messages */}
       <Snackbar
         visible={snackbar.visible}
@@ -210,11 +206,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   contentContainer: {
-    padding: 16,  // Add padding so content isn't edge-to-edge
+    padding: 16,
     paddingTop: 48,
+    paddingBottom: 80,
   },
-
-
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -227,5 +222,4 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: 'transparent'
   }
-  
 });
