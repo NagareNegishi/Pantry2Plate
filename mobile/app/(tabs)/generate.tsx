@@ -9,6 +9,7 @@ import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
 import { GenerateButton } from '@/components/GenerateButton';
 import { ResultsSection } from '@/components/ResultsSection';
+import { Fonts } from '@/constants/theme';
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { Snackbar, Text } from 'react-native-paper';
 
@@ -87,7 +88,23 @@ export default function TabGenerate() {
           contentContainerStyle={styles.contentContainer}
         >
           <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">Find new recipes</ThemedText>
+            <ThemedText
+              type="title"
+              style={{
+                fontFamily: Fonts.rounded,
+                fontSize: 32,
+                // fontStyle: 'italic',
+                // fontWeight: '700',
+                letterSpacing: 1,
+                textTransform: 'uppercase',
+                color: '#f6f1ac',  // Fill color
+                textShadowColor: '#000000',  // Outline color
+                textShadowOffset: { width: -1, height: 1 },
+                textShadowRadius: 3,
+              }}
+            >
+              Find new recipes
+            </ThemedText>
           </ThemedView>
 
           {/* Combined Basic Inputs Component */}
