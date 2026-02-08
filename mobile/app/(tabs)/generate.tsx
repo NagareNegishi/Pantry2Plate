@@ -119,7 +119,12 @@ export default function TabGenerate() {
               ingredients={ingredients}
               setIngredients={setIngredients}
               ingredientError={showSnackbar}
-              style={{ width: '100%' }}
+              style={{
+                width: '100%',
+                maxWidth: 320,
+                marginBottom: 20,
+                alignSelf: 'center',
+              }}
             />
           </ThemedView>
 
@@ -232,7 +237,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    marginBottom: 24,
   },
   stepContainer: {
     gap: 8,

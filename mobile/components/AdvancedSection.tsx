@@ -159,7 +159,7 @@ export function AdvancedSection({
             customValue={customMealType}
             onCustomChange={setCustomMealType}
             onError={mealTypeError}
-            style={{ width: '100%', paddingHorizontal: 16 }}
+            style={{ width: '100%', paddingHorizontal: 16, marginBottom: 10 }}
           />
           <CuisineSection
             value={cuisineType}
@@ -167,7 +167,7 @@ export function AdvancedSection({
             customValue={customCuisineType}
             onCustomChange={setCustomCuisineType}
             onError={cuisineTypeError}
-            style={{ width: '100%', paddingHorizontal: 16 }}
+            style={{ width: '100%', paddingHorizontal: 16, marginBottom: 10 }}
           />
           <CookingMethodSection
             value={cookingMethod}

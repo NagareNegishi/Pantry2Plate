@@ -51,7 +51,7 @@ export function BasicInputs({
   style
 }: BasicInputsProps) {
   return (
-    <View style={[{ gap: 24}, style]}>
+    <View style={[{ gap: 24 }, style]}>
       <IngredientsList value={ingredients} onChange={setIngredients} onError={ingredientError}/>
       <View style={{ gap: 16, alignItems: 'flex-start' }}>
         <View style={{ flexDirection: 'row', gap: 48, justifyContent: 'space-between' }}>
