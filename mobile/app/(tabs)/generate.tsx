@@ -1,34 +1,25 @@
-import { Image } from 'expo-image';
-import { StyleSheet, View } from 'react-native';
-
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-
-// import from frontend
 import { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
 import { GenerateButton } from '@/components/GenerateButton';
-import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
-
-// mock result data
 import { ResultsSection } from '@/components/ResultsSection';
-import { MOCK_MENU_RESPONSE } from '@/mock/menuData';
-
-
-// toaster replacement
+import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
 import { Snackbar, Text } from 'react-native-paper';
+
+import { MOCK_MENU_RESPONSE } from '@/mock/menuData'; // mock result data
 
 export default function TabGenerate() {
 
-
-  // State for the inputs
+  // State for basic inputs
   const [servings, setServings] = useState<number>(1);
   const [cookingTime, setCookingTime] = useState<number>(60);
   const [difficulty, setDifficulty] = useState<Difficulty>('any');
   const [ingredients, setIngredients] = useState<string[]>([]);
+
   // state for advanced inputs
   const [mealType, setMealType] = useState<MealType>('any');
   const [customMealType, setCustomMealType] = useState<string>('');
@@ -42,7 +33,6 @@ export default function TabGenerate() {
   const [customDietaryRestriction, setCustomDietaryRestriction] = useState<string[]>([]);
   const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
   const [customFlavorProfile, setCustomFlavorProfile] = useState<string[]>([]);
-
 
   // Loading state for generation process
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +50,14 @@ export default function TabGenerate() {
     }>;
   } | null>(null);
 
+  // Snackbar state
+  const [snackbar, setSnackbar] = useState({
+    visible: false,
+    message: '',
+    type: 'error' as 'error' | 'success' | 'info'
+  });
+
+  // Handle generate button press
   const handleGenerate = () => {
     console.log('Generating menu!!');
     setIsLoading(true);
@@ -71,30 +69,17 @@ export default function TabGenerate() {
     setMenuData(MOCK_MENU_RESPONSE.response);
   };
 
-  // Snackbar state
-  const [snackbar, setSnackbar] = useState({
-    visible: false,
-    message: '',
-    type: 'error' as 'error' | 'success' | 'info'
-  });
-
-const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
-  setSnackbar({ visible: true, message, type });
-
-
-
-};
+  // Function to show snackbar messages
+  const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
+    setSnackbar({ visible: true, message, type });
+  };
 
   return (
     <View style={{ flex: 1 }}>
-      <ParallaxScrollView
-        headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-        headerImage={
-          <Image
-            source={require('@/assets/images/partial-react-logo.png')}
-            style={styles.reactLogo}
-          />
-        }>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="title">Find new recipes</ThemedText>
         </ThemedView>
@@ -175,7 +160,7 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
 
 
 
-      </ParallaxScrollView>
+      </ScrollView>
 
       {/* Snackbar for error messages */}
       <Snackbar
@@ -212,6 +197,16 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#c6b8b8'
+  },
+  contentContainer: {
+    padding: 16,  // Add padding so content isn't edge-to-edge
+    paddingTop: 48,
+  },
+
+
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -223,12 +218,6 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
     backgroundColor: '#7f9253',
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  }
+  
 });
