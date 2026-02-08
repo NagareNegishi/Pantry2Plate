@@ -110,13 +110,14 @@ export function AdvancedSection({
   const handlePress = () => setExpanded(!expanded);
 
   return (
-    <View style={[{ gap: 24}, style]}>
+    <View style={[{ gap: 24 }, style]}>
       <List.Accordion
         title="Advanced Options"
         titleStyle={{
           fontSize: 20,
           fontWeight: '500', // 'bold' could work too
-          color: '#000'
+          color: '#000',
+          textAlign: 'center',
         }}
         expanded={expanded}
         onPress={handlePress}
@@ -124,12 +125,17 @@ export function AdvancedSection({
           width: '100%',
           maxWidth: 360,
           minWidth: 180,
-          backgroundColor: '#ffffff',
+          backgroundColor: 'transparent',
+        }}
+        theme={{
+          colors: {
+            background: 'transparent',
+          }
         }}
       >
         <View
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'transparent',
             paddingHorizontal: 36,
             paddingVertical: 12,
             gap: 16,

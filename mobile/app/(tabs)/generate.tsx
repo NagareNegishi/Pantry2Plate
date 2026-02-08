@@ -164,7 +164,11 @@ export default function TabGenerate() {
               setCustomFlavorProfiles={setCustomFlavorProfile}
               flavorProfilesError={showSnackbar}
               flavorProfilesInfo={(msg) => showSnackbar(msg, 'info')}
-              style={{ width: '100%' }}
+              style={{
+                width: '100%',
+                maxWidth: 360,
+                alignSelf: 'center',
+              }}
             />
           </ThemedView>
 
