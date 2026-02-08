@@ -162,19 +162,32 @@ export function FlavorProfilesSection({
 
       <List.Accordion
         title="Flavor Profiles"
-        titleStyle={{ fontSize: 18, color: '#000' }}
+        titleStyle={{
+          fontSize: 18,
+          color: '#000',
+          paddingBottom: 6,
+          borderBottomWidth: 2,
+          borderBottomColor: '#000',
+          textAlign: 'center',
+          width: '100%'
+        }}
         expanded={expanded}
         onPress={handlePress}
         style={{
           width: '100%',
           maxWidth: 360,
           minWidth: 240,
-          backgroundColor: '#ffffff',
+          backgroundColor: 'transparent',
+        }}
+        theme={{
+          colors: {
+            background: 'transparent',
+          }
         }}
       >
         <View
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'transparent',
             paddingVertical: 8,
           }}>
           {/* Checkbox list for flavors */}
@@ -187,7 +200,7 @@ export function FlavorProfilesSection({
                 maxWidth: 480,
                 alignItems: 'center',
                 gap: 8,
-                backgroundColor: '#ffffff'
+                backgroundColor: 'transparent',
                 }}>
                 <Checkbox.Android // enforce Android style for better UX
                   status={value.includes(flavor) ? 'checked' : 'unchecked'}
@@ -195,7 +208,7 @@ export function FlavorProfilesSection({
                     handleToggle(flavor);
                   }}
                   color="#007AFF"
-                  uncheckedColor="#666"
+                  uncheckedColor="#313131"
                 />
               <Text style={{ fontSize: 16, color: '#000' }}>
                 {flavor.charAt(0).toUpperCase() + flavor.slice(1).replace('-', ' ')}
@@ -215,6 +228,7 @@ export function FlavorProfilesSection({
               maxLength={20}
               returnKeyType='done'
               validationState={isValid ? 'valid' : 'invalid'} // never undefined
+              style={{ marginTop: 8 }}
             />
           )}
         </View>

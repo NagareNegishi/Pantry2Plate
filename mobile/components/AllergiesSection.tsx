@@ -31,7 +31,7 @@ interface AllergiesSectionProps {
   customValue: string[];
   onCustomChange: (value: string[]) => void;
   // Optional styling
-  style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
   // Optional callback for error messages
   onError?: (message: string) => void;
   onInfo?: (message: string) => void;
@@ -156,20 +156,33 @@ export function AllergiesSection({
 
       <List.Accordion
         title="Allergies"
-        titleStyle={{ fontSize: 18, color: '#000' }}
+        titleStyle={{
+          fontSize: 18,
+          color: '#000',
+          paddingBottom: 6,
+          borderBottomWidth: 2,
+          borderBottomColor: '#000',
+          textAlign: 'center',
+          width: '100%'
+        }}
         expanded={expanded}
         onPress={handlePress}
         style={{
           width: '100%',
           maxWidth: 360,
           minWidth: 180,
-          backgroundColor: '#ffffff',
+          backgroundColor: 'transparent',
+        }}
+        theme={{
+          colors: {
+            background: 'transparent',
+          }
         }}
       >
 
         <View
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'transparent',
             paddingVertical: 8,
           }}>
           {/* Checkbox list for allergies */}
@@ -182,7 +195,7 @@ export function AllergiesSection({
                 maxWidth: 480,
                 alignItems: 'center',
                 gap: 8,
-                backgroundColor: '#ffffff'
+                backgroundColor: 'transparent',
                 }}>
                 <Checkbox.Android // enforce Android style for better UX
                   status={value.includes(allergy) ? 'checked' : 'unchecked'}
@@ -190,7 +203,7 @@ export function AllergiesSection({
                     handleToggle(allergy);
                   }}
                   color="#007AFF"
-                  uncheckedColor="#666"
+                  uncheckedColor="#313131"
                 />
               <Text style={{ fontSize: 16, color: '#000' }}>
                 {allergy.charAt(0).toUpperCase() + allergy.slice(1).replace('-', ' ')}
@@ -210,6 +223,7 @@ export function AllergiesSection({
               maxLength={20}
               returnKeyType='done'
               validationState={isValid ? 'valid' : 'invalid'} // never undefined
+              style={{ marginTop: 8 }}
             />
           )}
         </View>
