@@ -1,7 +1,9 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
@@ -75,7 +77,13 @@ export default function TabGenerate() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <LinearGradient
+      colors={['#667eea', '#764ba2']}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
@@ -161,7 +169,7 @@ export default function TabGenerate() {
 
 
       </ScrollView>
-
+</SafeAreaView>
       {/* Snackbar for error messages */}
       <Snackbar
         visible={snackbar.visible}
@@ -191,7 +199,7 @@ export default function TabGenerate() {
 
 
 
-    </View>
+    </LinearGradient>
 
   );
 }
@@ -199,7 +207,7 @@ export default function TabGenerate() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#c6b8b8'
+    backgroundColor: 'transparent'
   },
   contentContainer: {
     padding: 16,  // Add padding so content isn't edge-to-edge
@@ -212,12 +220,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: '#7f9253',
+    backgroundColor: 'transparent'
   },
   stepContainer: {
     gap: 8,
     marginBottom: 8,
-    backgroundColor: '#7f9253',
+    backgroundColor: 'transparent'
   }
   
 });
