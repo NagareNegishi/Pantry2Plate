@@ -27,8 +27,13 @@ const generateUniqueId = (): string => {
 };
 
 
-// // Core CRUD operations
-// saveRecipe(recipe) → Add recipe, enforce limit
+// Core CRUD operations
+/**
+ * Save a recipe to local storage
+ * Validates against max limit before saving.
+ * @param recipe MenuItem object to save
+ * @throws Error if storage limit reached or save fails
+ */
 export const saveRecipe = async (recipe: MenuItem): Promise<void> => {
   try {
     const existingRecipes = await getAllRecipes();
@@ -54,6 +59,8 @@ export const saveRecipe = async (recipe: MenuItem): Promise<void> => {
 
 /**
  * Get all saved recipes
+ * Returns an array of SavedRecipe objects, or empty array if none saved.
+ * @throws Error if retrieval fails
  */
 export const getAllRecipes = async (): Promise<SavedRecipe[]> => {
   try {
@@ -66,13 +73,25 @@ export const getAllRecipes = async (): Promise<SavedRecipe[]> => {
 };
 
 
+/**
+ * Delete a saved recipe by ID
+ * @param id Unique ID of the recipe to delete
+ * @throws Error if delete operation fails
+ */
+export const deleteRecipe = async (id: string): Promise<void> => {
+  try {
+    const existingRecipes = await getAllRecipes();
+    const updatedRecipes = existingRecipes.filter(recipe => recipe.id !== id);
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
+    throw new Error('Failed to delete recipe');
+  }
+};
 
 
 
 
-
-
-// deleteRecipe(id) → Remove specific recipe
 // isRecipeSaved(id) → Check if recipe exists
 
 // // Utility functions
