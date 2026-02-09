@@ -26,7 +26,7 @@ import type {
 import { MenuRequestImpl } from '@pantry2plate/shared';
 
 const BACKEND_URL = Constants.expoConfig?.extra?.backendUrl;
-const isDemoMode = true; // BACKEND_URL === 'http://localhost:3001';
+const isDemoMode = false; // BACKEND_URL === 'http://localhost:3001';
 
 export default function TabGenerate() {
 
