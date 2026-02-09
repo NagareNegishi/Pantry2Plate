@@ -104,24 +104,6 @@ export const clearAllRecipes = async (): Promise<void> => {
 };
 
 
-// Utility functions
-/**
- * Check if a recipe with the given ID is already saved
- * @param id Unique ID of the recipe to check
- * @return true if recipe is saved, false otherwise
- * @throws Error if retrieval fails
- */
-export const isRecipeSaved = async (id: string): Promise<boolean> => {
-  try {
-    const existingRecipes = await getAllRecipes();
-    return existingRecipes.some(recipe => recipe.id === id);
-  } catch (error) {
-    console.error('Error checking if recipe is saved:', error);
-    throw new Error('Failed to check saved recipes');
-  }
-};
-
-
 /**
  * Get the count of saved recipes
  * @return Number of saved recipes
