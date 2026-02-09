@@ -176,17 +176,16 @@ export default function TabGenerate() {
 
 // Scroll to results when menuData updates
 const scrollViewRef = useRef<ScrollView>(null);
+const [resultsYPosition, setResultsYPosition] = useState<number>(0);
 
 useEffect(() => {
-  if (menuData && scrollViewRef.current) {
-    // Scroll to bottom or a specific position
-    scrollViewRef.current.scrollToEnd({ animated: true });
-    
-    // OR scroll to a specific Y position if you know it:
-    // scrollViewRef.current.scrollTo({ y: 500, animated: true });
+  if (menuData && scrollViewRef.current && resultsYPosition > 0) {
+    scrollViewRef.current.scrollTo({
+      y: resultsYPosition,
+      animated: true
+    });
   }
-}, [menuData]);
-
+}, [menuData, resultsYPosition]);
 
 
   return (
@@ -295,7 +294,13 @@ useEffect(() => {
           </ThemedView>
 
           {/* Display generated menu results */}
-          <ThemedView style={styles.stepContainer}>
+          <ThemedView
+            style={styles.stepContainer}
+            onLayout={(event) => {
+              const { y } = event.nativeEvent.layout;
+              setResultsYPosition(y);
+            }}
+          >
             <ResultsSection
               menuData={menuData}
               style={{ width: '100%' }}
