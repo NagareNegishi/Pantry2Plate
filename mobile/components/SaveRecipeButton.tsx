@@ -30,6 +30,7 @@ export function SaveRecipeButton({ onPress, isSaved, disabled, style }: SaveReci
       size={32}
       onPress={onPress}
       disabled={disabled}
+      style={style}
     />
   );
 }

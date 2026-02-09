@@ -26,7 +26,7 @@ import type {
 import { MenuItem, MenuRequestImpl } from '@pantry2plate/shared';
 
 const BACKEND_URL = Constants.expoConfig?.extra?.backendUrl;
-const isDemoMode = false; // BACKEND_URL === 'http://localhost:3001';
+const isDemoMode = true; // BACKEND_URL === 'http://localhost:3001';
 
 export default function TabGenerate() {
 
@@ -296,6 +296,8 @@ useEffect(() => {
             <ResultsSection
               menuData={menuData}
               style={{ width: '100%' }}
+              onError={showSnackbar}
+              onInfo={(msg) => showSnackbar(msg, 'info')}
             />
           </ThemedView>
 
