@@ -71,8 +71,12 @@ export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSect
           
           {/* Recipe Header with separator */}
           <View style={styles.headerSection}>
-            <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
-            <Text style={styles.recipeText}>{menu.name}</Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
+              <Text style={styles.recipeText} numberOfLines={2}>
+                {menu.name}
+              </Text>
+            </View>
             <SaveRecipeButton
               onPress={() => handleToggleSave(menu)}
               isSaved={savedRecipes.has(menu.name)}
@@ -161,6 +165,15 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginBottom: 16,
     padding: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+
+  // Text container to allow space for save button
+  textContainer: {
+    flex: 1,
+    paddingRight: 6,
   },
 
   // Recipe number

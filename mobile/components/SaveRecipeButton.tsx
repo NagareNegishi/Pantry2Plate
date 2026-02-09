@@ -27,7 +27,7 @@ export function SaveRecipeButton({ onPress, isSaved, disabled, style }: SaveReci
     <IconButton
       icon={isSaved ? "star" : "star-outline"}
       iconColor={isSaved ? "#fbbf24" : "#d1d5db"}
-      size={32}
+      size={36}
       onPress={onPress}
       disabled={disabled}
       style={style}
