@@ -91,6 +91,23 @@ export const deleteRecipe = async (id: string): Promise<void> => {
 
 
 /**
+ * Delete a saved recipe by name
+ * @param name Recipe name to delete
+ * @throws Error if delete operation fails
+ */
+export const deleteRecipeByName = async (name: string): Promise<void> => {
+  try {
+    const existingRecipes = await getAllRecipes();
+    const updatedRecipes = existingRecipes.filter(recipe => recipe.name !== name);
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
+    throw new Error('Failed to delete recipe');
+  }
+};
+
+
+/**
  * Clear all saved recipes from storage
  * @throws Error if clear operation fails
  */
