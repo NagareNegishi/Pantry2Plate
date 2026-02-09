@@ -42,11 +42,14 @@ export const saveRecipe = async (recipe: MenuItem): Promise<void> => {
     };
     const updatedRecipes = [...existingRecipes, newRecipe];
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecipes));
-  } catch (e) {
-    console.error('Error saving recipe:', e);
-    throw e;
+  } catch (error) {
+    console.error('Error saving recipe:', error);
+    if (error instanceof Error && error.message.includes('Failed to load')) {
+      throw new Error('Failed to save recipe - could not verify storage');
+    }
+    throw error;
   }
-}
+};
 
 
 /**
