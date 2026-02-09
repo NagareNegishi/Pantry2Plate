@@ -90,14 +90,51 @@ export const deleteRecipe = async (id: string): Promise<void> => {
 };
 
 
+/**
+ * Clear all saved recipes from storage
+ * @throws Error if clear operation fails
+ */
+export const clearAllRecipes = async (): Promise<void> => {
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.error('Error clearing recipes:', error);
+    throw new Error('Failed to clear saved recipes');
+  }
+};
 
 
-// isRecipeSaved(id) → Check if recipe exists
+// Utility functions
+/**
+ * Check if a recipe with the given ID is already saved
+ * @param id Unique ID of the recipe to check
+ * @return true if recipe is saved, false otherwise
+ * @throws Error if retrieval fails
+ */
+export const isRecipeSaved = async (id: string): Promise<boolean> => {
+  try {
+    const existingRecipes = await getAllRecipes();
+    return existingRecipes.some(recipe => recipe.id === id);
+  } catch (error) {
+    console.error('Error checking if recipe is saved:', error);
+    throw new Error('Failed to check saved recipes');
+  }
+};
 
-// // Utility functions
-// getRecipeCount() → How many saved?
-// hasReachedLimit() → At max limit?
-// clearAllRecipes() → Delete everything (maybe for settings)
 
-// // Optional advanced
-// updateRecipe(id, recipe) → Edit saved recipe (future feature?)
+/**
+ * Get the count of saved recipes
+ * @return Number of saved recipes
+ * @throws Error if retrieval fails
+ */
+export const getRecipeCount = async (): Promise<number> => {
+  try {
+    const existingRecipes = await getAllRecipes();
+    return existingRecipes.length;
+  } catch (error) {
+    console.error('Error getting recipe count:', error);
+    throw new Error('Failed to get recipe count');
+  }
+};
+
+
