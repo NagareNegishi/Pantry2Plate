@@ -5,6 +5,8 @@
  *
  * In development, we need to allow local HTTP connections for testing.
  */
+require('dotenv').config();
+
 const appJson = require('./app.json');
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -12,6 +14,12 @@ module.exports = {
   ...appJson, // Copy everything from app.json
   expo: {
     ...appJson.expo, // Copy everything from app.json's expo section
+
+    extra: {
+      ...appJson.expo.extra,
+      backendUrl: process.env.BACKEND_URL || 'http://localhost:3000',
+    },
+
     ios: {
       ...appJson.expo.ios,
       ...(isDevelopment && {
