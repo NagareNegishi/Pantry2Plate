@@ -4,7 +4,7 @@
  * Renders menu data with proper formatting.
  */
 import { SaveRecipeButton } from '@/components/SaveRecipeButton';
-import { saveRecipe } from '@/services/recipeStorage';
+import { deleteRecipeByName, saveRecipe } from '@/services/recipeStorage';
 import { MenuItem } from '@pantry2plate/shared';
 import { useState } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
@@ -21,7 +21,6 @@ interface ResultsSectionProps {
   // Optional callback for error messages
   onError?: (message: string) => void;
   onInfo?: (message: string) => void;
-
 }
 
 
@@ -37,15 +36,28 @@ export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSect
   const [savedRecipes, setSavedRecipes] = useState<Set<string>>(new Set());
   const [isSaving, setIsSaving] = useState(false);
 
-  const handleSave = async (recipe: MenuItem) => {
+  const handleToggleSave = async (recipe: MenuItem) => {
     if (isSaving) return; // Prevent multiple saves
+
+    const isSaved = savedRecipes.has(recipe.name);
     try {
       setIsSaving(true);
-      await saveRecipe(recipe);
-      setSavedRecipes(prev => new Set(prev).add(recipe.name));
-      onInfo?.('Recipe saved!');
+
+      if (isSaved) {
+        await deleteRecipeByName(recipe.name);
+        setSavedRecipes(prev => {
+          const updated = new Set(prev);
+          updated.delete(recipe.name);
+          return updated;
+        });
+        onInfo?.('Recipe removed');
+      } else {
+        await saveRecipe(recipe);
+        setSavedRecipes(prev => new Set(prev).add(recipe.name));
+        onInfo?.('Recipe saved!');
+      }
     } catch (error) {
-      onError?.(error instanceof Error ? error.message : 'Failed to save recipe');
+      onError?.(error instanceof Error ? error.message : 'Failed to save/remove recipe');
     } finally {
       setIsSaving(false);
     }
@@ -62,7 +74,7 @@ export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSect
             <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
             <Text style={styles.recipeText}>{menu.name}</Text>
             <SaveRecipeButton
-              onPress={() => handleSave(menu)}
+              onPress={() => handleToggleSave(menu)}
               isSaved={savedRecipes.has(menu.name)}
               disabled={isSaving}
             />
