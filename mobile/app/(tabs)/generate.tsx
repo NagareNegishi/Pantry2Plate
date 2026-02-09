@@ -23,7 +23,7 @@ import type {
   MealType,
   ValidationResult
 } from '@pantry2plate/shared';
-import { MenuRequestImpl } from '@pantry2plate/shared';
+import { MenuItem, MenuRequestImpl } from '@pantry2plate/shared';
 
 const BACKEND_URL = Constants.expoConfig?.extra?.backendUrl;
 const isDemoMode = false; // BACKEND_URL === 'http://localhost:3001';
@@ -98,15 +98,7 @@ export default function TabGenerate() {
 
   // State for generated menu results
   const [menuData, setMenuData] = useState<{
-    menus: Array<{
-      name: string;
-      description: string;
-      servings: number;
-      cookingTime: number;
-      difficulty: string;
-      ingredients: string[];
-      instructions: string[];
-    }>;
+    menus: MenuItem[];
   } | null>(null);
 
   // Snackbar state

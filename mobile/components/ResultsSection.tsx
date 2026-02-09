@@ -3,24 +3,25 @@
  * A reusable input component for displaying generated menu results.
  * Renders menu data with proper formatting.
  */
+import { SaveRecipeButton } from '@/components/SaveRecipeButton';
+import { saveRecipe } from '@/services/recipeStorage';
+import { MenuItem } from '@pantry2plate/shared';
+import { useState } from 'react';
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
+
 
 /**
  *  Props for the ResultsSection component
  */
 interface ResultsSectionProps {
   menuData: {
-    menus: Array<{
-      name: string;
-      description: string;
-      servings: number;
-      cookingTime: number;
-      difficulty: string;
-      ingredients: string[];
-      instructions: string[];
-    }>;
+    menus: MenuItem[];
   } | null;
   style?: StyleProp<ViewStyle>;
+  // Optional callback for error messages
+  onError?: (message: string) => void;
+  onInfo?: (message: string) => void;
+
 }
 
 
@@ -29,8 +30,27 @@ interface ResultsSectionProps {
  * @param ResultsSectionProps but as destructured props
  * @returns A section displaying the generated menu results
  */
-export function ResultsSection({ menuData, style }: ResultsSectionProps) {
+export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSectionProps) {
   if (!menuData) return null; // Hidden until data exists
+
+  // Track saved recipe IDs to manage save button state
+  const [savedRecipes, setSavedRecipes] = useState<Set<string>>(new Set());
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = async (recipe: MenuItem) => {
+    if (isSaving) return; // Prevent multiple saves
+    try {
+      setIsSaving(true);
+      await saveRecipe(recipe);
+      setSavedRecipes(prev => new Set(prev).add(recipe.name));
+      onInfo?.('Recipe saved!');
+    } catch (error) {
+      onError?.(error instanceof Error ? error.message : 'Failed to save recipe');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
 
   return (
     <View style={[styles.container, style]}>
@@ -41,6 +61,11 @@ export function ResultsSection({ menuData, style }: ResultsSectionProps) {
           <View style={styles.headerSection}>
             <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
             <Text style={styles.recipeText}>{menu.name}</Text>
+            <SaveRecipeButton
+              onPress={() => handleSave(menu)}
+              isSaved={savedRecipes.has(menu.name)}
+              disabled={isSaving}
+            />
           </View>
 
           {/* Description */}
