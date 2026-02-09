@@ -1,19 +1,32 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { Fonts } from '@/constants/theme';
+import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
+import { Snackbar, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
 import { GenerateButton } from '@/components/GenerateButton';
 import { ResultsSection } from '@/components/ResultsSection';
-import { Fonts } from '@/constants/theme';
-import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
-import { Snackbar, Text } from 'react-native-paper';
-
 import { MOCK_MENU_RESPONSE } from '@/mock/menuData'; // mock result data
+import type {
+  Allergy,
+  CookingMethod,
+  CuisineType,
+  DietaryRestriction,
+  Difficulty,
+  FlavorProfile,
+  MealType,
+  ValidationResult
+} from '@pantry2plate/shared';
+import { MenuRequestImpl } from '@pantry2plate/shared';
+
+const BACKEND_URL = Constants.expoConfig?.extra?.backendUrl;
+const isDemoMode = true; // BACKEND_URL === 'http://localhost:3001';
 
 export default function TabGenerate() {
 
@@ -40,6 +53,49 @@ export default function TabGenerate() {
   // Loading state for generation process
   const [isLoading, setIsLoading] = useState(false);
 
+  // Memoized MenuRequest object to avoid unnecessary recalculations
+  const menuRequest = useMemo(() => {
+    return new MenuRequestImpl({
+      ingredients,
+      allergies,
+      allergiesCustom: customAllergy, // name mismatch handled
+      dietaryRestrictions,
+      dietaryRestrictionsCustom: customDietaryRestriction,
+      servings,
+      mealType,
+      mealTypeCustom: customMealType,
+      flavorProfiles,
+      flavorProfilesCustom: customFlavorProfile,
+      cuisineType,
+      cuisineTypeCustom: customCuisineType,
+      cookingMethod,
+      cookingMethodCustom: customCookingMethod,
+      maxCookingTime: cookingTime,
+      difficulty
+    });
+  }, [ // if any of these change, recalculate
+    ingredients,
+    allergies,
+    customAllergy,
+    dietaryRestrictions,
+    customDietaryRestriction,
+    servings,
+    mealType,
+    customMealType,
+    flavorProfiles,
+    customFlavorProfile,
+    cuisineType,
+    customCuisineType,
+    cookingMethod,
+    customCookingMethod,
+    cookingTime,
+    difficulty
+  ]);
+
+  const validation: ValidationResult = useMemo(() => {
+    return menuRequest.validate();
+  }, [menuRequest]);
+
   // State for generated menu results
   const [menuData, setMenuData] = useState<{
     menus: Array<{
@@ -61,21 +117,77 @@ export default function TabGenerate() {
   });
 
   // Handle generate button press
-  const handleGenerate = () => {
-    console.log('Generating menu!!');
+  const handleGenerate = async () => {
+    if (!validation.valid) {
+      showSnackbar(validation.errors.join(', '), 'error');
+      return;
+    }
     setIsLoading(true);
     // Simulate generation process
-    setTimeout(() => {
-      setIsLoading(false);
+
+    try {
+      let data: any;
+      if (isDemoMode) { // Mock response without backend call
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+        
+        console.log('== DEMO MODE: Using mock response ==');
+
+        data = MOCK_MENU_RESPONSE;
+      } else { // Real implementation, send request to backend
+
+        // check if backend URL is set
+        console.log('== BACKEND_URL:', BACKEND_URL);
+
+        const response = await fetch(`${BACKEND_URL}/api/menu/generate`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(menuRequest)
+        });
+        // handle non-OK responses
+        if (!response.ok) {
+          const errorData = await response.json();
+          showSnackbar(`Error: ${errorData.error || 'Failed to generate menu'}`, 'error');
+          return;
+        }
+        data = await response.json();
+      }
+      // handle successful response
+      console.log('Menu generated successfully:', data.response);
+      setMenuData(data.response);
       showSnackbar('Menu generated successfully!', 'success');
-      setMenuData(MOCK_MENU_RESPONSE.response);
-    }, 2000);
+
+    } catch (error) {
+      // handle error
+      console.log('Error generating menu:', error);
+      showSnackbar('Failed to connect to server', 'error');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Function to show snackbar messages
   const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
     setSnackbar({ visible: true, message, type });
   };
+
+
+
+// Scroll to results when menuData updates
+const scrollViewRef = useRef<ScrollView>(null);
+
+useEffect(() => {
+  if (menuData && scrollViewRef.current) {
+    // Scroll to bottom or a specific position
+    scrollViewRef.current.scrollToEnd({ animated: true });
+    
+    // OR scroll to a specific Y position if you know it:
+    // scrollViewRef.current.scrollTo({ y: 500, animated: true });
+  }
+}, [menuData]);
+
+
 
   return (
     <LinearGradient
@@ -84,6 +196,7 @@ export default function TabGenerate() {
     >
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <ScrollView
+          ref={scrollViewRef}
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
