@@ -39,6 +39,7 @@ export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSect
           index={index}
           onError={onError}
           onInfo={onInfo}
+          initialSaved={false}
         />
       ))}
     </View>
