@@ -1,12 +1,40 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Fonts } from '@/constants/theme';
+import { getAllRecipes, SavedRecipe } from '@/services/recipeStorage';
+import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function SavedScreen() {
+
+  const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
+  // const [loading, setLoading] = useState(true);
+
+  // Callback to load recipes from storage
+  const loadRecipes = useCallback(async () => {
+    try {
+      // setLoading(true);
+      const savedRecipes = await getAllRecipes();
+      setRecipes(savedRecipes);
+    } catch (error) {
+      console.error('Failed to load recipes:', error);
+    } finally {
+      // setLoading(false);
+    }
+  }, []); // No dependencies, create once
+
+  // Reload recipes whenever screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      loadRecipes();
+    }, [loadRecipes]) // Dependency on loadRecipes to ensure it's up to date
+  );
+
+
   return (
     <LinearGradient
       colors={['#667eea', '#764ba2']}
@@ -33,9 +61,34 @@ export default function SavedScreen() {
                 textShadowRadius: 3,
               }}
             >
-              Find new recipes
+              Saved recipes
             </ThemedText>
           </ThemedView>
+
+          {
+          // loading ? (
+          //   <ActivityIndicator size="large" color="#f6f1ac" />
+          // ) : 
+          
+          recipes.length === 0 ? (
+            <ThemedText style={{ textAlign: 'center', marginTop: 20 }}>
+              No saved recipes yet
+            </ThemedText>
+          ) : (
+            recipes.map((recipe) => (
+              <ThemedView key={recipe.id}>
+                {/* Your recipe card component here */}
+                <ThemedText>
+                  
+                  {JSON.stringify(recipe)}</ThemedText>
+              </ThemedView>
+            ))
+          )}
+
+
+
+
+
 
         </ScrollView>
       </SafeAreaView>
