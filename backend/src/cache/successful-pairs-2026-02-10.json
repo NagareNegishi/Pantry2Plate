@@ -1,0 +1,110 @@
+[
+  {
+    "timestamp": "2026-02-10T12:52:09.661Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"pasta: 200g\",\"vegetables: 100g\"],\"instructions\":[\"Boil pasta\",\"Add vegetables\"]}]}"
+  },
+  {
+    "timestamp": "2026-02-10T12:52:09.679Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"pasta: 200g\"],\"instructions\":[\"Boil pasta\"]},{\"name\":\"\",\"description\":\"Bad menu\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"beef: 200g\"],\"instructions\":[\"Cook beef\"]}]}"
+  },
+  {
+    "timestamp": "2026-02-10T12:52:09.682Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[],\"instructions\":[\"Boil pasta\"]},{\"name\":\"Pasta Bolognese\",\"description\":\"Bad menu\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"beef: 200g\"],\"instructions\":[\"Cook beef\"]}]}"
+  },
+  {
+    "timestamp": "2026-02-10T12:52:09.686Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[],\"instructions\":[\"Boil pasta\"]},{\"name\":\"Pasta Bolognese\",\"description\":\"Bad menu\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"beef: 200g\"],\"instructions\":[\"Cook beef\"]}]}"
+  },
+  {
+    "timestamp": "2026-02-10T12:52:09.689Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"pasta: 200g\"],\"instructions\":[]},{\"name\":\"Pasta Bolognese\",\"description\":\"Bad menu\",\"servings\":2,\"cookingTime\":20,\"difficulty\":\"easy\",\"ingredients\":[\"beef: 200g\"],\"instructions\":[\"Cook beef\"]}]}"
+  },
+  {
+    "timestamp": "2026-02-10T12:52:09.693Z",
+    "request": {
+      "ingredients": [
+        "pasta"
+      ],
+      "servings": 1,
+      "maxCookingTime": 60,
+      "mealType": "any",
+      "cuisineType": "any",
+      "cookingMethod": "any",
+      "difficulty": "any",
+      "flavorProfiles": [
+        "any"
+      ]
+    },
+    "response": "{\"menus\":[{\"name\":\"Pasta Primavera\",\"description\":\"Quick pasta dish\",\"servings\":-1,\"cookingTime\":0,\"difficulty\":\"any\",\"ingredients\":[\"pasta: 200g\"],\"instructions\":[\"Boil pasta\"]},{\"name\":\"Pasta Bolognese\",\"description\":\"Bad menu\",\"servings\":200,\"cookingTime\":2000,\"difficulty\":\"easy\",\"ingredients\":[\"beef: 200g\"],\"instructions\":[\"Cook beef\"]}]}"
+  }
+]
