@@ -8,85 +8,10 @@ import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
 // import from frontend
-import { useState } from 'react';
-
-import { AdvancedSection } from '@/components/AdvancedSection';
-import { BasicInputs } from '@/components/BasicInputs';
-import { GenerateButton } from '@/components/GenerateButton';
-import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, Difficulty, FlavorProfile, MealType } from '@pantry2plate/shared';
-
-// mock result data
-import { ResultsSection } from '@/components/ResultsSection';
-import { MOCK_MENU_RESPONSE } from '@/mock/menuData';
-
 
 // toaster replacement
-import { Snackbar, Text } from 'react-native-paper';
 
 export default function HomeScreen() {
-
-
-  // State for the inputs
-  const [servings, setServings] = useState<number>(1);
-  const [cookingTime, setCookingTime] = useState<number>(60);
-  const [difficulty, setDifficulty] = useState<Difficulty>('any');
-  const [ingredients, setIngredients] = useState<string[]>([]);
-  // state for advanced inputs
-  const [mealType, setMealType] = useState<MealType>('any');
-  const [customMealType, setCustomMealType] = useState<string>('');
-  const [cuisineType, setCuisineType] = useState<CuisineType>('any');
-  const [customCuisineType, setCustomCuisineType] = useState<string>('');
-  const [cookingMethod, setCookingMethod] = useState<CookingMethod>('any');
-  const [customCookingMethod, setCustomCookingMethod] = useState<string>('');
-  const [allergies, setAllergies] = useState<Allergy[]>([]);
-  const [customAllergy, setCustomAllergy] = useState<string[]>([]);
-  const [dietaryRestrictions, setDietaryRestrictions] = useState<DietaryRestriction[]>([]);
-  const [customDietaryRestriction, setCustomDietaryRestriction] = useState<string[]>([]);
-  const [flavorProfiles, setFlavorProfiles] = useState<FlavorProfile[]>([]);
-  const [customFlavorProfile, setCustomFlavorProfile] = useState<string[]>([]);
-
-
-  // Loading state for generation process
-  const [isLoading, setIsLoading] = useState(false);
-
-  // State for generated menu results
-  const [menuData, setMenuData] = useState<{
-    menus: Array<{
-      name: string;
-      description: string;
-      servings: number;
-      cookingTime: number;
-      difficulty: string;
-      ingredients: string[];
-      instructions: string[];
-    }>;
-  } | null>(null);
-
-  const handleGenerate = () => {
-    console.log('Generating menu!!');
-    setIsLoading(true);
-    // Simulate generation process
-    setTimeout(() => {
-      setIsLoading(false);
-      showSnackbar('Menu generated successfully!', 'success');
-    }, 2000);
-    setMenuData(MOCK_MENU_RESPONSE.response);
-  };
-
-  // Snackbar state
-  const [snackbar, setSnackbar] = useState({
-    visible: false,
-    message: '',
-    type: 'error' as 'error' | 'success' | 'info'
-  });
-
-const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
-  setSnackbar({ visible: true, message, type });
-
-
-
-};
-
   return (
     <View style={{ flex: 1 }}>
       <ParallaxScrollView
@@ -101,81 +26,6 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
           <ThemedText type="title">Hello World!</ThemedText>
           <HelloWave />
         </ThemedView>
-
-        {/* Combined Basic Inputs Component */}
-        <ThemedView style={styles.stepContainer}>
-          <BasicInputs
-            servings={servings}
-            setServings={setServings}
-            cookingTime={cookingTime}
-            setCookingTime={setCookingTime}
-            difficulty={difficulty}
-            setDifficulty={setDifficulty}
-            ingredients={ingredients}
-            setIngredients={setIngredients}
-            ingredientError={showSnackbar}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        {/* Advanced Sections */}
-        <ThemedView style={styles.stepContainer}>
-          <AdvancedSection
-            mealType={mealType}
-            setMealType={setMealType}
-            customMealType={customMealType}
-            setCustomMealType={setCustomMealType}
-            mealTypeError={showSnackbar}
-            cuisineType={cuisineType}
-            setCuisineType={setCuisineType}
-            customCuisineType={customCuisineType}
-            setCustomCuisineType={setCustomCuisineType}
-            cuisineTypeError={showSnackbar}
-            cookingMethod={cookingMethod}
-            setCookingMethod={setCookingMethod}
-            customCookingMethod={customCookingMethod}
-            setCustomCookingMethod={setCustomCookingMethod}
-            cookingMethodError={showSnackbar}
-            allergies={allergies}
-            setAllergies={setAllergies}
-            customAllergies={customAllergy}
-            setCustomAllergies={setCustomAllergy}
-            allergiesError={showSnackbar}
-            allergiesInfo={(msg) => showSnackbar(msg, 'info')}
-            dietaryRestrictions={dietaryRestrictions}
-            setDietaryRestrictions={setDietaryRestrictions}
-            customDietaryRestrictions={customDietaryRestriction}
-            setCustomDietaryRestrictions={setCustomDietaryRestriction}
-            dietaryRestrictionsError={showSnackbar}
-            dietaryRestrictionsInfo={(msg) => showSnackbar(msg, 'info')}
-            flavorProfiles={flavorProfiles}
-            setFlavorProfiles={setFlavorProfiles}
-            customFlavorProfiles={customFlavorProfile}
-            setCustomFlavorProfiles={setCustomFlavorProfile}
-            flavorProfilesError={showSnackbar}
-            flavorProfilesInfo={(msg) => showSnackbar(msg, 'info')}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <GenerateButton
-            onPress={handleGenerate}
-            disabled={ingredients.length === 0 || isLoading}
-            isLoading={isLoading}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-        {/* Display generated menu results */}
-        <ThemedView style={styles.stepContainer}>
-          <ResultsSection
-            menuData={menuData}
-            style={{ width: '100%' }}
-          />
-        </ThemedView>
-
-
 
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -230,43 +80,8 @@ const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'err
             <ThemedText type="defaultSemiBold">app-example</ThemedText>.
           </ThemedText>
         </ThemedView>
-
-
-
-
       </ParallaxScrollView>
-
-      {/* Snackbar for error messages */}
-      <Snackbar
-        visible={snackbar.visible}
-        onDismiss={() => setSnackbar({ visible: false, message: '', type: 'error' })}
-        duration={3000}
-        style={{
-          backgroundColor: '#000000',
-          marginBottom: 80,
-          borderWidth: 1,
-          borderColor: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
-          borderRadius: 4
-        }}
-        wrapperStyle={{
-          width: '90%',
-          minWidth: 400,
-          maxWidth: 600,
-          alignSelf: 'center'
-        }}
-      >
-        <Text style={{
-          color: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
-          textAlign: 'center',
-        }}>
-          {snackbar.message}
-        </Text>
-      </Snackbar>
-
-
-
     </View>
-
   );
 }
 
