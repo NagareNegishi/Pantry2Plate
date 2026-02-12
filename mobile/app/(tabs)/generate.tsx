@@ -5,13 +5,14 @@ import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Snackbar, Text } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
+import { CustomSnackbar } from '@/components/CustomSnackbar';
 import { GenerateButton } from '@/components/GenerateButton';
 import { ResultsSection } from '@/components/ResultsSection';
+import { useSnackbar } from '@/hooks/useSnackbar';
 import { MOCK_MENU_RESPONSE } from '@/mock/menuData'; // mock result data
 import type {
   Allergy,
@@ -101,12 +102,8 @@ export default function TabGenerate() {
     menus: MenuItem[];
   } | null>(null);
 
-  // Snackbar state
-  const [snackbar, setSnackbar] = useState({
-    visible: false,
-    message: '',
-    type: 'error' as 'error' | 'success' | 'info'
-  });
+  // Hook for managing snackbar
+  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
 
   // Handle generate button press
   const handleGenerate = async () => {
@@ -159,13 +156,6 @@ export default function TabGenerate() {
     }
   };
 
-  // Function to show snackbar messages
-  const showSnackbar = (message: string, type: 'error' | 'success' | 'info' = 'error') => {
-    setSnackbar({ visible: true, message, type });
-  };
-
-
-
 // Scroll to results when menuData updates
 const scrollViewRef = useRef<ScrollView>(null);
 const [resultsYPosition, setResultsYPosition] = useState<number>(0);
@@ -178,7 +168,6 @@ useEffect(() => {
     });
   }
 }, [menuData, resultsYPosition]);
-
 
   return (
     <LinearGradient
@@ -303,38 +292,12 @@ useEffect(() => {
 
         </ScrollView>
       </SafeAreaView>
-
       {/* Snackbar for error messages */}
-      <Snackbar
-        visible={snackbar.visible}
-        onDismiss={() => setSnackbar({ visible: false, message: '', type: 'error' })}
-        duration={3000}
-        style={{
-          backgroundColor: '#000000',
-          marginBottom: 80,
-          borderWidth: 1,
-          borderColor: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
-          borderRadius: 4
-        }}
-        wrapperStyle={{
-          width: '90%',
-          minWidth: 400,
-          maxWidth: 600,
-          alignSelf: 'center'
-        }}
-      >
-        <Text style={{
-          color: snackbar.type === 'error' ? '#ce2f2f' : snackbar.type === 'success' ? '#4caf50' : '#2196f3',
-          textAlign: 'center',
-        }}>
-          {snackbar.message}
-        </Text>
-      </Snackbar>
-
-
-
+      <CustomSnackbar
+        {...snackbar}
+        onDismiss={hideSnackbar}
+      />
     </LinearGradient>
-
   );
 }
 
