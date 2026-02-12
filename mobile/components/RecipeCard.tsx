@@ -4,6 +4,7 @@
  * Can be reused in results and saved recipes screens.
  */
 import { SaveRecipeButton } from '@/components/SaveRecipeButton';
+import { CollapsibleCard } from '@/components/ui/CollapsibleCard';
 import { deleteRecipeByName, saveRecipe } from '@/services/recipeStorage';
 import { MenuItem } from '@pantry2plate/shared';
 import { useState } from 'react';
@@ -21,6 +22,9 @@ interface RecipeCardProps {
   onInfo?: (message: string) => void;
   // Optional: control save state externally
   initialSaved?: boolean;
+  // For collapsible card
+  isExpanded?: boolean;
+  onToggle?: () => void;
 }
 
 /**
@@ -34,7 +38,9 @@ export function RecipeCard({
   style,
   onError,
   onInfo,
-  initialSaved = false
+  initialSaved = false,
+  isExpanded = false,
+  onToggle,
 }: RecipeCardProps) {
   const [isSaved, setIsSaved] = useState(initialSaved);
   const [isSaving, setIsSaving] = useState(false);
@@ -62,23 +68,27 @@ export function RecipeCard({
   };
 
   return (
-    <View style={[styles.menuCard, style]}>
-      {/* Recipe Header with separator */}
-      <View style={styles.headerSection}>
-        <View style={styles.textContainer}>
-          {index !== undefined && (
-            <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
-          )}
-          <Text style={styles.recipeText} numberOfLines={2}>
-            {recipe.name}
-          </Text>
+    <CollapsibleCard
+      isExpanded={isExpanded}
+      onToggle={onToggle || (() => {})} // No-op if onToggle not provided
+      header={
+        <View style={styles.headerSection}>
+          <View style={styles.textContainer}>
+            {index !== undefined && (
+              <Text style={styles.recipeNumber}>Recipe {index + 1}</Text>
+            )}
+            <Text style={styles.recipeText} numberOfLines={2}>
+              {recipe.name}
+            </Text>
+          </View>
+          <SaveRecipeButton
+            onPress={handleToggleSave}
+            isSaved={isSaved}
+            disabled={isSaving}
+          />
         </View>
-        <SaveRecipeButton
-          onPress={handleToggleSave}
-          isSaved={isSaved}
-          disabled={isSaving}
-        />
-      </View>
+      }
+    >
 
       {/* Description */}
       <Text style={styles.description}>{recipe.description}</Text>
@@ -124,7 +134,8 @@ export function RecipeCard({
           </View>
         ))}
       </View>
-    </View>
+
+    </CollapsibleCard>
   );
 }
 
