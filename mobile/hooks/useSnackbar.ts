@@ -22,7 +22,7 @@ export const useSnackbar = () => {
   };
 
   const hideSnackbar = () => {
-    setSnackbar({ visible: false, message: '', type: 'error' });
+    setSnackbar(prev => ({ ...prev, visible: false }));
   };
 
   return {
