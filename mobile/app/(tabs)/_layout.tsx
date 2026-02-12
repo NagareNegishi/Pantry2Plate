@@ -16,16 +16,6 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
       }}>
-      {/* example from the template, delete me */}
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-
-      {/* My App, keep it */}
       <Tabs.Screen
         name="generate"
         options={{
@@ -33,22 +23,11 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="magnifyingglass" color={color} />,
         }}
       />
-
       <Tabs.Screen
         name="saved"
         options={{
           title: 'Saved',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="menucard.fill" color={color} />,
-        }}
-      />
-
-
-      {/* example from the template, delete me */}
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
     </Tabs>
