@@ -4,9 +4,10 @@
  * It includes a header with a customizable title and an icon that indicates the expansion state.
  * The content is displayed only when the card is expanded.
  */
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { PropsWithChildren } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+// if icon is needed
+// import { IconSymbol } from '@/components/ui/icon-symbol';
 
 /**
  * Props for the CollapsibleCard component
@@ -35,6 +36,7 @@ export function CollapsibleCard({
         activeOpacity={0.8}
         style={styles.headerContainer}
       >
+        {/* if icon is needed, add here
         <IconSymbol
           name="chevron.right"
           size={20}
@@ -43,7 +45,7 @@ export function CollapsibleCard({
             transform: [{ rotate: isExpanded ? '90deg' : '0deg' }],
             marginRight: 8
           }}
-        />
+        /> */}
         <View style={{ flex: 1 }}>
           {header}
         </View>
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 12,
+    padding: 8,
   },
   content: {
     padding: 12,
