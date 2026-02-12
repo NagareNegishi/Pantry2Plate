@@ -5,6 +5,7 @@
  */
 import { RecipeCard } from '@/components/RecipeCard';
 import { MenuItem } from '@pantry2plate/shared';
+import { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 
@@ -30,6 +31,8 @@ interface ResultsSectionProps {
 export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSectionProps) {
   if (!menuData) return null; // Hidden until data exists
 
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
   return (
     <View style={[styles.container, style]}>
       {menuData.menus.map((menu, index) => (
@@ -40,6 +43,10 @@ export function ResultsSection({ menuData, style, onError, onInfo }: ResultsSect
           onError={onError}
           onInfo={onInfo}
           initialSaved={false}
+          isExpanded={expandedIndex === index}
+          onToggle={() => setExpandedIndex(
+            expandedIndex === index ? null : index
+          )}
         />
       ))}
     </View>

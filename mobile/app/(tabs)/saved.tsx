@@ -14,6 +14,7 @@ export default function SavedScreen() {
 
   const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   // Callback to load recipes from storage
   const loadRecipes = useCallback(async () => {
@@ -73,13 +74,17 @@ export default function SavedScreen() {
               No saved recipes yet
             </ThemedText>
           ) : (
-            recipes.map((recipe) => (
+            recipes.map((recipe, index) => (
               <RecipeCard
                 key={recipe.id}
                 recipe={recipe}
                 onError={(msg) => console.error(msg)}
                 onInfo={(msg) => console.log(msg)}
                 initialSaved={true} // Mark as saved since these are from storage
+                isExpanded={expandedIndex === index}
+                onToggle={() => setExpandedIndex(
+                  expandedIndex === index ? null : index
+                )}
               />
             ))
           )}
