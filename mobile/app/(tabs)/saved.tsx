@@ -5,8 +5,8 @@ import { Fonts } from '@/constants/theme';
 import { getAllRecipes, SavedRecipe } from '@/services/recipeStorage';
 import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useCallback, useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
@@ -15,6 +15,24 @@ export default function SavedScreen() {
   const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const itemRefs = useRef<{ [key: number]: View | null }>({});
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  // Handle scrolling when accordion opens
+  useEffect(() => {
+    if (expandedIndex !== null && itemRefs.current[expandedIndex] && scrollViewRef.current) {
+      itemRefs.current[expandedIndex]?.measureLayout(
+        scrollViewRef.current as any,
+        (x, y) => {
+          scrollViewRef.current?.scrollTo({
+            y: y - 20,
+            animated: true
+          });
+        },
+        () => {}
+      );
+    }
+  }, [expandedIndex, scrollViewRef]);
 
   // Callback to load recipes from storage
   const loadRecipes = useCallback(async () => {
@@ -44,6 +62,7 @@ export default function SavedScreen() {
     >
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
         <ScrollView
+          ref={scrollViewRef}
           style={styles.container}
           contentContainerStyle={styles.contentContainer}
         >
@@ -75,17 +94,21 @@ export default function SavedScreen() {
             </ThemedText>
           ) : (
             recipes.map((recipe, index) => (
-              <RecipeCard
+              <View
                 key={recipe.id}
-                recipe={recipe}
-                onError={(msg) => console.error(msg)}
-                onInfo={(msg) => console.log(msg)}
-                initialSaved={true} // Mark as saved since these are from storage
-                isExpanded={expandedIndex === index}
-                onToggle={() => setExpandedIndex(
-                  expandedIndex === index ? null : index
-                )}
-              />
+                ref={(ref) => { itemRefs.current[index] = ref; }}
+              >
+                <RecipeCard
+                  recipe={recipe}
+                  onError={(msg) => console.error(msg)}
+                  onInfo={(msg) => console.log(msg)}
+                  initialSaved={true} // Mark as saved since these are from storage
+                  isExpanded={expandedIndex === index}
+                  onToggle={() => setExpandedIndex(
+                    expandedIndex === index ? null : index
+                  )}
+                />
+            </View>
             ))
           )}
         </ScrollView>
