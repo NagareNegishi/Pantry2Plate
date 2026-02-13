@@ -118,10 +118,10 @@ cd frontend && npm test
 - [x] React Native setup (Expo + TypeScript)
 - [x] Shared types integration
 - [x] UI library (React Native Paper)
-- [ ] API service (connect to existing backend)
-- [ ] Home screen (ingredients input)
-- [ ] Results screen (display menu)
-- [ ] Navigation flow
+- [x] API service (connect to existing backend)
+- [x] Home screen (ingredients input)
+- [x] Results screen (display menu)
+- [x] Navigation flow
 - [ ] Testing (navigation + API integration)
 
 ### 💭 Phase 3: Future Enhancements
