@@ -67,7 +67,7 @@ export function ResultsSection({
           ref={(ref) => { itemRefs.current[index] = ref; }}
         >
           <RecipeCard
-            key={index}
+            // key={index}
             recipe={menu}
             index={index}
             onError={onError}
