@@ -53,6 +53,9 @@ export default function TabGenerate() {
 
   // Loading state for generation process
   const [isLoading, setIsLoading] = useState(false);
+  // State for expanded menu item index
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
 
   // Memoized MenuRequest object to avoid unnecessary recalculations
   const menuRequest = useMemo(() => {
@@ -287,6 +290,7 @@ useEffect(() => {
               style={{ width: '100%' }}
               onError={showSnackbar}
               onInfo={(msg) => showSnackbar(msg, 'info')}
+              scrollViewRef={scrollViewRef}
             />
           </ThemedView>
 
