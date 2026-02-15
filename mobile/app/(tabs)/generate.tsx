@@ -170,7 +170,7 @@ useEffect(() => {
       animated: true
     });
   }
-}, [menuData, resultsYPosition]);
+}, [menuData]);
 
   return (
     <LinearGradient
