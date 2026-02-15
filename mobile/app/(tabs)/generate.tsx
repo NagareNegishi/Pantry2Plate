@@ -159,6 +159,29 @@ export default function TabGenerate() {
     }
   };
 
+// Add reset function
+const handleReset = () => {
+  setServings(1);
+  setCookingTime(60);
+  setDifficulty('any');
+  setIngredients([]);
+  setMealType('any');
+  setCustomMealType('');
+  setCuisineType('any');
+  setCustomCuisineType('');
+  setCookingMethod('any');
+  setCustomCookingMethod('');
+  setAllergies([]);
+  setCustomAllergy([]);
+  setDietaryRestrictions([]);
+  setCustomDietaryRestriction([]);
+  setFlavorProfiles([]);
+  setCustomFlavorProfile([]);
+  setMenuData(null);
+  showSnackbar('Inputs cleared', 'info');
+};
+
+
 // Scroll to results when menuData updates
 const scrollViewRef = useRef<ScrollView>(null);
 const [resultsYPosition, setResultsYPosition] = useState<number>(0);
