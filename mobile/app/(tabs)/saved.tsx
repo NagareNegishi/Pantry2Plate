@@ -57,7 +57,7 @@ export default function SavedScreen() {
 
   return (
     <LinearGradient
-      colors={['#667eea', '#764ba2']}
+      colors={['#f0bbf4', '#d2c4ff']}
       style={{ flex: 1 }}
     >
       <SafeAreaView style={{ flex: 1 }} edges={['top']}>
