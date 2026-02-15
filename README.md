@@ -4,6 +4,8 @@ AI-powered menu suggestion app that generates personalized recipes based on your
 
 ## Quick Start
 
+> **Mobile App**: See [`mobile/README.md`](mobile/README.md) for instructions to run on iOS/Android via Expo Go.
+
 ### Try the Demo (No API Key Required)
 Want to see it in action without setup? The live demo uses preset responses to showcase the UI:
 - **Live Demo**: [nagarenegishi.com/Pantry2Plate](http://nagarenegishi.com/Pantry2Plate)
@@ -114,7 +116,7 @@ cd frontend && npm test
 5. **Testing** - Jest (backend + shared types), Vitest (frontend), integration tests with real API
 6. **Deployment** - GitHub Actions + GitHub Pages for demo
 
-### 🚧 Phase 2: Mobile App (Current Focus)
+### ✅ Phase 2: Mobile App (Complete)
 - [x] React Native setup (Expo + TypeScript)
 - [x] Shared types integration
 - [x] UI library (React Native Paper)
@@ -122,7 +124,9 @@ cd frontend && npm test
 - [x] Home screen (ingredients input)
 - [x] Results screen (display menu)
 - [x] Navigation flow
-- [ ] Testing (navigation + API integration)
+- [x] Testing (navigation + API integration)
+
+**Status**: Functional via Expo Go. Demo video/screenshots coming soon.
 
 ### 💭 Phase 3: Future Enhancements
 - [x] Frontend core flow testing (App submission, AllergiesSection)
