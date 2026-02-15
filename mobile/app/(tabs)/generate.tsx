@@ -4,13 +4,14 @@ import { Fonts } from '@/constants/theme';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AdvancedSection } from '@/components/AdvancedSection';
 import { BasicInputs } from '@/components/BasicInputs';
 import { CustomSnackbar } from '@/components/CustomSnackbar';
 import { GenerateButton } from '@/components/GenerateButton';
+import { ResetButton } from '@/components/ResetButton';
 import { ResultsSection } from '@/components/ResultsSection';
 import { useSnackbar } from '@/hooks/useSnackbar';
 import { MOCK_MENU_RESPONSE } from '@/mock/menuData'; // mock result data
@@ -292,12 +293,21 @@ useEffect(() => {
           </ThemedView>
 
           <ThemedView style={styles.stepContainer}>
-            <GenerateButton
+            {/* <GenerateButton
               onPress={handleGenerate}
               disabled={ingredients.length === 0 || isLoading}
               isLoading={isLoading}
               style={{ width: '75%', alignSelf: 'center' }}
-            />
+            /> */}
+<View style={{ flexDirection: 'row', gap: 12, width: '85%', alignSelf: 'center' }}>
+  <ResetButton onPress={handleReset} style={{ flex: 1 }} />
+  <GenerateButton
+    onPress={handleGenerate}
+    disabled={ingredients.length === 0}
+    isLoading={isLoading}
+    style={{ flex: 2 }}
+  />
+</View>
           </ThemedView>
 
           {/* Display generated menu results */}
