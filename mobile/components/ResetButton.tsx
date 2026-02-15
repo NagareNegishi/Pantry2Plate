@@ -22,21 +22,21 @@ export function ResetButton({ onPress, disabled = false, style }: ResetButtonPro
           alignItems: 'center',
           justifyContent: 'center',
           width: '100%',
-          maxWidth: 360,
-          minWidth: 240,
-          height: 80,
+          maxWidth: 240,
+          minWidth: 100,
+          height: 72,
           backgroundColor: disabled
             ? '#fca5a5'
             : pressed
               ? '#dc2626'
-              : '#ef4444',
+              : '#ef5f5f',
           borderRadius: 50,
-          borderWidth: 3,
+          borderWidth: 2,
           borderColor: disabled
             ? '#f87171'
             : pressed
               ? '#b91c1c'
-              : '#dc2626',
+              : '#ef5f5f',
         },
         style
       ]}

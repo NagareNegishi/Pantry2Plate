@@ -293,21 +293,21 @@ useEffect(() => {
           </ThemedView>
 
           <ThemedView style={styles.stepContainer}>
-            {/* <GenerateButton
-              onPress={handleGenerate}
-              disabled={ingredients.length === 0 || isLoading}
-              isLoading={isLoading}
-              style={{ width: '75%', alignSelf: 'center' }}
-            /> */}
-<View style={{ flexDirection: 'row', gap: 12, width: '85%', alignSelf: 'center' }}>
-  <ResetButton onPress={handleReset} style={{ flex: 1 }} />
-  <GenerateButton
-    onPress={handleGenerate}
-    disabled={ingredients.length === 0}
-    isLoading={isLoading}
-    style={{ flex: 2 }}
-  />
-</View>
+            <View style={{
+              flexDirection: 'row',
+              gap: 12,
+              width: '100%',
+              alignSelf: 'center',
+              alignItems: 'center'
+            }}>
+              <ResetButton onPress={handleReset} style={{ flex: 1 }} />
+              <GenerateButton
+                onPress={handleGenerate}
+                disabled={ingredients.length === 0}
+                isLoading={isLoading}
+                style={{ flex: 2 }}
+              />
+            </View>
           </ThemedView>
 
           {/* Display generated menu results */}
