@@ -125,7 +125,7 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
         onChangeText={handleChange}
         onBlur={handleBlur}
         onSubmitEditing={handleSubmit}
-        placeholder="e.g., chicken, rice, tomatoes"
+        placeholder="e.g., onion"
         placeholderTextColor="#5a5f67"
         returnKeyType="done"
         // undefined when empty, valid/invalid otherwise
