@@ -137,8 +137,11 @@ export function IngredientsList({ value, onChange, style, onError }: Ingredients
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {value.map((ingredient, index) => (
           <Chip
+            mode = "outlined"
             key={index}
             onClose={() => handleRemove(index)}
+            style={{ backgroundColor: '#85fe6f' }}
+            textStyle={{ color: '#000000' }}
           >
             {ingredient.charAt(0).toUpperCase() + ingredient.slice(1).replaceAll('-', ' ')}
           </Chip>
