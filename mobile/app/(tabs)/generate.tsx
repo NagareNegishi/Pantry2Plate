@@ -56,6 +56,11 @@ export default function TabGenerate() {
   const [isLoading, setIsLoading] = useState(false);
   // State for expanded menu item index
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  // State to trigger reset of advanced sections
+  const [resetTrigger, setResetTrigger] = useState(0);
+  // Scroll to results when menuData updates
+  const scrollViewRef = useRef<ScrollView>(null);
+  const [resultsYPosition, setResultsYPosition] = useState<number>(0);
 
 
   // Memoized MenuRequest object to avoid unnecessary recalculations
@@ -162,6 +167,7 @@ export default function TabGenerate() {
 
 // Add reset function
 const handleReset = () => {
+  // Clear all inputs
   setServings(1);
   setCookingTime(60);
   setDifficulty('any');
@@ -179,14 +185,16 @@ const handleReset = () => {
   setFlavorProfiles([]);
   setCustomFlavorProfile([]);
   setMenuData(null);
+  // Close all accordions
+  setExpandedIndex(null);
+  setResetTrigger(prev => prev + 1);
+  // Scroll to top
+  scrollViewRef.current?.scrollTo({ y: 0, animated: true });
   showSnackbar('Inputs cleared', 'info');
 };
 
 
-// Scroll to results when menuData updates
-const scrollViewRef = useRef<ScrollView>(null);
-const [resultsYPosition, setResultsYPosition] = useState<number>(0);
-
+// Effect to scroll to results when menuData updates
 useEffect(() => {
   if (menuData && scrollViewRef.current && resultsYPosition > 0) {
     scrollViewRef.current.scrollTo({
@@ -289,6 +297,7 @@ useEffect(() => {
                 maxWidth: 360,
                 alignSelf: 'center',
               }}
+              resetTrigger={resetTrigger}
             />
           </ThemedView>
 

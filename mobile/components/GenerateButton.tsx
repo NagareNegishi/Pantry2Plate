@@ -34,7 +34,7 @@ export function GenerateButton({ onPress, disabled, isLoading, style }: Generate
           justifyContent: 'center',
           width: '100%',
           maxWidth: 360,
-          minWidth: 240,
+          minWidth: 220,
           height: 80,
           backgroundColor: disabled
             ? '#86efac'

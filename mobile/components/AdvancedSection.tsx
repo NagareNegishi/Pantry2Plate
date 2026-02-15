@@ -4,7 +4,7 @@
  * Receives state and setters from parent component (App.tsx).
  */
 import type { Allergy, CookingMethod, CuisineType, DietaryRestriction, FlavorProfile, MealType } from '@pantry2plate/shared';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleProp, Text, View, ViewStyle } from 'react-native';
 import { List } from 'react-native-paper';
 import { AllergiesSection } from './AllergiesSection';
@@ -60,6 +60,8 @@ interface AdvancedSectionProps {
   flavorProfilesInfo?: (message: string) => void;
   // Optional styling
   style?: StyleProp<ViewStyle>;
+  // Optional reset trigger to clear inputs when parent signals
+  resetTrigger?: number;
 }
 
 
@@ -102,12 +104,19 @@ export function AdvancedSection({
   setCustomFlavorProfiles,
   flavorProfilesError,
   flavorProfilesInfo,
-  style
+  style,
+  resetTrigger
   }: AdvancedSectionProps) {
 
   // Handler for accordion toggle
   const [expanded, setExpanded] = useState(false);
   const handlePress = () => setExpanded(!expanded);
+
+  // Effect to reset inputs when resetTrigger changes
+  useEffect(() => {
+    setExpanded(false);
+  }, [resetTrigger]);
+
 
   return (
     <View style={[{ gap: 24 }, style]}>
